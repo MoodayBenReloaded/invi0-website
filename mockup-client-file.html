@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumus Client File – Mockup</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0A0E17; color: #E2E8F0; }
+
+.mockup-wrapper {
+  max-width: 1100px; margin: 2rem auto; padding: 0 1rem;
+}
+
+.app-frame {
+  background: #0D1117;
+  border-radius: 16px;
+  border: 1px solid rgba(48,54,61,0.6);
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 60px rgba(45,212,191,0.05);
+}
+
+/* Top bar */
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.2rem;
+  background: rgba(13,17,23,0.95);
+  border-bottom: 1px solid rgba(48,54,61,0.4);
+}
+.top-bar-left { display: flex; align-items: center; gap: 0.8rem; }
+.logo-mark {
+  font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.85rem;
+  letter-spacing: 0.3em; color: #fff;
+}
+.logo-mark .z { color: #5B8C8C; position: relative; }
+.logo-mark .z::after {
+  content: ''; position: absolute; width: 3px; height: 3px;
+  background: #fff; border-radius: 50%; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.breadcrumb { font-size: 0.75rem; color: #64748B; }
+.breadcrumb span { color: #94A3B8; }
+.top-bar-right { display: flex; align-items: center; gap: 1rem; }
+.search-bar {
+  background: rgba(30,35,45,0.8); border: 1px solid rgba(48,54,61,0.5);
+  border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.75rem;
+  color: #64748B; min-width: 180px;
+}
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #2DD4BF, #14B8A6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 600; color: #0A0E17;
+}
+
+/* Layout */
+.app-body { display: flex; min-height: 520px; }
+
+/* Sidebar */
+.sidebar {
+  width: 200px; border-right: 1px solid rgba(48,54,61,0.3);
+  padding: 1rem 0; flex-shrink: 0; background: rgba(10,14,23,0.5);
+}
+.sidebar-section { padding: 0 0.8rem; margin-bottom: 1.2rem; }
+.sidebar-label {
+  font-size: 0.6rem; font-weight: 600; color: #475569;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem;
+  color: #94A3B8; cursor: pointer; transition: all 0.2s;
+  margin-bottom: 0.15rem;
+}
+.sidebar-item:hover { background: rgba(45,212,191,0.05); color: #E2E8F0; }
+.sidebar-item.active { background: rgba(45,212,191,0.1); color: #2DD4BF; }
+.sidebar-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-green { background: #22C55E; }
+.dot-yellow { background: #EAB308; }
+.dot-red { background: #EF4444; }
+.dot-blue { background: #3B82F6; }
+
+/* Main content */
+.main { flex: 1; padding: 1.2rem; overflow: hidden; }
+
+/* Account header */
+.account-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 1.2rem; padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.account-info h1 {
+  font-size: 1.3rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem;
+}
+.account-meta {
+  display: flex; gap: 1rem; font-size: 0.7rem; color: #64748B;
+}
+.account-meta span { display: flex; align-items: center; gap: 0.3rem; }
+.tag {
+  display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px;
+  font-size: 0.6rem; font-weight: 600;
+}
+.tag-hot { background: rgba(239,68,68,0.15); color: #EF4444; }
+.tag-enterprise { background: rgba(139,92,246,0.15); color: #A78BFA; }
+
+.health-score {
+  text-align: center; padding: 0.5rem 1rem;
+  background: rgba(30,35,45,0.5); border-radius: 10px;
+  border: 1px solid rgba(48,54,61,0.3);
+}
+.health-score .number {
+  font-size: 1.8rem; font-weight: 700;
+  background: linear-gradient(135deg, #2DD4BF, #22C55E);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.health-score .label { font-size: 0.6rem; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Cards */
+.card {
+  background: rgba(20,25,35,0.6);
+  border: 1px solid rgba(48,54,61,0.3);
+  border-radius: 10px; padding: 0.9rem;
+}
+.card-title {
+  font-size: 0.7rem; font-weight: 600; color: #64748B;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.4rem;
+}
+.card-title .icon { font-size: 0.8rem; }
+
+/* Signals */
+.signal-item {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  padding: 0.45rem 0; border-bottom: 1px solid rgba(48,54,61,0.15);
+  font-size: 0.75rem;
+}
+.signal-item:last-child { border-bottom: none; }
+.signal-badge {
+  padding: 0.1rem 0.4rem; border-radius: 3px;
+  font-size: 0.55rem; font-weight: 600; flex-shrink: 0; margin-top: 0.1rem;
+}
+.badge-funding { background: rgba(34,197,94,0.15); color: #22C55E; }
+.badge-news { background: rgba(59,130,246,0.15); color: #3B82F6; }
+.badge-risk { background: rgba(239,68,68,0.15); color: #EF4444; }
+.badge-intent { background: rgba(168,85,247,0.15); color: #A78BFA; }
+.signal-text { color: #CBD5E1; line-height: 1.4; }
+.signal-time { font-size: 0.6rem; color: #475569; margin-top: 0.15rem; }
+
+/* Actions */
+.action-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.6rem; margin-bottom: 0.4rem;
+  background: rgba(45,212,191,0.04);
+  border: 1px solid rgba(45,212,191,0.1);
+  border-radius: 8px; font-size: 0.75rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.action-item:hover { background: rgba(45,212,191,0.08); border-color: rgba(45,212,191,0.2); }
+.action-priority {
+  width: 4px; height: 28px; border-radius: 2px; flex-shrink: 0;
+}
+.pri-high { background: #EF4444; }
+.pri-med { background: #EAB308; }
+.pri-low { background: #22C55E; }
+.action-text { color: #E2E8F0; flex: 1; }
+.action-type { font-size: 0.6rem; color: #64748B; }
+.action-btn {
+  font-size: 0.6rem; padding: 0.2rem 0.5rem; border-radius: 4px;
+  background: rgba(45,212,191,0.15); color: #2DD4BF; border: none;
+  cursor: pointer;
+}
+
+/* Email draft */
+.email-draft {
+  background: rgba(15,20,30,0.5); border-radius: 8px;
+  padding: 0.7rem; border: 1px solid rgba(48,54,61,0.2);
+}
+.email-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.5rem; padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(48,54,61,0.2);
+}
+.email-to { font-size: 0.7rem; color: #94A3B8; }
+.email-subject { font-size: 0.75rem; font-weight: 500; color: #E2E8F0; margin-bottom: 0.4rem; }
+.email-body { font-size: 0.7rem; color: #94A3B8; line-height: 1.6; }
+.email-actions { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+.btn-send {
+  padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.65rem; font-weight: 500;
+  border: none; cursor: pointer;
+  background: linear-gradient(135deg, #2DD4BF, #14B8A6); color: #0A0E17;
+}
+.btn-edit {
+  padding: 0.3rem 0.8rem; border-radius: 5px; font-size: 0.65rem; font-weight: 500;
+  border: 1px solid rgba(48,54,61,0.5); background: transparent;
+  color: #94A3B8; cursor: pointer;
+}
+
+/* Commitments */
+.commit-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 0; font-size: 0.73rem;
+  border-bottom: 1px solid rgba(48,54,61,0.15);
+}
+.commit-item:last-child { border-bottom: none; }
+.commit-check {
+  width: 14px; height: 14px; border-radius: 3px;
+  border: 1.5px solid rgba(48,54,61,0.6); flex-shrink: 0;
+}
+.commit-check.done { background: #2DD4BF; border-color: #2DD4BF; }
+.commit-text { color: #CBD5E1; flex: 1; }
+.commit-text.completed { text-decoration: line-through; color: #475569; }
+.commit-date { font-size: 0.6rem; color: #64748B; }
+.commit-date.overdue { color: #EF4444; }
+
+/* Risk meter */
+.risk-bar-container { margin-top: 0.3rem; }
+.risk-row {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 0.5rem; font-size: 0.7rem;
+}
+.risk-label { width: 90px; color: #94A3B8; flex-shrink: 0; }
+.risk-bar {
+  flex: 1; height: 6px; background: rgba(30,35,45,0.8);
+  border-radius: 3px; overflow: hidden;
+}
+.risk-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+.risk-value { width: 30px; text-align: right; font-size: 0.65rem; font-weight: 600; }
+
+/* Updated badge */
+.updated-badge {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.6rem; color: #2DD4BF; margin-top: 0.8rem;
+  padding-top: 0.6rem; border-top: 1px solid rgba(48,54,61,0.2);
+}
+.pulse-dot {
+  width: 6px; height: 6px; background: #2DD4BF; border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+</style>
+</head>
+<body>
+<div class="mockup-wrapper">
+<div class="app-frame">
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="logo-mark">LUMUS</span>
+    <span class="breadcrumb">Accounts / <span>TechVision GmbH</span></span>
+  </div>
+  <div class="top-bar-right">
+    <div class="search-bar">Search accounts...</div>
+    <div class="avatar">JP</div>
+  </div>
+</div>
+
+<div class="app-body">
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Priority Accounts</div>
+    <div class="sidebar-item active">
+      <span class="sidebar-dot dot-green"></span> TechVision GmbH
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-yellow"></span> DataFlow AG
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-red"></span> CloudNine Systems
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-green"></span> Nexus Digital
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-blue"></span> Alpine Solutions
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Recent</div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-green"></span> Stellar Robotics
+    </div>
+    <div class="sidebar-item">
+      <span class="sidebar-dot dot-yellow"></span> PrecisionIO
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Alerts</div>
+    <div class="sidebar-item" style="color:#EF4444;">
+      <span class="sidebar-dot dot-red"></span> 3 at-risk deals
+    </div>
+    <div class="sidebar-item" style="color:#EAB308;">
+      <span class="sidebar-dot dot-yellow"></span> 5 overdue tasks
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- Account Header -->
+  <div class="account-header">
+    <div class="account-info">
+      <h1>TechVision GmbH <span class="tag tag-enterprise">ENTERPRISE</span> <span class="tag tag-hot">HOT</span></h1>
+      <div class="account-meta">
+        <span>SaaS &middot; Munich, Germany</span>
+        <span>Deal: &euro;185,000 ARR</span>
+        <span>Stage: Negotiation</span>
+        <span>Owner: Jakob P.</span>
+      </div>
+    </div>
+    <div class="health-score">
+      <div class="number">87</div>
+      <div class="label">Health Score</div>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="content-grid">
+
+    <!-- Signals -->
+    <div class="card">
+      <div class="card-title"><span class="icon">&#9889;</span> Live Signals</div>
+      <div class="signal-item">
+        <span class="signal-badge badge-funding">FUNDING</span>
+        <div>
+          <div class="signal-text">Series C announced &mdash; &euro;45M raised from Index Ventures</div>
+          <div class="signal-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="signal-item">
+        <span class="signal-badge badge-news">HIRE</span>
+        <div>
+          <div class="signal-text">New CTO appointed &mdash; Maria Schneider (ex-SAP)</div>
+          <div class="signal-time">Yesterday</div>
+        </div>
+      </div>
+      <div class="signal-item">
+        <span class="signal-badge badge-intent">INTENT</span>
+        <div>
+          <div class="signal-text">Visited pricing page 3x this week, downloaded whitepaper</div>
+          <div class="signal-time">Ongoing</div>
+        </div>
+      </div>
+      <div class="signal-item">
+        <span class="signal-badge badge-risk">RISK</span>
+        <div>
+          <div class="signal-text">Champion (Thomas K.) changed role to advisory</div>
+          <div class="signal-time">3 days ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Actions -->
+    <div class="card">
+      <div class="card-title"><span class="icon">&#9654;</span> Prioritised Next Actions</div>
+      <div class="action-item">
+        <div class="action-priority pri-high"></div>
+        <div class="action-text">Send congratulations on Series C + reframe ROI pitch</div>
+        <span class="action-btn">Draft ready</span>
+      </div>
+      <div class="action-item">
+        <div class="action-priority pri-high"></div>
+        <div class="action-text">Identify new champion &mdash; map org chart for CTO intro</div>
+        <span class="action-btn">View</span>
+      </div>
+      <div class="action-item">
+        <div class="action-priority pri-med"></div>
+        <div class="action-text">Follow up on pending security questionnaire (5 days overdue)</div>
+        <span class="action-btn">Draft ready</span>
+      </div>
+      <div class="action-item">
+        <div class="action-priority pri-low"></div>
+        <div class="action-text">Schedule QBR prep meeting with SE team</div>
+        <span class="action-btn">Schedule</span>
+      </div>
+    </div>
+
+    <!-- Draft Email -->
+    <div class="card">
+      <div class="card-title"><span class="icon">&#9993;</span> Draft Email</div>
+      <div class="email-draft">
+        <div class="email-header">
+          <span class="email-to">To: thomas.klein@techvision.de</span>
+          <span style="font-size:0.6rem;color:#2DD4BF;">AI-generated</span>
+        </div>
+        <div class="email-subject">Congratulations on the Series C!</div>
+        <div class="email-body">
+          Hi Thomas,<br><br>
+          Congratulations on the &euro;45M Series C &mdash; fantastic milestone for TechVision. With the scaling ahead, the ROI case we discussed around reducing ramp time for new AEs becomes even more relevant.<br><br>
+          I'd love to reconnect briefly and share an updated projection based on your new team size. Would Thursday or Friday work for a quick 15 min?<br><br>
+          Best, Jakob
+        </div>
+        <div class="email-actions">
+          <button class="btn-send">Send</button>
+          <button class="btn-edit">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open Commitments + Risk -->
+    <div class="card">
+      <div class="card-title"><span class="icon">&#9745;</span> Open Commitments</div>
+      <div class="commit-item">
+        <div class="commit-check done"></div>
+        <span class="commit-text completed">Send revised pricing proposal</span>
+        <span class="commit-date">Apr 28</span>
+      </div>
+      <div class="commit-item">
+        <div class="commit-check"></div>
+        <span class="commit-text">Deliver security questionnaire responses</span>
+        <span class="commit-date overdue">May 1 (overdue)</span>
+      </div>
+      <div class="commit-item">
+        <div class="commit-check"></div>
+        <span class="commit-text">Schedule technical deep-dive with CTO</span>
+        <span class="commit-date">May 9</span>
+      </div>
+      <div class="commit-item">
+        <div class="commit-check"></div>
+        <span class="commit-text">Share customer case study (DACH)</span>
+        <span class="commit-date">May 12</span>
+      </div>
+
+      <div style="margin-top:0.8rem;padding-top:0.7rem;border-top:1px solid rgba(48,54,61,0.2);">
+        <div class="card-title" style="margin-bottom:0.5rem;"><span class="icon">&#9888;</span> Risk & Opportunity</div>
+        <div class="risk-bar-container">
+          <div class="risk-row">
+            <span class="risk-label">Deal Health</span>
+            <div class="risk-bar"><div class="risk-fill" style="width:87%;background:linear-gradient(90deg,#22C55E,#2DD4BF);"></div></div>
+            <span class="risk-value" style="color:#22C55E;">87%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-label">Engagement</span>
+            <div class="risk-bar"><div class="risk-fill" style="width:72%;background:linear-gradient(90deg,#EAB308,#F59E0B);"></div></div>
+            <span class="risk-value" style="color:#EAB308;">72%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-label">Champion Risk</span>
+            <div class="risk-bar"><div class="risk-fill" style="width:45%;background:linear-gradient(90deg,#EF4444,#F97316);"></div></div>
+            <span class="risk-value" style="color:#EF4444;">45%</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-label">Timing</span>
+            <div class="risk-bar"><div class="risk-fill" style="width:91%;background:linear-gradient(90deg,#22C55E,#2DD4BF);"></div></div>
+            <span class="risk-value" style="color:#22C55E;">91%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content-grid -->
+
+  <div class="updated-badge">
+    <span class="pulse-dot"></span>
+    Last updated: 2 minutes ago &middot; Next refresh in 13 min &middot; Sources: Salesforce, Gmail, LinkedIn, Google News
+  </div>
+
+</div><!-- /main -->
+</div><!-- /app-body -->
+</div><!-- /app-frame -->
+</div><!-- /wrapper -->
+</body>
+</html>

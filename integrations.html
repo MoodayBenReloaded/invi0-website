@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integrations – INVI0</title>
+<meta name="description" content="Lumus integrates with Salesforce, HubSpot, Pipedrive, Gmail, Outlook, Slack, and more. Connect your stack in under 15 minutes.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<meta property="og:title" content="Integrations – INVI0">
+<meta property="og:description" content="Lumus integrates with Salesforce, HubSpot, Pipedrive, Gmail, Outlook, Slack, and more.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0A0E17; color: #E2E8F0; line-height: 1.7; overflow-x: hidden; }
+::selection { background: rgba(45,212,191,0.3); }
+body::before {
+  content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 0; background: rgba(10,14,23,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(48,54,61,0.5); }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
+.nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
+.nav-logo .zero { color: #5B8C8C; position: relative; display: inline-block; }
+.nav-logo .zero::after { content: ''; position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: #94A3B8; text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s; }
+.nav-links a:hover { color: #2DD4BF; }
+.nav-links .active { color: #2DD4BF; }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 201; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #E2E8F0; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; }
+.btn-primary { background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%); color: #0A0E17; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+.lang-toggle { display: flex; align-items: center; gap: 0.3rem; margin-left: 0.5rem; cursor: pointer; font-size: 0.8rem; color: #64748B; user-select: none; }
+.lang-toggle span { padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.2s; }
+.lang-toggle span.active { color: #E2E8F0; background: rgba(45,212,191,0.15); }
+.lang-toggle span:hover { color: #E2E8F0; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+.glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.08; pointer-events: none; }
+
+/* Hero */
+.int-hero {
+  padding: 9rem 0 2rem; text-align: center; position: relative;
+}
+.int-hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 500; line-height: 1.25; margin-bottom: 0.8rem;
+}
+.int-hero p { color: #94A3B8; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+/* Integration styles */
+.int-section { padding: 3rem 0 6rem; }
+.int-tabs {
+  display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.int-tab {
+  padding: 0.45rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500;
+  background: rgba(22,27,34,0.6); border: 1px solid rgba(48,54,61,0.4);
+  color: #94A3B8; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;
+}
+.int-tab:hover { border-color: rgba(45,212,191,0.3); color: #E2E8F0; }
+.int-tab.active { background: rgba(45,212,191,0.1); border-color: #2DD4BF; color: #2DD4BF; }
+.int-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem;
+}
+.int-card {
+  background: rgba(22,27,34,0.5); border: 1px solid rgba(48,54,61,0.3);
+  border-radius: 14px; padding: 1.5rem; transition: all 0.3s;
+}
+.int-card:hover { border-color: rgba(45,212,191,0.25); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+.int-card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+.int-logo {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700;
+}
+.int-card-header h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: #E2E8F0; }
+.int-card p { font-size: 0.8rem; color: #64748B; line-height: 1.5; }
+.int-badge {
+  display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+/* Animations */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+footer { padding: 3rem 0; border-top: 1px solid rgba(48,54,61,0.2); background: #080B12; }
+footer .container { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+footer p { font-size: 0.85rem; color: #4A5568; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { color: #4A5568; text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-links a:hover { color: #2DD4BF; }
+
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .nav-links {
+    display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+    background: rgba(10,14,23,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; padding: 5rem 2rem 2rem; gap: 1.5rem;
+    border-left: 1px solid rgba(48,54,61,0.5);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 1rem; }
+  .int-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo"><span>I N V I <span class="zero">0</span></span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-en="Home" data-de="Startseite">Home</a></li>
+      <li><a href="#" class="active" data-en="Integrations" data-de="Integrationen">Integrations</a></li>
+      <li><a href="studies.html" data-en="Studies" data-de="Studien">Studies</a></li>
+      <li><a href="roi.html" data-en="ROI" data-de="ROI">ROI</a></li>
+      <li><a href="company.html" data-en="Company" data-de="Unternehmen">Company</a></li>
+      <li><a href="mailto:jp@jakobpetersen.de" class="btn btn-primary" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
+      <li>
+        <div class="lang-toggle" id="langToggle">
+          <span class="active" data-lang="en">EN</span>
+          <span data-lang="de">DE</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="int-hero">
+  <div class="glow" style="background:#2DD4BF;width:600px;height:600px;top:-20%;left:20%;"></div>
+  <div class="container">
+    <h1 class="fade-up" data-en="Integrations That <span style='color:#2DD4BF;'>Just Work.</span>" data-de="Integrationen, die <span style='color:#2DD4BF;'>einfach funktionieren.</span>">Integrations That <span style="color:#2DD4BF;">Just Work.</span></h1>
+    <p class="fade-up" data-en="Lumus connects to your existing stack in minutes. No migration, no disruption." data-de="Lumus verbindet sich in Minuten mit Ihrem bestehenden Stack. Keine Migration, keine Unterbrechung.">Lumus connects to your existing stack in minutes. No migration, no disruption.</p>
+  </div>
+</section>
+
+<section class="int-section">
+  <div class="container">
+
+    <div class="int-tabs fade-up">
+      <button class="int-tab active" data-filter="all" data-en="All (15)" data-de="Alle (15)">All (15)</button>
+      <button class="int-tab" data-filter="crm" data-en="CRM (4)" data-de="CRM (4)">CRM (4)</button>
+      <button class="int-tab" data-filter="email" data-en="Email & Calendar (4)" data-de="E-Mail & Kalender (4)">Email & Calendar (4)</button>
+      <button class="int-tab" data-filter="outreach" data-en="Outreach (3)" data-de="Outreach (3)">Outreach (3)</button>
+      <button class="int-tab" data-filter="communication" data-en="Communication (2)" data-de="Kommunikation (2)">Communication (2)</button>
+      <button class="int-tab" data-filter="meeting" data-en="Meeting Intelligence (2)" data-de="Meeting-Intelligenz (2)">Meeting Intelligence (2)</button>
+    </div>
+
+    <div class="int-grid fade-up">
+
+      <!-- CRM -->
+      <div class="int-card" data-cat="crm">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#FF7A59;">
+            <!-- HubSpot sprocket -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M16.5 8.2V6.5a1.5 1.5 0 10-1-.01V8.2a4 4 0 00-2.3 1.3l-5.4-3.2a2 2 0 10-.7 1l5.5 3.3a4 4 0 104 0l-.1-.1z" fill="#fff"/><circle cx="16" cy="13.5" r="2.8" stroke="#fff" stroke-width="1.2" fill="none"/></svg>
+          </div>
+          <h4>HubSpot</h4>
+        </div>
+        <p data-en="Sync contacts, move deal stages, log calls and emails, and create tasks automatically." data-de="Kontakte synchronisieren, Deal-Stadien verschieben, Anrufe und E-Mails protokollieren und Aufgaben automatisch erstellen.">Sync contacts, move deal stages, log calls and emails, and create tasks automatically.</p>
+        <span class="int-badge" style="background:rgba(255,122,89,0.15);color:#FF7A59;">CRM</span>
+      </div>
+
+      <div class="int-card" data-cat="crm">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#00A1E0;">
+            <!-- Salesforce cloud -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M10 7.5a4 4 0 013.5 2 3.5 3.5 0 014.5 3.3c0 .1 0 .2-.01.3A2.8 2.8 0 0117.5 18H7a3 3 0 01-.5-5.96A4 4 0 0110 7.5z" fill="#fff"/></svg>
+          </div>
+          <h4>Salesforce</h4>
+        </div>
+        <p data-en="Full CRM sync – contacts, opportunities, activities, and pipeline data updated in real time." data-de="Vollständige CRM-Synchronisation – Kontakte, Opportunities, Aktivitäten und Pipeline-Daten in Echtzeit aktualisiert.">Full CRM sync – contacts, opportunities, activities, and pipeline data updated in real time.</p>
+        <span class="int-badge" style="background:rgba(0,161,224,0.15);color:#00A1E0;">CRM</span>
+      </div>
+
+      <div class="int-card" data-cat="crm">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#017737;">
+            <!-- Pipedrive flag/deal -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="7" y="5" width="2" height="14" rx="1" fill="#fff"/><path d="M9 6h6a2 2 0 012 2v3a2 2 0 01-2 2H9V6z" fill="#fff" opacity="0.9"/></svg>
+          </div>
+          <h4>Pipedrive</h4>
+        </div>
+        <p data-en="Create contacts, update deal stages, log activities, and add notes to your pipeline." data-de="Kontakte erstellen, Deal-Stadien aktualisieren, Aktivitäten protokollieren und Notizen zu Ihrer Pipeline hinzufügen.">Create contacts, update deal stages, log activities, and add notes to your pipeline.</p>
+        <span class="int-badge" style="background:rgba(1,119,55,0.15);color:#2DD4BF;">CRM</span>
+      </div>
+
+      <div class="int-card" data-cat="crm">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#5522CC;">
+            <!-- Attio diamond/prism -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4L5 12l7 8 7-8-7-8z" fill="#fff" opacity="0.9"/><path d="M12 4l7 8-7 8" fill="#fff" opacity="0.6"/></svg>
+          </div>
+          <h4>Attio</h4>
+        </div>
+        <p data-en="Create and update contacts, manage deals, log activities, and add notes." data-de="Kontakte erstellen und aktualisieren, Deals verwalten, Aktivitäten protokollieren und Notizen hinzufügen.">Create and update contacts, manage deals, log activities, and add notes.</p>
+        <span class="int-badge" style="background:rgba(85,34,204,0.15);color:#A78BFA;">CRM</span>
+      </div>
+
+      <!-- Email & Calendar -->
+      <div class="int-card" data-cat="email">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#fff;">
+            <!-- Gmail envelope -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" fill="#F1F1F1" stroke="#E0E0E0" stroke-width="0.5"/><path d="M3 8l9 5 9-5" stroke="#EA4335" stroke-width="1.8" fill="none"/><path d="M3 8V7a1 1 0 011-1h16a1 1 0 011 1v1" stroke="#FBBC05" stroke-width="0" fill="none"/><rect x="3" y="6" width="4" height="12" rx="0" fill="#4285F4" opacity="0.15"/><rect x="17" y="6" width="4" height="12" rx="0" fill="#0F9D58" opacity="0.15"/></svg>
+          </div>
+          <h4>Gmail</h4>
+        </div>
+        <p data-en="Read, draft, and send emails. Track email threads per account for full context." data-de="E-Mails lesen, verfassen und senden. E-Mail-Threads pro Account für vollständigen Kontext verfolgen.">Read, draft, and send emails. Track email threads per account for full context.</p>
+        <span class="int-badge" style="background:rgba(234,67,53,0.15);color:#F87171;">Email</span>
+      </div>
+
+      <div class="int-card" data-cat="email">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#0078D4;">
+            <!-- Outlook envelope -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="2" fill="#0078D4"/><path d="M4 8l8 5 8-5" stroke="#fff" stroke-width="1.5" fill="none"/><ellipse cx="10" cy="13" rx="3.5" ry="3" fill="#0058A3"/><text x="10" y="14.8" text-anchor="middle" fill="#fff" font-size="5" font-weight="700" font-family="Arial">O</text></svg>
+          </div>
+          <h4>Outlook</h4>
+        </div>
+        <p data-en="Read, draft, and send emails. Full Microsoft 365 email integration." data-de="E-Mails lesen, verfassen und senden. Vollständige Microsoft 365 E-Mail-Integration.">Read, draft, and send emails. Full Microsoft 365 email integration.</p>
+        <span class="int-badge" style="background:rgba(0,120,212,0.15);color:#60A5FA;">Email</span>
+      </div>
+
+      <div class="int-card" data-cat="email">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#fff;">
+            <!-- Google Calendar -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" fill="#fff" stroke="#4285F4" stroke-width="1.5"/><rect x="4" y="4" width="16" height="5" rx="2" fill="#4285F4"/><line x1="8" y1="3" x2="8" y2="6" stroke="#1A73E8" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="3" x2="16" y2="6" stroke="#1A73E8" stroke-width="1.5" stroke-linecap="round"/><text x="12" y="17" text-anchor="middle" fill="#4285F4" font-size="7" font-weight="700" font-family="Arial">31</text></svg>
+          </div>
+          <h4>Google Calendar</h4>
+        </div>
+        <p data-en="Read meetings, generate AI briefs, and combine meeting + CRM data for full prep." data-de="Meetings lesen, KI-Briefings generieren und Meeting- + CRM-Daten für vollständige Vorbereitung kombinieren.">Read meetings, generate AI briefs, and combine meeting + CRM data for full prep.</p>
+        <span class="int-badge" style="background:rgba(66,133,244,0.15);color:#60A5FA;">Calendar</span>
+      </div>
+
+      <div class="int-card" data-cat="email">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#0078D4;">
+            <!-- Outlook Calendar -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" fill="#0078D4"/><rect x="4" y="4" width="16" height="5" rx="2" fill="#005A9E"/><line x1="8" y1="3" x2="8" y2="6" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="3" x2="16" y2="6" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><text x="12" y="17" text-anchor="middle" fill="#fff" font-size="7" font-weight="700" font-family="Arial">31</text></svg>
+          </div>
+          <h4>Outlook Calendar</h4>
+        </div>
+        <p data-en="Read meetings, generate AI meeting briefs, and combine meeting and CRM data." data-de="Meetings lesen, KI-Meeting-Briefings generieren und Meeting- und CRM-Daten kombinieren.">Read meetings, generate AI meeting briefs, and combine meeting and CRM data.</p>
+        <span class="int-badge" style="background:rgba(0,120,212,0.15);color:#60A5FA;">Calendar</span>
+      </div>
+
+      <!-- Outreach -->
+      <div class="int-card" data-cat="outreach">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#0A66C2;">
+            <!-- LinkedIn -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="6" y="10" width="3" height="8" rx="0.5" fill="#fff"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/><path d="M13 10h2.5c1.4 0 2.5 1.1 2.5 2.5V18h-3v-5a1 1 0 00-2 0v5h-3v-8h3z" fill="#fff"/></svg>
+          </div>
+          <h4>LinkedIn</h4>
+        </div>
+        <p data-en="Search prospects, find decision-makers, and enrich contact data for smarter outreach." data-de="Prospects suchen, Entscheidungsträger finden und Kontaktdaten für intelligenteres Outreach anreichern.">Search prospects, find decision-makers, and enrich contact data for smarter outreach.</p>
+        <span class="int-badge" style="background:rgba(10,102,194,0.15);color:#60A5FA;">Outreach</span>
+      </div>
+
+      <div class="int-card" data-cat="outreach">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#fff;">
+            <!-- Google Search / multicolor G -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21.35 12.18H12.2v3.47h5.27a4.5 4.5 0 01-1.96 2.95l3.17 2.46c1.85-1.7 2.92-4.2 2.92-7.18 0-.57-.05-1.13-.15-1.7z" fill="#4285F4"/><path d="M12.2 21.5c2.7 0 4.96-.89 6.62-2.42l-3.17-2.46c-.9.6-2.04.95-3.45.95a6 6 0 01-5.66-4.14l-3.24 2.5A9.5 9.5 0 0012.2 21.5z" fill="#34A853"/><path d="M6.54 13.43a5.7 5.7 0 010-3.65l-3.24-2.5a9.5 9.5 0 000 8.65l3.24-2.5z" fill="#FBBC05"/><path d="M12.2 5.64c1.52 0 2.89.52 3.96 1.55l2.96-2.97A9.5 9.5 0 003.3 7.28l3.24 2.5A5.66 5.66 0 0112.2 5.64z" fill="#EA4335"/></svg>
+          </div>
+          <h4>Google Search</h4>
+        </div>
+        <p data-en="Research companies, read articles, and gather intel from websites automatically." data-de="Unternehmen recherchieren, Artikel lesen und automatisch Informationen von Websites sammeln.">Research companies, read articles, and gather intel from websites automatically.</p>
+        <span class="int-badge" style="background:rgba(66,133,244,0.15);color:#60A5FA;">Research</span>
+      </div>
+
+      <div class="int-card" data-cat="outreach">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#fff;">
+            <!-- Chrome logo -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="none"/><circle cx="12" cy="12" r="4" fill="#fff" stroke="#4285F4" stroke-width="2.5"/><path d="M12 3a9 9 0 017.8 4.5H12" stroke="#EA4335" stroke-width="2.5" fill="none"/><path d="M4.2 7.5A9 9 0 0012 21l-3.9-6.75" stroke="#34A853" stroke-width="2.5" fill="none"/><path d="M12 21a9 9 0 007.8-13.5l-3.9 6.75" stroke="#FBBC05" stroke-width="2.5" fill="none"/></svg>
+          </div>
+          <h4>Chrome Extension</h4>
+        </div>
+        <p data-en="Access Lumus directly from your browser to research prospects and enrich contacts as you browse." data-de="Greifen Sie direkt aus Ihrem Browser auf Lumus zu, um Prospects zu recherchieren und Kontakte beim Surfen anzureichern.">Access Lumus directly from your browser to research prospects and enrich contacts as you browse.</p>
+        <span class="int-badge" style="background:rgba(45,212,191,0.15);color:#2DD4BF;">Browser</span>
+      </div>
+
+      <!-- Communication -->
+      <div class="int-card" data-cat="communication">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#4A154B;">
+            <!-- Slack hash -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="9" y="4" width="2.5" height="16" rx="1.25" fill="#E01E5A" transform="rotate(0)"/><rect x="14" y="4" width="2.5" height="16" rx="1.25" fill="#36C5F0"/><rect x="4" y="9" width="16" height="2.5" rx="1.25" fill="#2EB67D"/><rect x="4" y="14" width="16" height="2.5" rx="1.25" fill="#ECB22E"/></svg>
+          </div>
+          <h4>Slack</h4>
+        </div>
+        <p data-en="Get deal updates, meeting briefs, and task reminders delivered to your Slack channels." data-de="Deal-Updates, Meeting-Briefings und Aufgaben-Erinnerungen direkt in Ihre Slack-Kanäle geliefert.">Get deal updates, meeting briefs, and task reminders delivered to your Slack channels.</p>
+        <span class="int-badge" style="background:rgba(74,21,75,0.2);color:#E879F9;">Communication</span>
+      </div>
+
+      <div class="int-card" data-cat="communication">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#6264A7;">
+            <!-- Microsoft Teams -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="15" cy="7" r="2.5" fill="#fff" opacity="0.9"/><circle cx="19" cy="9" r="2" fill="#fff" opacity="0.5"/><rect x="4" y="8" width="12" height="9" rx="1.5" fill="#fff"/><text x="10" y="14.5" text-anchor="middle" fill="#6264A7" font-size="7" font-weight="800" font-family="Arial">T</text><rect x="15" y="10" width="5" height="6" rx="1" fill="#fff" opacity="0.5"/></svg>
+          </div>
+          <h4>Microsoft Teams</h4>
+        </div>
+        <p data-en="Receive account alerts, briefings, and action items directly in your Teams channels." data-de="Account-Benachrichtigungen, Briefings und Aktionspunkte direkt in Ihren Teams-Kanälen erhalten.">Receive account alerts, briefings, and action items directly in your Teams channels.</p>
+        <span class="int-badge" style="background:rgba(98,100,167,0.2);color:#A78BFA;">Communication</span>
+      </div>
+
+      <!-- Meeting Intelligence -->
+      <div class="int-card" data-cat="meeting">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#00897B;">
+            <!-- Google Meet camera -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="12" height="10" rx="2" fill="#fff"/><path d="M15 10l5-3v10l-5-3v-4z" fill="#fff" opacity="0.8"/><rect x="6" y="10" width="6" height="4" rx="1" fill="#00897B" opacity="0.3"/></svg>
+          </div>
+          <h4>Google Meet</h4>
+        </div>
+        <p data-en="Join meetings with AI-generated briefs and automatically capture notes for CRM updates." data-de="Meetings mit KI-generierten Briefings beitreten und automatisch Notizen für CRM-Updates erfassen.">Join meetings with AI-generated briefs and automatically capture notes for CRM updates.</p>
+        <span class="int-badge" style="background:rgba(0,137,123,0.15);color:#34D399;">Meeting</span>
+      </div>
+
+      <div class="int-card" data-cat="meeting">
+        <div class="int-card-header">
+          <div class="int-logo" style="background:#6C63FF;">
+            <!-- Fireflies spark -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="2" fill="#fff"/><circle cx="8" cy="14" r="1.5" fill="#fff" opacity="0.7"/><circle cx="16" cy="13" r="1.5" fill="#fff" opacity="0.7"/><circle cx="12" cy="18" r="1.2" fill="#fff" opacity="0.5"/><circle cx="6" cy="9" r="1" fill="#fff" opacity="0.4"/><circle cx="18" cy="9" r="1" fill="#fff" opacity="0.4"/><path d="M12 6v-2M14 7l1.5-1.5M10 7L8.5 5.5" stroke="#fff" stroke-width="0.8" opacity="0.6"/></svg>
+          </div>
+          <h4>Fireflies</h4>
+        </div>
+        <p data-en="Capture meeting notes and transcripts automatically for seamless follow-ups and CRM updates." data-de="Meeting-Notizen und Transkripte automatisch für nahtlose Follow-ups und CRM-Updates erfassen.">Capture meeting notes and transcripts automatically for seamless follow-ups and CRM updates.</p>
+        <span class="int-badge" style="background:rgba(108,99,255,0.15);color:#A78BFA;">Meeting</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;">
+        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      </a>
+      <p style="margin-top:0.5rem;">&copy; 2026 INVI0 GmbH – Invisible Intelligence</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
+      <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
+    </ul>
+    <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Made in Germany</p>
+  </div>
+</footer>
+
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Integration tab filtering
+document.querySelectorAll('.int-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.int-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    document.querySelectorAll('.int-card').forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.style.display = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(12px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity 0.3s, transform 0.3s';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Language toggle
+(function() {
+  const lang = localStorage.getItem('invi0-lang') || 'en';
+  function applyLang(l) {
+    document.querySelectorAll('[data-' + l + ']').forEach(el => {
+      const val = el.getAttribute('data-' + l);
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val;
+      else el.innerHTML = val;
+    });
+    document.querySelectorAll('.lang-toggle span').forEach(s => {
+      s.classList.toggle('active', s.dataset.lang === l);
+    });
+    localStorage.setItem('invi0-lang', l);
+  }
+  applyLang(lang);
+  document.getElementById('langToggle')?.addEventListener('click', function(e) {
+    const t = e.target.closest('[data-lang]');
+    if (t) applyLang(t.dataset.lang);
+  });
+})();
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger?.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+navLinks?.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+</script>
+
+</body>
+</html>

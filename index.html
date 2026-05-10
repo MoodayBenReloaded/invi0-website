@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INVI0 – Invisible Intelligence</title>
+<meta name="description" content="INVI0 builds Lumus – one AI intelligence per account. CRM data, external signals, open commitments, AI-drafted actions. Built for German Mittelstand B2B sales teams.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<meta property="og:title" content="INVI0 – Invisible Intelligence">
+<meta property="og:description" content="One AI intelligence per account. CRM data, external signals, open commitments – fused into AI-drafted actions. Built for B2B sales teams.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="hero-face.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="INVI0 – Invisible Intelligence">
+<meta name="twitter:description" content="One AI intelligence per account. Built for B2B sales teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0A0E17;
+  color: #E2E8F0;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+::selection { background: rgba(45,212,191,0.3); }
+
+/* ── Typography ── */
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.2; letter-spacing: -0.01em; }
+h3 { font-size: 1.3rem; }
+p { color: #94A3B8; font-size: 1.05rem; }
+
+/* ── Section Headers (centered) ── */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.section-header p {
+  max-width: 580px;
+  margin: 1rem auto 0;
+  line-height: 1.7;
+}
+.section-divider {
+  width: 48px; height: 2px;
+  background: linear-gradient(90deg, #2DD4BF, #60A5FA);
+  margin: 1.2rem auto 0;
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 8rem 0; position: relative; }
+
+/* ── Noise texture overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Ambient glow ── */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  pointer-events: none;
+}
+.glow-teal { background: #2DD4BF; width: 600px; height: 600px; }
+.glow-blue { background: #60A5FA; width: 500px; height: 500px; }
+.glow-purple { background: #A78BFA; width: 400px; height: 400px; }
+
+/* ── Navigation ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 1.2rem 0;
+  background: rgba(10,14,23,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  transition: all 0.3s ease;
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
+.nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
+.nav-logo .zero { color: #5B8C8C; position: relative; display: inline-block; }
+.nav-logo .zero::after {
+  content: '';
+  position: absolute;
+  width: 5px; height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: #94A3B8; text-decoration: none; font-size: 0.9rem;
+  font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s;
+}
+.nav-links a:hover { color: #2DD4BF; }
+.lang-toggle { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; font-size: 0.8rem; color: #64748B; user-select: none; }
+.lang-toggle span { padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.2s; }
+.lang-toggle span.active { color: #E2E8F0; background: rgba(45,212,191,0.15); }
+.lang-toggle span:hover { color: #E2E8F0; }
+
+/* ── Hamburger ── */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 201; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #E2E8F0; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 2rem; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+  text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%);
+  color: #0A0E17;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+.btn-ghost {
+  background: transparent; color: #E2E8F0;
+  border: 1px solid rgba(48,54,61,0.8);
+}
+.btn-ghost:hover { border-color: #2DD4BF; color: #2DD4BF; }
+
+/* ── Hero ── */
+#hero {
+  min-height: 100vh; display: flex; align-items: flex-end;
+  padding-top: 5rem; padding-bottom: 3rem; position: relative; overflow: hidden;
+}
+.hero-image-wrap {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; justify-content: center; align-items: flex-start;
+}
+.hero-image-wrap img {
+  width: 100%; max-width: 1400px; height: auto;
+  object-fit: cover; object-position: top center;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 92%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 92%);
+}
+.lumus-label {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 500;
+  color: #2DD4BF;
+  letter-spacing: 0.15em;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+.hero-logo-wrap {
+  margin-bottom: 0.3rem;
+  margin-top: 16rem;
+  display: flex;
+  justify-content: center;
+}
+.hero-logo-wrap img {
+  max-width: 360px; width: 50vw; height: auto;
+  filter: brightness(1.1);
+}
+.hero-content {
+  position: relative; z-index: 2; width: 100%; text-align: center;
+}
+.hero-label {
+  display: inline-block; padding: 0.4rem 1rem; border-radius: 100px;
+  background: rgba(45,212,191,0.08); border: 1px solid rgba(45,212,191,0.2);
+  color: #2DD4BF; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.hero-title .highlight { color: #2DD4BF; }
+.hero-sub { font-size: 1.15rem; margin: 1.2rem auto 2rem; max-width: 600px; line-height: 1.7; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+/* ── Floating grid lines ── */
+.grid-lines {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0.04;
+}
+.grid-lines::before {
+  content: '';
+  position: absolute; inset: -50%;
+  background-image:
+    linear-gradient(rgba(45,212,191,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,212,191,1) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: center top;
+}
+
+/* ── Problem ── */
+#problem { background: linear-gradient(180deg, #0A0E17 0%, #0D1117 100%); }
+.problem-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.stat-card {
+  background: rgba(22,27,34,0.6);
+  border: 1px solid rgba(48,54,61,0.4);
+  border-radius: 16px; padding: 2.2rem;
+  transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.stat-card:hover { border-color: rgba(45,212,191,0.3); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, #2DD4BF), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.stat-card:hover::before { opacity: 1; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 600; color: var(--accent, #2DD4BF);
+  line-height: 1;
+}
+.stat-label { font-size: 1rem; font-weight: 600; color: #E2E8F0; margin: 0.6rem 0 0.4rem; }
+.stat-source { font-size: 0.75rem; color: #64748B; }
+
+/* ── Concept (Client File) ── */
+#concept { background: #0D1117; }
+.concept-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.concept-col-label {
+  font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.2rem;
+  text-align: center;
+}
+.concept-items { display: flex; flex-direction: column; gap: 0.8rem; }
+.concept-item {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.9rem 1.2rem; border-radius: 10px;
+  background: rgba(22,27,34,0.7);
+  border-left: 3px solid var(--ci-color, #2DD4BF);
+  transition: all 0.3s;
+}
+.concept-item:hover { background: rgba(22,27,34,0.95); transform: translateX(4px); }
+.concept-item .ci-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+  background: rgba(45,212,191,0.08);
+}
+.concept-item span { font-size: 0.92rem; font-weight: 500; color: #E2E8F0; }
+.concept-center {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; position: relative;
+  padding: 2rem 1.5rem;
+}
+.concept-center-box {
+  width: 210px; height: 270px;
+  border: 2px solid rgba(45,212,191,0.35);
+  border-radius: 18px;
+  background: rgba(13,17,23,0.95);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.8rem; position: relative;
+  box-shadow: 0 0 80px rgba(45,212,191,0.1), inset 0 0 40px rgba(45,212,191,0.02);
+}
+.concept-center-box img {
+  width: 100px; height: auto;
+  border-radius: 8px;
+  filter: brightness(1.2);
+}
+.concept-center-box .cc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 600; color: #2DD4BF;
+}
+.concept-center-box .cc-sub {
+  font-size: 0.75rem; color: #64748B;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.concept-arrow {
+  position: absolute; top: 50%;
+  font-size: 1.5rem; color: rgba(45,212,191,0.5);
+}
+.concept-arrow-left { left: -1.5rem; }
+.concept-arrow-right { right: -1.5rem; }
+.concept-footer {
+  margin-top: 2.5rem; text-align: center;
+}
+.concept-footer strong { color: #2DD4BF; }
+@media (max-width: 768px) {
+  .concept-flow {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .concept-center { order: -1; }
+  .concept-arrow { display: none; }
+}
+
+/* ── How it works ── */
+#how { background: #0D1117; }
+.steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; position: relative;
+}
+.step {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 2rem 1rem; position: relative;
+}
+.step-dot {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600;
+  background: rgba(13,17,23,0.9); border: 2px solid var(--step-color, #2DD4BF);
+  color: var(--step-color, #2DD4BF); position: relative; z-index: 2;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 30px rgba(45,212,191,0.08);
+}
+.step-content h3 { color: #E2E8F0; margin-bottom: 0.6rem; }
+.step-content p { font-size: 0.92rem; line-height: 1.65; }
+.step-tag {
+  display: inline-block; margin-top: 1rem; padding: 0.3rem 0.85rem;
+  border-radius: 6px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+  background: rgba(45,212,191,0.1); color: var(--step-color, #2DD4BF);
+}
+.step-connector {
+  position: absolute; top: 32px; left: calc(50% + 40px); right: calc(-50% + 40px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--step-color, #2DD4BF), var(--next-color, #60A5FA));
+  opacity: 0.25; z-index: 1;
+}
+.step:last-child .step-connector { display: none; }
+
+/* ── Features (Monday Morning) ── */
+#features { background: linear-gradient(180deg, #0D1117 0%, #0A0E17 100%); }
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.feature-card {
+  background: linear-gradient(145deg, rgba(22,27,34,0.8), rgba(22,27,34,0.3));
+  border: 1px solid rgba(48,54,61,0.4);
+  border-radius: 16px; padding: 2.5rem 2rem;
+  transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); position: relative;
+  text-align: center;
+}
+.feature-card:hover { border-color: rgba(45,212,191,0.3); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.feature-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin: 0 auto 1.4rem;
+  background: rgba(45,212,191,0.06);
+  border: 1px solid rgba(45,212,191,0.1);
+}
+.feature-card h3 { margin-bottom: 0.6rem; }
+
+/* ── DSGVO ── */
+#trust {
+  background: linear-gradient(180deg, #0A0E17 0%, #0D1117 100%);
+}
+.trust-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.trust-item {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 1rem; padding: 2rem 1.5rem;
+  border-radius: 16px; background: rgba(22,27,34,0.4);
+  border: 1px solid rgba(48,54,61,0.3);
+  transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.trust-item:hover { border-color: rgba(45,212,191,0.2); transform: translateY(-4px); }
+.trust-icon {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  background: rgba(45,212,191,0.06);
+  border: 1px solid rgba(45,212,191,0.1);
+}
+.trust-item h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+.trust-item p { font-size: 0.85rem; }
+
+/* ── ROI Calculator ── */
+/* (ROI calculator moved to roi.html) */
+
+/* ── Logo Banner ── */
+.logo-banner {
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(48,54,61,0.2);
+  background: rgba(13,17,23,0.5);
+}
+.logo-banner-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2.5rem; flex-wrap: wrap;
+}
+.logo-banner p {
+  font-size: 0.8rem; color: #4A5568; letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.logo-banner-logos {
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center;
+}
+.logo-banner-logos svg { opacity: 0.5; transition: opacity 0.3s; }
+.logo-banner-logos svg:hover { opacity: 0.8; }
+
+/* ── Nav Dropdown ── */
+.nav-dropdown { position: relative; }
+.nav-dropdown > a { cursor: pointer; }
+.nav-dropdown-menu {
+  position: absolute; top: 100%; right: 0; margin-top: 0.8rem;
+  background: rgba(13,17,23,0.97); border: 1px solid rgba(48,54,61,0.6);
+  border-radius: 12px; padding: 1.5rem; min-width: 320px;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: all 0.25s ease; backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  z-index: 200;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.founder-card { display: flex; gap: 1rem; padding: 0.8rem 0; }
+.founder-card + .founder-card { border-top: 1px solid rgba(48,54,61,0.3); }
+.founder-avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(45,212,191,0.1); border: 1px solid rgba(45,212,191,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: #2DD4BF; font-weight: 600;
+}
+.founder-info h4 { font-size: 0.9rem; font-weight: 600; color: #E2E8F0; margin-bottom: 0.15rem; }
+.founder-info .founder-role { font-size: 0.78rem; color: #2DD4BF; margin-bottom: 0.3rem; }
+.founder-info p { font-size: 0.78rem; color: #64748B; line-height: 1.5; margin: 0; }
+
+/* ── FAQ ── */
+#faq { background: linear-gradient(180deg, #0A0E17 0%, #0D1117 100%); }
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.faq-question {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 0; text-align: left;
+  font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500;
+  color: #E2E8F0; transition: color 0.3s;
+}
+.faq-question:hover { color: #2DD4BF; }
+.faq-icon {
+  font-size: 1.3rem; color: #2DD4BF; transition: transform 0.3s;
+  flex-shrink: 0; margin-left: 1rem;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-answer-inner {
+  padding: 0 0 1.4rem;
+  font-size: 0.95rem; color: #94A3B8; line-height: 1.7;
+}
+
+/* ── Book Demo ── */
+#demo { background: #0A0E17; padding: 6rem 0; text-align: center; }
+.demo-box {
+  max-width: 600px; margin: 0 auto;
+  background: rgba(22,27,34,0.6); border: 1px solid rgba(45,212,191,0.2);
+  border-radius: 20px; padding: 3rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.demo-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+}
+.demo-box h2 { margin-bottom: 0.8rem; }
+.demo-box p { margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+.demo-details {
+  display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.demo-detail { font-size: 0.82rem; color: #64748B; }
+.demo-detail span { color: #2DD4BF; margin-right: 0.3rem; }
+
+/* ── Integrations ── */
+#integrations { background: linear-gradient(180deg, #0D1117 0%, #0A0E17 100%); }
+.int-tabs {
+  display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.int-tab {
+  padding: 0.45rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500;
+  background: rgba(22,27,34,0.6); border: 1px solid rgba(48,54,61,0.4);
+  color: #94A3B8; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;
+}
+.int-tab:hover { border-color: rgba(45,212,191,0.3); color: #E2E8F0; }
+.int-tab.active { background: rgba(45,212,191,0.1); border-color: #2DD4BF; color: #2DD4BF; }
+.int-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem;
+}
+.int-card {
+  background: rgba(22,27,34,0.5); border: 1px solid rgba(48,54,61,0.3);
+  border-radius: 14px; padding: 1.5rem; transition: all 0.3s;
+}
+.int-card:hover { border-color: rgba(45,212,191,0.25); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+.int-card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+.int-logo {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700;
+}
+.int-card-header h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: #E2E8F0; }
+.int-card p { font-size: 0.8rem; color: #64748B; line-height: 1.5; }
+.int-badge {
+  display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+/* ── CTA ── */
+#cta {
+  text-align: center; padding: 8rem 0;
+  background: radial-gradient(ellipse at center, rgba(45,212,191,0.05) 0%, #0A0E17 70%);
+}
+#cta h2 { margin-bottom: 1rem; }
+#cta p { margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+/* ── Early Access Modal ── */
+.ea-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  justify-content: center; align-items: center;
+}
+.ea-overlay.open { display: flex; }
+.ea-modal {
+  width: 90%; max-width: 520px;
+  background: #161B22; border: 1px solid rgba(48,54,61,0.6);
+  border-radius: 16px; padding: 2.5rem;
+  position: relative; text-align: left;
+  animation: eaSlideIn 0.3s ease;
+}
+@keyframes eaSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.ea-modal::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+  border-radius: 16px 16px 0 0;
+}
+.ea-close {
+  position: absolute; top: 1rem; right: 1.2rem;
+  background: none; border: none; color: #64748B; font-size: 1.5rem;
+  cursor: pointer; transition: color 0.2s; line-height: 1;
+}
+.ea-close:hover { color: #E2E8F0; }
+.ea-modal h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500;
+  text-align: center; margin-bottom: 0.4rem; color: #E2E8F0;
+}
+.ea-modal .ea-subtitle {
+  text-align: center; font-size: 0.85rem; color: #64748B; margin-bottom: 1.8rem;
+}
+.ea-field { margin-bottom: 1rem; }
+.ea-field label {
+  display: block; font-size: 0.78rem; font-weight: 500; color: #94A3B8;
+  margin-bottom: 0.3rem; letter-spacing: 0.02em;
+}
+.ea-field input, .ea-field select {
+  width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px;
+  background: rgba(10,14,23,0.8); border: 1px solid rgba(48,54,61,0.6);
+  color: #E2E8F0; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+.ea-field input:focus, .ea-field select:focus {
+  outline: none; border-color: #2DD4BF;
+  box-shadow: 0 0 0 3px rgba(45,212,191,0.1);
+}
+.ea-field input::placeholder { color: #4A5568; }
+.ea-field select option { background: #0A0E17; color: #E2E8F0; }
+.ea-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ea-submit {
+  width: 100%; margin-top: 0.5rem; padding: 0.85rem;
+  background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%);
+  color: #0A0E17; font-family: 'Inter', sans-serif; font-size: 0.95rem;
+  font-weight: 600; border: none; border-radius: 8px; cursor: pointer;
+  transition: all 0.3s;
+}
+.ea-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+.ea-note {
+  text-align: center; font-size: 0.75rem; color: #4A5568; margin-top: 1rem;
+}
+.ea-success {
+  display: none; text-align: center; padding: 2rem 1rem;
+}
+.ea-success .check {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(45,212,191,0.1); border: 2px solid #2DD4BF;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 1.5rem; color: #2DD4BF;
+}
+.ea-success h3 { color: #E2E8F0; margin-bottom: 0.5rem; }
+.ea-success p { color: #94A3B8; font-size: 0.9rem; }
+@media (max-width: 768px) {
+  .ea-row { grid-template-columns: 1fr; }
+  .ea-modal { padding: 1.8rem; }
+}
+
+/* ── Footer ── */
+footer {
+  padding: 3rem 0; border-top: 1px solid rgba(48,54,61,0.2);
+  background: #080B12;
+}
+footer .container {
+  display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  text-align: center;
+}
+footer p { font-size: 0.85rem; color: #4A5568; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { color: #4A5568; text-decoration: none; font-size: 0.85rem; transition: color 0.3s; letter-spacing: 0.02em; }
+.footer-links a:hover { color: #2DD4BF; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.18; } }
+.glow { animation: pulse 8s ease-in-out infinite; }
+.fade-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Stagger delay for grid children ── */
+.stat-card.fade-up:nth-child(2) { transition-delay: 0.1s; }
+.stat-card.fade-up:nth-child(3) { transition-delay: 0.2s; }
+.stat-card.fade-up:nth-child(4) { transition-delay: 0.3s; }
+.feature-card.fade-up:nth-child(2) { transition-delay: 0.08s; }
+.feature-card.fade-up:nth-child(3) { transition-delay: 0.16s; }
+.feature-card.fade-up:nth-child(4) { transition-delay: 0.24s; }
+.feature-card.fade-up:nth-child(5) { transition-delay: 0.32s; }
+.feature-card.fade-up:nth-child(6) { transition-delay: 0.4s; }
+.trust-item.fade-up:nth-child(2) { transition-delay: 0.1s; }
+.trust-item.fade-up:nth-child(3) { transition-delay: 0.2s; }
+.trust-item.fade-up:nth-child(4) { transition-delay: 0.3s; }
+.step.fade-up:nth-child(2) { transition-delay: 0.12s; }
+.step.fade-up:nth-child(3) { transition-delay: 0.24s; }
+.step.fade-up:nth-child(4) { transition-delay: 0.36s; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .step-connector { display: none; }
+}
+@media (max-width: 768px) {
+  section { padding: 5rem 0; }
+  .hero-image-wrap img { min-height: 55vh; object-fit: cover; }
+  .hero-logo-wrap img { max-width: 280px; }
+  .hero-content { max-width: 100%; }
+  #hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+  .hamburger { display: block; }
+  .nav-links {
+    display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+    background: rgba(10,14,23,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; padding: 5rem 2rem 2rem; gap: 1.5rem;
+    border-left: 1px solid rgba(48,54,61,0.5);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 1rem; }
+  .nav-links .btn-primary { text-align: center; justify-content: center; padding: 0.7rem 1.5rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .step-connector { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <span>I N V I <span class="zero">0</span></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#concept" data-en="Solution" data-de="Lösung">Solution</a></li>
+      <li><a href="integrations.html" data-en="Integrations" data-de="Integrationen">Integrations</a></li>
+      <li><a href="studies.html" data-en="Studies" data-de="Studien">Studies</a></li>
+      <li><a href="roi.html" data-en="ROI" data-de="ROI">ROI</a></li>
+      <li><a href="company.html" data-en="Company" data-de="Unternehmen">Company</a></li>
+      <li><a href="#faq" data-en="FAQ" data-de="FAQ">FAQ</a></li>
+      <li><a href="#" onclick="event.preventDefault();document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" style="padding:0.5rem 1.2rem;font-size:0.85rem;" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
+      <li>
+        <div class="lang-toggle" id="langToggle">
+          <span class="active" data-lang="en">EN</span>
+          <span data-lang="de">DE</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="grid-lines"></div>
+  <div class="glow glow-teal" style="top:-20%;right:-10%;"></div>
+  <div class="glow glow-blue" style="bottom:-30%;left:-15%;"></div>
+
+  <div class="hero-image-wrap">
+    <img src="hero-face.png" alt="INVI0 Lumus – AI Intelligence">
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="logo-big.png" alt="INVI0">
+      </div>
+      <div class="lumus-label" data-en="LUMUS" data-de="LUMUS">LUMUS</div>
+      <h1 style="margin-top:1.2rem;" data-en="One AI Intelligence&lt;br&gt;Per Account." data-de="Eine KI-Intelligenz&lt;br&gt;Pro Account.">One AI Intelligence<br>Per Account.</h1>
+      <p class="hero-sub" data-en="Lumus monitors, analyses, and acts – for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically." data-de="Lumus überwacht, analysiert und handelt – für jeden einzelnen Account. CRM-Daten, externe Signale, offene Commitments. Alles in KI-gestützte Aktionen überführt. Automatisch.">Lumus monitors, analyses, and acts – for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically.</p>
+      <div class="hero-ctas">
+        <a href="#" onclick="event.preventDefault();document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" data-en="Request Early Access →" data-de="Zugang anfragen →">Request Early Access →</a>
+        <a href="#how" class="btn btn-ghost" data-en="See How It Works" data-de="So funktioniert's">See How It Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Logo Banner ── -->
+<div class="logo-banner">
+  <div class="container">
+    <div class="logo-banner-inner">
+      <p data-en="Built for teams with" data-de="Entwickelt für Teams mit">Built for teams with</p>
+      <div class="logo-banner-logos">
+        <!-- Salesforce -->
+        <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Salesforce</text>
+        </svg>
+        <!-- HubSpot -->
+        <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">HubSpot</text>
+        </svg>
+        <!-- Pipedrive -->
+        <svg width="100" height="28" viewBox="0 0 100 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Pipedrive</text>
+        </svg>
+        <!-- Gmail -->
+        <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Gmail</text>
+        </svg>
+        <!-- Outlook -->
+        <svg width="80" height="28" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Outlook</text>
+        </svg>
+        <!-- Slack -->
+        <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Slack</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Problem ── -->
+<section id="problem">
+  <div class="glow glow-purple" style="top:10%;left:-20%;"></div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="The Problem Is &lt;span style='color:#F87171;'&gt;Invisible.&lt;/span&gt;" data-de="Das Problem ist &lt;span style='color:#F87171;'&gt;unsichtbar.&lt;/span&gt;">The Problem Is <span style="color:#F87171;">Invisible.</span></h2>
+      <p class="fade-up" data-en="Your sales reps spend more time preparing than selling. The data exists – but it's scattered, stale, and silent." data-de="Ihre Vertriebler verbringen mehr Zeit mit Vorbereitung als mit Verkaufen. Die Daten existieren – aber sie sind verstreut, veraltet und stumm.">Your sales reps spend more time preparing than selling. The data exists – but it's scattered, stale, and silent.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="problem-grid">
+      <div class="stat-card fade-up" style="--accent:#F87171;">
+        <div class="stat-number">68%</div>
+        <div class="stat-label" data-en="of CRM data is never used" data-de="der CRM-Daten werden nie genutzt">of CRM data is never used</div>
+        <div class="stat-source">HubSpot State of Sales, 2025</div>
+      </div>
+      <div class="stat-card fade-up" style="--accent:#FBBF24;">
+        <div class="stat-number">5.5h</div>
+        <div class="stat-label" data-en="per week lost to manual account prep" data-de="pro Woche durch manuelle Account-Vorbereitung verloren">per week lost to manual account prep</div>
+        <div class="stat-source">Salesforce State of Sales, 2024</div>
+      </div>
+      <div class="stat-card fade-up" style="--accent:#A78BFA;">
+        <div class="stat-number">74%</div>
+        <div class="stat-label" data-en="of deals lost due to poor follow-up timing" data-de="der Deals gehen wegen schlechten Follow-ups verloren">of deals lost due to poor follow-up timing</div>
+        <div class="stat-source">Gartner Sales Productivity Study, 2024</div>
+      </div>
+      <div class="stat-card fade-up" style="--accent:#60A5FA;">
+        <div class="stat-number">0</div>
+        <div class="stat-label" data-en="tools that scrape, fuse, and draft per account" data-de="Tools, die pro Account scrapen, fusionieren und entwerfen">tools that scrape, fuse, and draft per account</div>
+        <div class="stat-source">Competitive analysis, INVI0 Research</div>
+      </div>
+    </div>
+    <div class="fade-up" style="text-align:center;margin-top:2rem;">
+      <a href="studies.html" style="color:#2DD4BF;font-size:0.9rem;font-weight:500;text-decoration:none;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" data-en="Backed by Research – See All Studies &#8599;" data-de="Wissenschaftlich belegt – Alle Studien ansehen &#8599;">Backed by Research – See All Studies &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Concept: The Lumus Client File ── -->
+<section id="concept">
+  <div class="glow glow-teal" style="top:30%;left:50%;transform:translateX(-50%);width:700px;height:700px;opacity:0.06;"></div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="The Lumus &lt;span style='color:#2DD4BF;'&gt;Client File.&lt;/span&gt;" data-de="Die Lumus &lt;span style='color:#2DD4BF;'&gt;Client File.&lt;/span&gt;">The Lumus <span style="color:#2DD4BF;">Client File.</span></h2>
+      <p class="fade-up" data-en="One living document per account – everything your AM needs in one place." data-de="Ein lebendes Dokument pro Account – alles, was Ihr AM braucht, an einem Ort.">One living document per account – everything your AM needs in one place.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="concept-flow fade-up">
+      <!-- LEFT: What goes in -->
+      <div>
+        <div class="concept-col-label" style="color:#A78BFA;" data-en="What Goes In" data-de="Was rein geht">What Goes In</div>
+        <div class="concept-items">
+          <div class="concept-item" style="--ci-color:#A78BFA;">
+            <div class="ci-icon">🔌</div>
+            <span data-en="Salesforce / HubSpot CRM" data-de="Salesforce / HubSpot CRM">Salesforce / HubSpot CRM</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#60A5FA;">
+            <div class="ci-icon">📰</div>
+            <span data-en="News, Funding, M&A Signals" data-de="Nachrichten, Finanzierungen, M&A-Signale">News, Funding, M&A Signals</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#34D399;">
+            <div class="ci-icon">🎙️</div>
+            <span data-en="Meeting Transcripts" data-de="Meeting-Transkripte">Meeting Transcripts</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#FBBF24;">
+            <div class="ci-icon">📧</div>
+            <span data-en="Email Threads & Notes" data-de="E-Mail-Threads & Notizen">Email Threads & Notes</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#F87171;">
+            <div class="ci-icon">📋</div>
+            <span data-en="Open Commitments & Tasks" data-de="Offene Zusagen & Aufgaben">Open Commitments & Tasks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: Lumus -->
+      <div class="concept-center">
+        <span class="concept-arrow concept-arrow-left">→</span>
+        <div class="concept-center-box">
+          <img src="hero-face.png" alt="Lumus AI">
+          <div class="cc-title">LUMUS</div>
+          <div class="cc-sub" data-en="Client File" data-de="Client-Datei">Client File</div>
+          <div class="cc-sub" style="margin-top:-0.3rem;" data-en="One per account" data-de="Eine pro Account">One per account</div>
+        </div>
+        <span class="concept-arrow concept-arrow-right">→</span>
+      </div>
+
+      <!-- RIGHT: What comes out -->
+      <div>
+        <div class="concept-col-label" style="color:#2DD4BF;" data-en="What Comes Out" data-de="Was raus kommt">What Comes Out</div>
+        <div class="concept-items">
+          <div class="concept-item" style="--ci-color:#2DD4BF;">
+            <div class="ci-icon">⚡</div>
+            <span data-en="Prioritised Next Actions" data-de="Priorisierte nächste Aktionen">Prioritised Next Actions</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#34D399;">
+            <div class="ci-icon">✉️</div>
+            <span data-en="Draft Emails & Outreach" data-de="Entworfene E-Mails & Outreach">Draft Emails & Outreach</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#60A5FA;">
+            <div class="ci-icon">📊</div>
+            <span data-en="Joint Business Plans" data-de="Gemeinsame Geschäftspläne">Joint Business Plans</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#FBBF24;">
+            <div class="ci-icon">🔔</div>
+            <span data-en="Real-Time Alerts" data-de="Echtzeit-Benachrichtigungen">Real-Time Alerts</span>
+          </div>
+          <div class="concept-item" style="--ci-color:#F87171;">
+            <div class="ci-icon">📈</div>
+            <span data-en="Risk & Opportunity Scores" data-de="Risiko- & Chancen-Scores">Risk & Opportunity Scores</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-footer fade-up">
+      <p data-en="&lt;strong&gt;Complete context.&lt;/strong&gt; Not another dashboard – a living intelligence file that works for you." data-de="&lt;strong&gt;Vollständiger Kontext.&lt;/strong&gt; Kein weiteres Dashboard – eine lebende Intelligenz-Datei, die für Sie arbeitet."><strong>Complete context.</strong> Not another dashboard – a living intelligence file that works for you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ── -->
+<section id="how">
+  <div class="glow glow-teal" style="top:20%;right:-25%;"></div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="How &lt;span style='color:#2DD4BF;'&gt;Lumus&lt;/span&gt; Works" data-de="So funktioniert &lt;span style='color:#2DD4BF;'&gt;Lumus&lt;/span&gt;">How <span style="color:#2DD4BF;">Lumus</span> Works</h2>
+      <p class="fade-up" data-en="One intelligence per account. Four steps. Zero manual work." data-de="Eine Intelligenz pro Account. Vier Schritte. Kein manueller Aufwand.">One intelligence per account. Four steps. Zero manual work.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="steps">
+      <div class="step fade-up" style="--step-color:#2DD4BF;--next-color:#60A5FA;">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+        <div class="step-content">
+          <h3 data-en="Ingest CRM Data" data-de="CRM-Daten aufnehmen">Ingest CRM Data</h3>
+          <p data-en="Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data – automatically synced, always current." data-de="Lumus verbindet sich mit Ihrem CRM und zieht Kontakte, Deal-Stadien, Aktivitäten und Pipeline-Daten – automatisch synchronisiert, immer aktuell.">Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data – automatically synced, always current.</p>
+          <span class="step-tag">HubSpot · Salesforce · Pipedrive</span>
+        </div>
+      </div>
+      <div class="step fade-up" style="--step-color:#60A5FA;--next-color:#A78BFA;">
+        <div class="step-dot">2</div>
+        <div class="step-connector"></div>
+        <div class="step-content">
+          <h3 data-en="Scrape External Signals" data-de="Externe Signale erfassen">Scrape External Signals</h3>
+          <p data-en="News, press releases, funding rounds, leadership changes – Lumus monitors the web for every account, every day." data-de="Nachrichten, Pressemitteilungen, Finanzierungsrunden, Wechsel in Führungspositionen – Lumus überwacht das Web für jeden Account, jeden Tag.">News, press releases, funding rounds, leadership changes – Lumus monitors the web for every account, every day.</p>
+          <span class="step-tag" style="background:rgba(96,165,250,0.1);color:#60A5FA;">Real-time web intelligence</span>
+        </div>
+      </div>
+      <div class="step fade-up" style="--step-color:#A78BFA;--next-color:#34D399;">
+        <div class="step-dot">3</div>
+        <div class="step-connector"></div>
+        <div class="step-content">
+          <h3 data-en="Bundle Open Commitments" data-de="Offene Zusagen bundeln">Bundle Open Commitments</h3>
+          <p data-en="Meeting notes, follow-up promises, pending proposals – Lumus tracks every open thread so nothing falls through." data-de="Meeting-Notizen, Follow-up-Versprechen, ausstehende Vorschläge – Lumus verfolgt jeden offenen Thread, damit nichts durchrutscht.">Meeting notes, follow-up promises, pending proposals – Lumus tracks every open thread so nothing falls through.</p>
+          <span class="step-tag" style="background:rgba(167,139,250,0.1);color:#A78BFA;">Transcripts · Emails</span>
+        </div>
+      </div>
+      <div class="step fade-up" style="--step-color:#34D399;">
+        <div class="step-dot">4</div>
+        <div class="step-content">
+          <h3 data-en="Draft AI Actions" data-de="KI-Aktionen entwerfen">Draft AI Actions</h3>
+          <p data-en="Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs – ready to review and send." data-de="Priorisiert nach Dringlichkeit. Lumus entwerft die E-Mails, Agenden und JBPs – bereit zum Überprüfen und Versenden.">Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs – ready to review and send.</p>
+          <span class="step-tag" style="background:rgba(52,211,153,0.1);color:#34D399;">Emails · Agendas · Plans</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ── -->
+<section id="features">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="Monday Morning, &lt;span style='color:#2DD4BF;'&gt;Reimagined.&lt;/span&gt;" data-de="Montagmorgen, &lt;span style='color:#2DD4BF;'&gt;neugestaltet.&lt;/span&gt;">Monday Morning, <span style="color:#2DD4BF;">Reimagined.</span></h2>
+      <p class="fade-up" data-en="Open your laptop. Every account is prepared. Every action is drafted. You just sell." data-de="Öffnen Sie Ihren Laptop. Jeder Account ist vorbereitet. Jede Aktion ist entworfen. Sie verkaufen einfach.">Open your laptop. Every account is prepared. Every action is drafted. You just sell.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🎯</div>
+        <h3 data-en="Prioritized Account View" data-de="Priorisierte Account-Ansicht">Prioritized Account View</h3>
+        <p data-en="AI ranks your accounts by urgency, opportunity score, and signal strength. You always know where to focus first." data-de="KI ordnet Ihre Accounts nach Dringlichkeit, Chancen-Score und Signalstärke. Sie wissen immer, wo Sie sich zuerst konzentrieren.">AI ranks your accounts by urgency, opportunity score, and signal strength. You always know where to focus first.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📰</div>
+        <h3 data-en="Live Client Intelligence" data-de="Live-Kundenintelligenz">Live Client Intelligence</h3>
+        <p data-en="News, social mentions, hiring signals, funding rounds – aggregated per account, updated daily, no manual research needed." data-de="Nachrichten, Social-Nennungen, Einstellungssignale, Finanzierungsrunden – pro Account aggregiert, täglich aktualisiert, keine manuelle Recherche nötig.">News, social mentions, hiring signals, funding rounds – aggregated per account, updated daily, no manual research needed.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">✉️</div>
+        <h3 data-en="AI-Drafted Outreach" data-de="KI-entworfenes Outreach">AI-Drafted Outreach</h3>
+        <p data-en="Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone – with the intelligence of every data point." data-de="Kontextbezogene E-Mails und Follow-ups aus CRM-Daten + externen Signalen entworfen. Ihre Stimme, Ihr Ton – mit der Intelligenz jedes Datenpunkts.">Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone – with the intelligence of every data point.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🤝</div>
+        <h3 data-en="Commitment Tracker" data-de="Zusagen-Tracker">Commitment Tracker</h3>
+        <p data-en="Every promise made in a call, every follow-up mentioned in an email – tracked, surfaced, and turned into action items." data-de="Jedes Versprechen in einem Anruf, jedes Follow-up in einer E-Mail – verfolgt, aufgedeckt, und in Aktionselemente umgewandelt.">Every promise made in a call, every follow-up mentioned in an email – tracked, surfaced, and turned into action items.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📊</div>
+        <h3 data-en="Joint Business Plans" data-de="Gemeinsame Geschäftspläne">Joint Business Plans</h3>
+        <p data-en="Auto-generated JBPs from account data, shared goals, and open threads. Strategic account management without the busywork." data-de="Automatisch generierte JBPs aus Account-Daten, gemeinsamen Zielen und offenen Threads. Strategisches Account-Management ohne Büroarbeit.">Auto-generated JBPs from account data, shared goals, and open threads. Strategic account management without the busywork.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🔌</div>
+        <h3 data-en="Seamless Integration" data-de="Nahtlose Integration">Seamless Integration</h3>
+        <p data-en="Connects with your CRM, calendar, and communication tools. No migration, no disruption – Lumus works alongside your existing stack." data-de="Verbindet sich mit Ihrem CRM, Kalender und Kommunikationstools. Keine Migration, keine Unterbrechung – Lumus arbeitet neben Ihrem bestehenden Stack.">Connects with your CRM, calendar, and communication tools. No migration, no disruption – Lumus works alongside your existing stack.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Trust / DSGVO ── -->
+<section id="trust">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="Built for &lt;span style='color:#2DD4BF;'&gt;European&lt;/span&gt; Standards." data-de="Gebaut nach &lt;span style='color:#2DD4BF;'&gt;europäischen&lt;/span&gt; Standards.">Built for <span style="color:#2DD4BF;">European</span> Standards.</h2>
+      <p class="fade-up" data-en="DSGVO-compliant from day one. Your data stays in Europe. Period." data-de="DSGVO-konform von Anfang an. Ihre Daten bleiben in Europa. Punkt.">DSGVO-compliant from day one. Your data stays in Europe. Period.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="trust-grid">
+      <div class="trust-item fade-up">
+        <div class="trust-icon">🇪🇺</div>
+        <h3 data-en="EU-Hosted Infrastructure" data-de="In der EU gehostete Infrastruktur">EU-Hosted Infrastructure</h3>
+        <p data-en="All data processed and stored on European servers. No transatlantic data transfers." data-de="Alle Daten werden auf europäischen Servern verarbeitet und gespeichert. Keine transatlantischen Datentransfers.">All data processed and stored on European servers. No transatlantic data transfers.</p>
+      </div>
+      <div class="trust-item fade-up">
+        <div class="trust-icon">🔒</div>
+        <h3 data-en="DSGVO-Compliant by Design" data-de="DSGVO-konform von Anfang an">DSGVO-Compliant by Design</h3>
+        <p data-en="Data minimization, purpose limitation, and privacy-by-default baked into every layer." data-de="Datenminimierung, Zweckbegrenzung und Datenschutz by default in jeder Schicht.">Data minimization, purpose limitation, and privacy-by-default baked into every layer.</p>
+      </div>
+      <div class="trust-item fade-up">
+        <div class="trust-icon">🗑️</div>
+        <h3 data-en="Transient Processing" data-de="Flüchtiges Processing">Transient Processing</h3>
+        <p data-en="Transcripts analyzed and discarded. We store only extracted commitments – never raw audio or text." data-de="Transkripte werden analysiert und verworfen. Wir speichern nur extrahierte Zusagen – niemals Rohmedien oder Text.">Transcripts analyzed and discarded. We store only extracted commitments – never raw audio or text.</p>
+      </div>
+      <div class="trust-item fade-up">
+        <div class="trust-icon">📋</div>
+        <h3 data-en="AVV Ready" data-de="AVV-bereit">AVV Ready</h3>
+        <p data-en="Auftragsverarbeitungsvertrag on request. Enterprise-grade data processing for German compliance." data-de="Auftragsverarbeitungsvertrag auf Anfrage. Enterprise-Grade-Datenverarbeitung für deutsche Konformität.">Auftragsverarbeitungsvertrag on request. Enterprise-grade data processing for German compliance.</p>
+      </div>
+    </div>
+
+    <div class="fade-up" style="text-align:center;margin-top:2.5rem;padding:1.2rem;border-top:1px solid rgba(48,54,61,0.2);">
+      <p style="font-size:0.85rem;color:#64748B;margin:0;line-height:1.6;"><span style="color:#2DD4BF;font-weight:600;">+75%</span> Sales reps who do tailored pre-call research close at a 75% higher rate than those who rely on volume alone. Lumus does this research – for every account, every day, automatically.</p>
+      <p style="font-size:0.7rem;color:#4A5568;margin-top:0.4rem;">Source: SPOTIO / Salesforce State of Sales Report, 2024</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROI Teaser ── -->
+<section id="roi" style="padding:4rem 0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="Your Sales Team is Losing &lt;span style='color:#F87171;'&gt;5,200 Hours&lt;/span&gt; a Year." data-de="Ihr Vertriebsteam verliert &lt;span style='color:#F87171;'&gt;5.200 Stunden&lt;/span&gt; pro Jahr.">Your Sales Team is Losing <span style="color:#F87171;">5,200 Hours</span> a Year.</h2>
+      <p class="fade-up" data-en="Non-selling activities consume two-thirds of sales time. Reps who do tailored research close 75% more deals. Calculate your exact savings and revenue upside." data-de="Nicht-verkaufende Aktivitäten nehmen zwei Drittel der Vertriebszeit ein. Reps mit gezielter Recherche schließen 75% mehr Deals ab. Berechnen Sie Ihre genauen Einsparungen und Umsatzpotenziale.">Non-selling activities consume two-thirds of sales time. Reps who do tailored research close 75% more deals. Calculate your exact savings and revenue upside.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+    <a href="roi.html" class="btn btn-primary fade-up" style="margin-top:0.5rem;font-size:0.95rem;padding:0.7rem 1.8rem;" data-en="Calculate Your ROI &#8599;" data-de="ROI berechnen &#8599;">Calculate Your ROI &#8599;</a>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+  <div class="glow glow-teal" style="top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;opacity:0.08;"></div>
+  <div class="container">
+    <h2 class="fade-up" data-en="Ready to See Your&lt;br&gt;Accounts &lt;span style='color:#2DD4BF;'&gt;Come Alive?&lt;/span&gt;" data-de="Bereit, Ihre Accounts&lt;br&gt;&lt;span style='color:#2DD4BF;'&gt;zum Leben zu erwecken?&lt;/span&gt;">Ready to See Your<br>Accounts <span style="color:#2DD4BF;">Come Alive?</span></h2>
+    <p class="fade-up" data-en="Join the waitlist for early access. Limited pilot spots available." data-de="Treten Sie der Warteliste für frühen Zugang bei. Begrenzte Pilotplätze verfügbar.">Join the waitlist for early access. Limited pilot spots available.</p>
+
+    <div class="fade-up" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;" data-en="Request Early Access →" data-de="Zugang anfragen →">Request Early Access →</button>
+    </div>
+    <p class="fade-up" style="margin-top:1.5rem;font-size:0.85rem;color:#64748B;" data-en="No credit card required · Free pilot for qualifying teams" data-de="Keine Kreditkarte erforderlich · Kostenloses Pilot für qualifizierende Teams">No credit card required · Free pilot for qualifying teams</p>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="fade-up" data-en="Frequently Asked &lt;span style='color:#2DD4BF;'&gt;Questions.&lt;/span&gt;" data-de="Häufig gestellte &lt;span style='color:#2DD4BF;'&gt;Fragen.&lt;/span&gt;">Frequently Asked <span style="color:#2DD4BF;">Questions.</span></h2>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="What is LUMUS?" data-de="Was ist LUMUS?">What is LUMUS?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts – monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead." data-de="Lumus ist eine KI-gestützte Account-Intelligence-Schicht, entwickelt von INVI0. Es weist jedem Ihrer Vertriebsaccounts eine eigene KI-Intelligenz zu – die CRM-Daten, E-Mails, externe Signale und offene Commitments in Echtzeit überwacht. Anschließend entwirft es automatisch die nächste beste Aktion für Ihre Vertriebler. Stellen Sie es sich vor, als hätte jeder Account einen eigenen Analysten, der nie schläft, nie vergisst und Ihren Rep immer einen Schritt voraus hält.">
+            Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts – monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="How long does it take to set up Lumus?" data-de="Wie lange dauert es, Lumus einzurichten?">How long does it take to set up Lumus?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately – delivering the first account insights within hours." data-de="Unter 15 Minuten. Lumus verbindet sich über Standard-Integrationen mit Ihrem bestehenden CRM (Salesforce, HubSpot oder Pipedrive), E-Mail und Kalender. Keine Datenmigration, keine komplexe Konfiguration und kein neuer Workflow zu lernen. Ihre Vertriebler verbinden ihre Accounts und Lumus beginnt sofort im Hintergrund zu arbeiten – die ersten Account-Insights werden innerhalb von Stunden geliefert.">
+            Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately – delivering the first account insights within hours.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="What exactly does Lumus do for my sales reps?" data-de="Was genau macht Lumus für meine Vertriebler?">What exactly does Lumus do for my sales reps?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Think of Lumus as an AI Account Executive assigned to each of your accounts. Every morning, your reps open their laptop and find: recent news about their accounts (funding rounds, leadership changes, product launches), open commitments from past meetings, risk signals on deals going cold, and ready-to-send follow-up emails. Instead of spending 1-2 hours researching before every call, your reps walk in fully prepared in seconds." data-de="Stellen Sie sich Lumus als einen KI-Account-Executive vor, der jedem Ihrer Accounts zugewiesen ist. Jeden Morgen öffnen Ihre Vertriebler ihren Laptop und finden: aktuelle Nachrichten über ihre Accounts (Finanzierungsrunden, Wechsel in Führungspositionen, Produktstarts), offene Zusagen aus früheren Meetings, Risikosignale auf kalten Deals und versandbereite Follow-up-E-Mails. Anstatt 1-2 Stunden vor jedem Anruf zu recherchieren, gehen Ihre Reps vollständig vorbereitet in Sekunden.">
+            Think of Lumus as an AI Account Executive assigned to each of your accounts. Every morning, your reps open their laptop and find: recent news about their accounts (funding rounds, leadership changes, product launches), open commitments from past meetings, risk signals on deals going cold, and ready-to-send follow-up emails. Instead of spending 1-2 hours researching before every call, your reps walk in fully prepared in seconds.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="My reps already use a CRM. Why do they need Lumus on top?" data-de="Meine Vertriebler nutzen bereits ein CRM. Warum brauchen sie Lumus oben drauf?">My reps already use a CRM. Why do they need Lumus on top?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched – reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn." data-de="Ihr CRM speichert Daten. Lumus macht sie nützlich. Die meisten CRM-Daten liegen ungenutzt – Reps protokollieren Aktivitäten, aber gehen selten zurück, um Muster über Accounts hinweg zu analysieren. Lumus zieht Ihre CRM-Daten, kombiniert sie mit externen Signalen, die Ihre Reps nie alleine finden würden, und wandelt alles in priorisierte Aktionen um. Es verbindet sich mit Salesforce, HubSpot oder Pipedrive in unter 15 Minuten. Keine Migration, kein neuer Workflow zum Lernen.">
+            Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched – reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="How is this different from tools like Gong or 6sense?" data-de="Wie unterscheidet sich dies von Tools wie Gong oder 6sense?">How is this different from tools like Gong or 6sense?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it – it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work." data-de="Gong zeichnet Anrufe auf und analysiert sie. 6sense verfolgt Einkaufsabsicht-Signale. Dealfront findet Leads. Jedes löst ein Problem. Lumus ist die Schicht, die oben auf all dem sitzt – es fusioniert Ihre CRM-Daten, externe Nachrichten, Meeting-Zusagen und Kommunikationsverlauf in eine Intelligenz-Datei pro Account und entwirft dann die tatsächlichen nächsten Schritte. Ihr Rep muss nicht zwischen fünf Registern hin und her springen und es selbst zusammensetzen. Lumus macht diese Arbeit.">
+            Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it – it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span data-en="Is my company's data safe?" data-de="Sind die Daten meines Unternehmens sicher?">Is my company's data safe?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner" data-en="Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted – we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start." data-de="Ja. Alle Daten werden auf EU-Servern verarbeitet und gespeichert. Wir haben Lumus von Anfang an DSGVO-konform gebaut, weil unsere ersten Kunden deutsche Mittelstand-Unternehmen sind, die es erfordern. Rohdaten wie Anruftranskripte werden analysiert und dann gelöscht – wir behalten nur die extrahierten Erkenntnisse. Wir stellen einen Auftragsverarbeitungsvertrag (AVV) zur Verfügung und können Ihr IT-Team durch unsere Sicherheitseinrichtungen führen, bevor Sie beginnen.">
+            Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted – we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div>
+      <a href="#" class="nav-logo" style="margin-bottom:0.5rem;">
+        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      </a>
+      <p style="margin-top:0.5rem;">© 2026 INVI0 GmbH · Invisible Intelligence</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
+      <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
+    </ul>
+    <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Made in Germany</p>
+  </div>
+</footer>
+
+<!-- ── Scroll animations ── -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger?.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks?.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+
+// Early Access Modal
+document.getElementById('eaOverlay').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('eaOverlay').classList.remove('open');
+});
+document.getElementById('eaForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('ea-name').value;
+  const email = document.getElementById('ea-email').value;
+  const company = document.getElementById('ea-company').value;
+  const phone = document.getElementById('ea-phone').value || 'Not provided';
+  const teamsize = document.getElementById('ea-teamsize').value;
+
+  const subject = encodeURIComponent('Early Access Request – ' + company);
+  const body = encodeURIComponent(
+    'New Early Access Request\n\n' +
+    'Name: ' + name + '\n' +
+    'Email: ' + email + '\n' +
+    'Company: ' + company + '\n' +
+    'Phone: ' + phone + '\n' +
+    'Team Size: ' + teamsize + ' sales reps'
+  );
+  window.open('mailto:jp@jakobpetersen.de?subject=' + subject + '&body=' + body, '_blank');
+
+  document.getElementById('eaForm').style.display = 'none';
+  document.getElementById('eaSuccess').style.display = 'block';
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').style.maxHeight = null;
+    });
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+// Smooth nav background
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  const scroll = window.scrollY;
+  if (scroll > 100) {
+    nav.style.borderBottomColor = 'rgba(48,54,61,0.8)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(48,54,61,0.5)';
+  }
+  lastScroll = scroll;
+});
+
+// Language toggle
+(function() {
+  const lang = localStorage.getItem('invi0-lang') || 'en';
+  function applyLang(l) {
+    document.querySelectorAll('[data-' + l + ']').forEach(el => {
+      const val = el.getAttribute('data-' + l);
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val;
+      else el.innerHTML = val;
+    });
+    document.querySelectorAll('.lang-toggle span').forEach(s => {
+      s.classList.toggle('active', s.dataset.lang === l);
+    });
+    localStorage.setItem('invi0-lang', l);
+  }
+  applyLang(lang);
+  document.getElementById('langToggle')?.addEventListener('click', function(e) {
+    const t = e.target.closest('[data-lang]');
+    if (t) applyLang(t.dataset.lang);
+  });
+})();
+
+}); // end DOMContentLoaded
+</script>
+
+<!-- ── Early Access Modal ── -->
+<div class="ea-overlay" id="eaOverlay">
+  <div class="ea-modal">
+    <button class="ea-close" onclick="document.getElementById('eaOverlay').classList.remove('open')">&times;</button>
+    <h3 data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</h3>
+    <p class="ea-subtitle" data-en="Limited pilot spots available. We'll be in touch within 24 hours." data-de="Begrenzte Pilotplätze verfügbar. Wir melden uns innerhalb von 24 Stunden.">Limited pilot spots available. We'll be in touch within 24 hours.</p>
+
+    <form id="eaForm">
+      <div class="ea-row">
+        <div class="ea-field">
+          <label data-en="Full Name *" data-de="Vollständiger Name *">Full Name *</label>
+          <input type="text" id="ea-name" required placeholder="Jakob Petersen">
+        </div>
+        <div class="ea-field">
+          <label data-en="Work Email *" data-de="Geschäftliche E-Mail *">Work Email *</label>
+          <input type="email" id="ea-email" required placeholder="you@company.com">
+        </div>
+      </div>
+      <div class="ea-row">
+        <div class="ea-field">
+          <label data-en="Company *" data-de="Unternehmen *">Company *</label>
+          <input type="text" id="ea-company" required placeholder="Acme GmbH">
+        </div>
+        <div class="ea-field">
+          <label data-en="Phone Number" data-de="Telefonnummer">Phone Number</label>
+          <input type="tel" id="ea-phone" placeholder="+49 ...">
+        </div>
+      </div>
+      <div class="ea-field">
+        <label data-en="Team Size *" data-de="Teamgröße *">Team Size *</label>
+        <select id="ea-teamsize" required>
+          <option value="" disabled selected data-en="Select team size" data-de="Teamgröße wählen">Select team size</option>
+          <option value="1-5">1–5 sales reps</option>
+          <option value="6-15">6–15 sales reps</option>
+          <option value="16-50">16–50 sales reps</option>
+          <option value="50+">50+ sales reps</option>
+        </select>
+      </div>
+      <button type="submit" class="ea-submit" data-en="Submit Request →" data-de="Anfrage senden →">Submit Request →</button>
+      <p class="ea-note" data-en="No credit card required · Free pilot for qualifying teams" data-de="Keine Kreditkarte erforderlich · Kostenloses Pilot für qualifizierende Teams">No credit card required · Free pilot for qualifying teams</p>
+    </form>
+
+    <div class="ea-success" id="eaSuccess">
+      <div class="check">✓</div>
+      <h3 data-en="You're on the list!" data-de="Sie sind auf der Liste!">You're on the list!</h3>
+      <p data-en="We'll be in touch shortly with next steps." data-de="Wir melden uns in Kürze mit den nächsten Schritten.">We'll be in touch shortly with next steps.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI Calculator – INVI0</title>
+<meta name="description" content="Calculate your ROI with Lumus. See how much time and revenue your sales team can recover with AI account intelligence.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<meta property="og:title" content="ROI Calculator – INVI0">
+<meta property="og:description" content="Calculate your ROI with Lumus. See how much time and revenue your sales team can recover.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0A0E17; color: #E2E8F0; line-height: 1.7; overflow-x: hidden; }
+::selection { background: rgba(45,212,191,0.3); }
+
+body::before {
+  content: '';
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* Nav */
+nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 0; background: rgba(10,14,23,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(48,54,61,0.5); }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
+.nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
+.nav-logo .zero { color: #5B8C8C; position: relative; display: inline-block; }
+.nav-logo .zero::after { content: ''; position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: #94A3B8; text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s; }
+.nav-links a:hover { color: #2DD4BF; }
+.nav-links .active { color: #2DD4BF; }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 201; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #E2E8F0; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.lang-toggle { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; font-size: 0.8rem; color: #64748B; user-select: none; }
+.lang-toggle span { padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.2s; }
+.lang-toggle span.active { color: #E2E8F0; background: rgba(45,212,191,0.15); }
+.lang-toggle span:hover { color: #E2E8F0; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; }
+.btn-primary { background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%); color: #0A0E17; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+.glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.08; pointer-events: none; }
+
+/* ── Hero Banner ── */
+.roi-banner {
+  padding: 8rem 0 0; text-align: center; position: relative;
+}
+.roi-banner h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 500; line-height: 1.25;
+  margin-bottom: 0.8rem;
+}
+.roi-banner p { color: #94A3B8; font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+/* ── Highlight Stats Bar ── */
+.stats-bar {
+  margin: 2.5rem auto 0; max-width: 860px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.stat-highlight {
+  padding: 1.5rem 1.2rem; border-radius: 14px; text-align: center;
+  background: rgba(22,27,34,0.7); border: 1px solid rgba(48,54,61,0.4);
+  transition: all 0.3s;
+}
+.stat-highlight:hover { border-color: rgba(45,212,191,0.3); transform: translateY(-2px); }
+.stat-highlight .stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 700; line-height: 1; margin-bottom: 0.3rem;
+}
+.stat-highlight .stat-num.red { color: #F87171; }
+.stat-highlight .stat-num.gold { color: #FBBF24; }
+.stat-highlight .stat-num.green { color: #34D399; }
+.stat-highlight .stat-text {
+  font-size: 0.78rem; color: #94A3B8; line-height: 1.4;
+}
+.stat-highlight .stat-source {
+  font-size: 0.65rem; color: #4A5568; margin-top: 0.3rem;
+}
+
+/* ── Calculator Section ── */
+.calc-section {
+  padding: 3.5rem 0 2rem; position: relative;
+}
+.calc-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #64748B; text-align: center; margin-bottom: 1.5rem;
+}
+
+.calc-box {
+  max-width: 920px; margin: 0 auto;
+  background: rgba(22,27,34,0.6);
+  border: 1px solid rgba(48,54,61,0.5);
+  border-radius: 20px;
+  position: relative; overflow: hidden;
+}
+.calc-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+}
+
+/* Inputs row */
+.calc-inputs {
+  padding: 2rem 2.2rem;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  border-bottom: 1px solid rgba(48,54,61,0.4);
+}
+.calc-field label {
+  display: block; font-size: 0.75rem; font-weight: 500; color: #94A3B8; margin-bottom: 0.35rem;
+}
+.calc-field input {
+  width: 100%; padding: 0.55rem 0.7rem; border-radius: 8px;
+  background: rgba(10,14,23,0.8); border: 1px solid rgba(48,54,61,0.6);
+  color: #E2E8F0; font-family: 'Inter', sans-serif; font-size: 0.95rem;
+  transition: border-color 0.3s;
+  -moz-appearance: textfield;
+}
+.calc-field input::-webkit-outer-spin-button,
+.calc-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.calc-field input:focus {
+  outline: none; border-color: #2DD4BF;
+  box-shadow: 0 0 0 3px rgba(45,212,191,0.1);
+}
+.calc-field .hint { font-size: 0.65rem; color: #4A5568; margin-top: 0.2rem; }
+
+/* Results: two columns */
+.calc-results {
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.calc-col {
+  padding: 2rem 2.2rem;
+}
+.calc-col:first-child {
+  border-right: 1px solid rgba(48,54,61,0.4);
+}
+.calc-col-header {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.calc-col-header.savings { color: #FBBF24; }
+.calc-col-header.revenue { color: #34D399; }
+
+.result-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(48,54,61,0.15);
+}
+.result-row:last-child { border-bottom: none; }
+.result-label { font-size: 0.82rem; color: #94A3B8; }
+.result-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 600;
+}
+.result-value.red { color: #F87171; }
+.result-value.gold { color: #FBBF24; }
+.result-value.blue { color: #60A5FA; }
+.result-value.teal { color: #2DD4BF; }
+.result-value.green { color: #34D399; }
+.result-hint { font-size: 0.65rem; color: #4A5568; text-align: right; }
+
+/* Bottom ROI bar */
+.calc-bottom {
+  display: flex; justify-content: center; align-items: center; gap: 3rem;
+  padding: 1.5rem 2.2rem;
+  background: rgba(45,212,191,0.04);
+  border-top: 1px solid rgba(45,212,191,0.15);
+}
+.calc-bottom-stat { text-align: center; }
+.calc-bottom-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 700; color: #34D399; line-height: 1;
+  text-shadow: 0 0 30px rgba(52,211,153,0.15);
+}
+.calc-bottom-label { font-size: 0.8rem; color: #94A3B8; margin-top: 0.2rem; }
+.calc-bottom-sub { font-size: 0.65rem; color: #4A5568; }
+.calc-bottom-divider {
+  width: 1px; height: 50px; background: rgba(48,54,61,0.4);
+}
+
+/* ── Research Section ── */
+.research-section { padding: 3rem 0 2rem; }
+.research-title {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #64748B; text-align: center; margin-bottom: 1.2rem;
+}
+.research-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 860px; margin: 0 auto;
+}
+.research-card {
+  padding: 1.4rem 1.5rem; border-radius: 12px;
+  background: rgba(22,27,34,0.5); border: 1px solid rgba(48,54,61,0.3);
+  transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between;
+}
+.research-card:hover { border-color: rgba(45,212,191,0.2); transform: translateY(-2px); }
+.research-stat {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 700; color: #2DD4BF; margin-bottom: 0.3rem;
+}
+.research-headline { font-size: 0.85rem; font-weight: 600; color: #E2E8F0; line-height: 1.4; margin-bottom: 0.3rem; }
+.research-desc { font-size: 0.75rem; color: #64748B; line-height: 1.5; margin-bottom: 0.7rem; }
+.research-link { font-size: 0.72rem; font-weight: 500; color: #2DD4BF; text-decoration: none; }
+.research-link:hover { text-decoration: underline; }
+
+/* ── CTA ── */
+.roi-cta {
+  padding: 4rem 0 5rem; text-align: center;
+}
+.roi-cta h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem; font-weight: 500; margin-bottom: 0.8rem;
+}
+.roi-cta p { color: #94A3B8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+/* Footer */
+footer { padding: 3rem 0; border-top: 1px solid rgba(48,54,61,0.2); background: #080B12; }
+footer .container { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+footer p { font-size: 0.85rem; color: #4A5568; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { color: #4A5568; text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-links a:hover { color: #2DD4BF; }
+
+/* Animations */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .nav-links {
+    display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+    background: rgba(10,14,23,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; padding: 5rem 2rem 2rem; gap: 1.5rem;
+    border-left: 1px solid rgba(48,54,61,0.5);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 1rem; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .calc-inputs { grid-template-columns: 1fr 1fr; }
+  .calc-results { grid-template-columns: 1fr; }
+  .calc-col:first-child { border-right: none; border-bottom: 1px solid rgba(48,54,61,0.4); }
+  .calc-bottom { flex-direction: column; gap: 1.5rem; }
+  .calc-bottom-divider { width: 50px; height: 1px; }
+  .research-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .calc-inputs { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>I N V I <span class="zero">0</span></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-en="Home" data-de="Startseite">Home</a></li>
+      <li><a href="integrations.html" data-en="Integrations" data-de="Integrationen">Integrations</a></li>
+      <li><a href="studies.html" data-en="Studies" data-de="Studien">Studies</a></li>
+      <li><a href="#" class="active" data-en="ROI" data-de="ROI">ROI</a></li>
+      <li><a href="company.html" data-en="Company" data-de="Unternehmen">Company</a></li>
+      <li><a href="mailto:jp@jakobpetersen.de" class="btn btn-primary" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
+      <li>
+        <div class="lang-toggle" id="langToggle">
+          <span class="active" data-lang="en">EN</span>
+          <span data-lang="de">DE</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="roi-banner">
+  <div class="glow" style="background:#2DD4BF;width:600px;height:600px;top:-20%;right:10%;"></div>
+  <div class="container">
+    <h1 data-en="Your Sales Team is Spending More Time on &lt;span style='color:#F87171;'&gt;Admin&lt;/span&gt; Than on &lt;span style='color:#2DD4BF;'&gt;Selling.&lt;/span&gt;" data-de="Ihr Vertriebsteam verbringt mehr Zeit mit &lt;span style='color:#F87171;'&gt;Admin&lt;/span&gt; als mit &lt;span style='color:#2DD4BF;'&gt;Verkaufen.&lt;/span&gt;">Your Sales Team is Spending More Time on <span style="color:#F87171;">Admin</span> Than on <span style="color:#2DD4BF;">Selling.</span></h1>
+    <p data-en="The data is clear. Calculate what that costs you – and what better preparation could add to your revenue." data-de="Die Daten sind eindeutig. Berechnen Sie, was das kostet – und was bessere Vorbereitung Ihrem Umsatz bringt.">The data is clear. Calculate what that costs you – and what better preparation could add to your revenue.</p>
+
+    <!-- Highlight stats -->
+    <div class="stats-bar fade-up">
+      <div class="stat-highlight">
+        <div class="stat-num red">2/3</div>
+        <div class="stat-text" data-en="of sales time goes to non-selling activities" data-de="der Verkaufszeit gehen an nicht-verkaufende Aktivitäten">of sales time goes to non-selling activities</div>
+        <div class="stat-source">McKinsey, 2024</div>
+      </div>
+      <div class="stat-highlight">
+        <div class="stat-num gold">1/3</div>
+        <div class="stat-text" data-en="of time actually spent with customers" data-de="der Zeit tatsächlich beim Kunden">of time actually spent with customers</div>
+        <div class="stat-source">Bain & Company, 2024</div>
+      </div>
+      <div class="stat-highlight">
+        <div class="stat-num green">+75%</div>
+        <div class="stat-text" data-en="higher close rate with tailored pre-call research" data-de="höhere Abschlussrate mit maßgeschneiderter Anrufvorbereitung">higher close rate with tailored pre-call research</div>
+        <div class="stat-source">SPOTIO / Salesforce, 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Calculator ── -->
+<section class="calc-section">
+  <div class="container">
+    <div class="calc-label fade-up" data-en="Calculate Your Productivity Gap" data-de="Berechnen Sie Ihre Produktivitätslücke">Calculate Your Productivity Gap</div>
+
+    <div class="calc-box fade-up">
+      <!-- Inputs -->
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label for="roi-reps" data-en="Sales Reps / AEs" data-de="Vertriebler / AEs">Sales Reps / AEs</label>
+          <input type="number" id="roi-reps" value="10" min="1" max="1000">
+        </div>
+        <div class="calc-field">
+          <label for="roi-salary" data-en="Avg. Annual Salary (All-in, €)" data-de="Durchschn. Jahresgehalt (All-in, €)">Avg. Annual Salary (All-in, €)</label>
+          <input type="number" id="roi-salary" value="65000" min="20000" max="500000" step="1000">
+          <div class="hint" data-en="Incl. taxes, benefits, employer costs" data-de="Inkl. Steuern, Leistungen, Arbeitgeberkosten">Incl. taxes, benefits, employer costs</div>
+        </div>
+        <div class="calc-field">
+          <label for="roi-hours" data-en="Hours / Week on Manual Research" data-de="Stunden / Woche manuelle Recherche">Hours / Week on Manual Research</label>
+          <input type="number" id="roi-hours" value="10" min="1" max="40">
+          <div class="hint" data-en="Account research, CRM, news scanning" data-de="Account-Recherche, CRM, Nachrichten-Scanning">Account research, CRM, news scanning</div>
+        </div>
+        <div class="calc-field">
+          <label for="roi-avg-deal" data-en="Avg. Deal Size (€)" data-de="Durchschn. Deal-Größe (€)">Avg. Deal Size (€)</label>
+          <input type="number" id="roi-avg-deal" value="25000" min="1000" max="10000000" step="1000">
+          <div class="hint" data-en="Average contract value per closed deal" data-de="Durchschnittlicher Vertragsswert pro abgeschlossenem Deal">Average contract value per closed deal</div>
+        </div>
+      </div>
+
+      <!-- Two-column results -->
+      <div class="calc-results">
+        <div class="calc-col">
+          <div class="calc-col-header savings" data-en="Time &amp; Cost Savings" data-de="Zeit- &amp; Kosteneinsparungen">Time & Cost Savings</div>
+          <div class="result-row">
+            <span class="result-label" data-en="Hours lost per year" data-de="Stunden pro Jahr verloren">Hours lost per year</span>
+            <span class="result-value red" id="r-hours">5,200</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Cost of lost productivity" data-de="Kosten für verlorene Produktivität">Cost of lost productivity</span>
+            <span class="result-value gold" id="r-cost">€162,500</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Hours recovered with Lumus (80%)" data-de="Stunden mit Lumus (80%) wiederhergestellt">Hours recovered with Lumus (80%)</span>
+            <span class="result-value teal" id="r-saved">4,160</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Lumus investment / month" data-de="Lumus-Investition / Monat">Lumus investment / month</span>
+            <span class="result-value" style="color:#94A3B8;" id="r-lumus">€2,990</span>
+          </div>
+        </div>
+        <div class="calc-col">
+          <div class="calc-col-header revenue" data-en="Revenue Upside" data-de="Umsatzpotenziale">Revenue Upside</div>
+          <div class="result-row">
+            <span class="result-label" data-en="Additional accounts covered" data-de="Zusätzliche Accounts abgedeckt">Additional accounts covered</span>
+            <span class="result-value blue" id="r-accounts">+75</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Close rate uplift (prepared meetings)" data-de="Abschlussrate-Steigerung (vorbereitete Meetings)">Close rate uplift (prepared meetings)</span>
+            <span class="result-value green">+75%</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Additional deals closed / year" data-de="Zusätzliche Deals pro Jahr abgeschlossen">Additional deals closed / year</span>
+            <span class="result-value green" id="r-deals">+8</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label" data-en="Revenue upside / year" data-de="Umsatzpotenziale / Jahr">Revenue upside / year</span>
+            <span class="result-value green" id="r-revenue">€200,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom ROI bar -->
+      <div class="calc-bottom">
+        <div class="calc-bottom-stat">
+          <div class="calc-bottom-value" id="r-roi">4.5x</div>
+          <div class="calc-bottom-label" data-en="ROI on Time Savings" data-de="ROI auf Zeiteinsparungen">ROI on Time Savings</div>
+          <div class="calc-bottom-sub" data-en="Productivity recovered vs. subscription" data-de="Produktivitaet wiederhergestellt vs. Abonnement">Productivity recovered vs. subscription</div>
+        </div>
+        <div class="calc-bottom-divider"></div>
+        <div class="calc-bottom-stat">
+          <div class="calc-bottom-value" id="r-total-roi" style="color:#2DD4BF;">9.1x</div>
+          <div class="calc-bottom-label" data-en="Total ROI incl. Revenue Upside" data-de="Gesamt-ROI inkl. Umsatzpotenziale">Total ROI incl. Revenue Upside</div>
+          <div class="calc-bottom-sub" data-en="Time savings + additional deals closed" data-de="Zeiteinsparungen + zusätzliche Deals abgeschlossen">Time savings + additional deals closed</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="max-width:700px;margin:1.5rem auto 0;text-align:center;font-size:0.68rem;color:#4A5568;line-height:1.5;" data-en="Disclaimer: The Lumus Sales Productivity Gap Calculator provides estimates based on your inputs and external research from Salesforce, Bain &amp; Company, and McKinsey &amp; Company. Actual results will vary depending on your team, market, and execution. No specific outcomes are guaranteed." data-de="Hinweis: Der Lumus Sales Productivity Gap Calculator liefert Schätzungen basierend auf Ihren Eingaben und externer Forschung von Salesforce, Bain &amp; Company und McKinsey &amp; Company. Die tatsächlichen Ergebnisse variieren je nach Team, Markt und Umsetzung. Konkrete Ergebnisse werden nicht garantiert.">Disclaimer: The Lumus Sales Productivity Gap Calculator provides estimates based on your inputs and external research from Salesforce, Bain & Company, and McKinsey & Company. Actual results will vary depending on your team, market, and execution. No specific outcomes are guaranteed.</p>
+  </div>
+</section>
+
+<!-- ── Research ── -->
+<section class="research-section">
+  <div class="container">
+    <div class="research-title fade-up"><a href="studies.html" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,212,191,0.4);padding-bottom:2px;transition:all 0.3s;" onmouseover="this.style.color='#2DD4BF';this.style.borderColor='#2DD4BF'" onmouseout="this.style.color='inherit';this.style.borderColor='rgba(45,212,191,0.4)'" data-en="Backed by Research" data-de="Belegt durch Studien">Backed by Research</a></div>
+    <div class="research-grid fade-up">
+      <div class="research-card">
+        <div>
+          <div class="research-stat">1/3</div>
+          <div class="research-headline" data-en="Reps spend only a third of their time with customers." data-de="Reps verbringen nur ein Drittel ihrer Zeit mit Kunden.">Reps spend only a third of their time with customers.</div>
+          <div class="research-desc" data-en="Calendar and email metadata reveals actual sales behaviors vs. self-reported data." data-de="Kalender- und E-Mail-Metadaten zeigen tatsaechliches Verkaufsverhalten vs. selbstberichtete Daten.">Calendar and email metadata reveals actual sales behaviors vs. self-reported data.</div>
+        </div>
+        <a href="https://www.bain.com/insights/how-do-salespeople-spend-their-time-wsj/" target="_blank" class="research-link" data-en="Read the Bain study &#8599;" data-de="Bain-Studie lesen &#8599;">Read the Bain study &#8599;</a>
+      </div>
+      <div class="research-card">
+        <div>
+          <div class="research-stat">2.5x</div>
+          <div class="research-headline" data-en="Top-quartile companies generate 2.5x higher margin per sales dollar." data-de="Top-Quartil-Unternehmen generieren 2,5x höhere Marge pro Vertriebseuro.">Top-quartile companies generate 2.5x higher margin per sales dollar.</div>
+          <div class="research-desc" data-en="Automation frees up to 30% more customer-facing time for top performers." data-de="Automatisierung schafft bis zu 30% mehr Kundenzeit für Top-Performer.">Automation frees up to 30% more customer-facing time for top performers.</div>
+        </div>
+        <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/how-top-performers-outpace-peers-in-sales-productivity" target="_blank" class="research-link" data-en="Read the McKinsey study &#8599;" data-de="McKinsey-Studie lesen &#8599;">Read the McKinsey study &#8599;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="roi-cta">
+  <div class="container">
+    <h2 class="fade-up" data-en="Ready to Close the &lt;span style='color:#2DD4BF;'&gt;Productivity Gap?&lt;/span&gt;" data-de="Bereit, die &lt;span style='color:#2DD4BF;'&gt;Produktivitatslucke zu schliessen?&lt;/span&gt;">Ready to Close the <span style="color:#2DD4BF;">Productivity Gap?</span></h2>
+    <p class="fade-up" data-en="Join the waitlist for early access. Limited pilot spots available." data-de="Registrieren Sie sich für den Early Access. Begrenzte Pilotplätze verfügbar.">Join the waitlist for early access. Limited pilot spots available.</p>
+    <a href="mailto:jp@jakobpetersen.de?subject=Lumus ROI – Interesse an Pilot" class="btn btn-primary fade-up" style="padding:0.7rem 1.8rem;font-size:0.95rem;" data-en="Request Early Access &#8594;" data-de="Zugang anfragen &#8594;">Request Early Access &#8594;</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;">
+        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      </a>
+      <p style="margin-top:0.5rem;">&copy; 2026 INVI0 GmbH – Invisible Intelligence</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
+      <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
+    </ul>
+    <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Made in Germany</p>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+function fmt(n) { return Math.round(n).toLocaleString('de-DE'); }
+
+function calc() {
+  const reps = Math.max(1, parseInt(document.getElementById('roi-reps').value) || 10);
+  const salary = Math.max(20000, parseInt(document.getElementById('roi-salary').value) || 65000);
+  const hoursWeek = Math.max(1, parseInt(document.getElementById('roi-hours').value) || 10);
+  const avgDeal = Math.max(1000, parseInt(document.getElementById('roi-avg-deal').value) || 25000);
+
+  const weeks = 46;
+  const hoursYear = reps * hoursWeek * weeks;
+  const hourlyRate = salary / (40 * weeks);
+  const costLost = hoursYear * hourlyRate;
+  const savedPct = 0.80;
+  const savedHours = hoursYear * savedPct;
+  const costSaved = costLost * savedPct;
+
+  // Accounts
+  const accounts = 30;
+  const extraPerRep = Math.round((hoursWeek * savedPct) / (hoursWeek / accounts));
+  const extraAccounts = extraPerRep * reps;
+
+  // Revenue upside: more time = more meetings = more deals
+  // Conservative: each rep gains ~20% more selling capacity, 75% better close rate
+  const currentDealsPerRep = 12; // baseline deals/year
+  const additionalDeals = Math.round(reps * currentDealsPerRep * 0.20 * 0.75);
+  const revenueUpside = additionalDeals * avgDeal;
+
+  // Lumus cost
+  const lumusMonth = reps * 299;
+  const lumusYear = lumusMonth * 12;
+
+  // ROI
+  const roiTime = lumusYear > 0 ? (costSaved / lumusYear) : 0;
+  const roiTotal = lumusYear > 0 ? ((costSaved + revenueUpside) / lumusYear) : 0;
+
+  document.getElementById('r-hours').textContent = fmt(hoursYear);
+  document.getElementById('r-cost').textContent = '€' + fmt(costLost);
+  document.getElementById('r-saved').textContent = fmt(savedHours);
+  document.getElementById('r-lumus').textContent = '€' + fmt(lumusMonth);
+  document.getElementById('r-accounts').textContent = '+' + fmt(extraAccounts);
+  document.getElementById('r-deals').textContent = '+' + fmt(additionalDeals);
+  document.getElementById('r-revenue').textContent = '€' + fmt(revenueUpside);
+  document.getElementById('r-roi').textContent = roiTime.toFixed(1) + 'x';
+  document.getElementById('r-total-roi').textContent = roiTotal.toFixed(1) + 'x';
+}
+
+['roi-reps','roi-salary','roi-hours','roi-avg-deal'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+calc();
+
+// Language toggle
+(function() {
+  const lang = localStorage.getItem('invi0-lang') || 'en';
+  function applyLang(l) {
+    document.querySelectorAll('[data-' + l + ']').forEach(el => {
+      const val = el.getAttribute('data-' + l);
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val;
+      else el.innerHTML = val;
+    });
+    document.querySelectorAll('.lang-toggle span').forEach(s => {
+      s.classList.toggle('active', s.dataset.lang === l);
+    });
+    localStorage.setItem('invi0-lang', l);
+  }
+  applyLang(lang);
+  document.getElementById('langToggle')?.addEventListener('click', function(e) {
+    const t = e.target.closest('[data-lang]');
+    if (t) applyLang(t.dataset.lang);
+  });
+})();
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger?.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+navLinks?.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company – INVI0</title>
+<meta name="description" content="Meet the team behind INVI0 and Lumus. Founded in Düsseldorf, building AI-powered account intelligence for B2B sales.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<meta property="og:title" content="Company – INVI0">
+<meta property="og:description" content="Meet the team behind INVI0 and Lumus. AI-powered account intelligence for B2B sales.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0A0E17; color: #E2E8F0; line-height: 1.7; overflow-x: hidden; }
+::selection { background: rgba(45,212,191,0.3); }
+
+body::before {
+  content: '';
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 0; background: rgba(10,14,23,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(48,54,61,0.5); }
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
+.nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
+.nav-logo .zero { color: #5B8C8C; position: relative; display: inline-block; }
+.nav-logo .zero::after { content: ''; position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: #94A3B8; text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s; }
+.nav-links a:hover { color: #2DD4BF; }
+.nav-links .active { color: #2DD4BF; }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 201; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #E2E8F0; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.lang-toggle { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; font-size: 0.8rem; color: #64748B; user-select: none; }
+.lang-toggle span { padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.2s; }
+.lang-toggle span.active { color: #E2E8F0; background: rgba(45,212,191,0.15); }
+.lang-toggle span:hover { color: #E2E8F0; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; }
+.btn-primary { background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%); color: #0A0E17; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+.glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.1; pointer-events: none; animation: pulse 8s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.16; } }
+
+/* Hero */
+.company-hero {
+  padding: 10rem 0 4rem; text-align: center; position: relative;
+}
+.company-hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.company-hero p { color: #94A3B8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+.highlight { color: #2DD4BF; }
+
+/* Mission */
+.mission {
+  padding: 3rem 0 2rem; text-align: center;
+}
+.mission-text {
+  max-width: 620px; margin: 0 auto;
+  font-size: 1rem; color: #94A3B8; line-height: 1.85;
+}
+.mission-text strong { color: #E2E8F0; }
+.mission-divider {
+  width: 60px; height: 1px; margin: 4rem auto;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+}
+
+/* Team */
+.team-section { padding: 2rem 0 6rem; position: relative; }
+.team-section h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem; font-weight: 500; margin-bottom: 2.5rem;
+}
+.team-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+.team-card {
+  background: rgba(22,27,34,0.6);
+  border: 1px solid rgba(48,54,61,0.5);
+  border-radius: 16px; padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.team-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.team-card:hover { border-color: rgba(45,212,191,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.team-card:hover::before { opacity: 1; }
+
+.team-header { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; }
+.team-avatar {
+  width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid rgba(45,212,191,0.3);
+  overflow: hidden; background: rgba(45,212,191,0.05);
+}
+.team-avatar img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
+.team-name { font-size: 1.25rem; font-weight: 600; color: #E2E8F0; }
+.team-role { font-size: 0.85rem; color: #2DD4BF; font-weight: 500; }
+
+.team-bio {
+  border-top: 1px solid rgba(48,54,61,0.3);
+  padding-top: 1rem; margin-top: 0.5rem;
+}
+.team-bio p { font-size: 0.92rem; color: #94A3B8; line-height: 1.65; margin-bottom: 0.5rem; }
+.team-bio .bio-highlight { color: #E2E8F0; font-weight: 500; }
+
+.team-tags {
+  display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;
+}
+.team-tag {
+  padding: 0.25rem 0.7rem; border-radius: 6px; font-size: 0.75rem;
+  font-style: italic; color: #64748B;
+  background: rgba(45,212,191,0.04); border: 1px solid rgba(48,54,61,0.3);
+}
+
+/* Values */
+.values { padding: 4rem 0 6rem; }
+.values h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2rem; font-weight: 500; text-align: center; margin-bottom: 2.5rem;
+}
+.values-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.value-card {
+  background: rgba(22,27,34,0.4); border: 1px solid rgba(48,54,61,0.3);
+  border-radius: 14px; padding: 1.8rem; text-align: center;
+  transition: all 0.3s;
+}
+.value-card:hover { border-color: rgba(45,212,191,0.2); transform: translateY(-3px); }
+.value-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+.value-card h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.value-card p { font-size: 0.85rem; color: #64748B; }
+
+footer { padding: 3rem 0; border-top: 1px solid rgba(48,54,61,0.2); background: #080B12; }
+footer .container { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+footer p { font-size: 0.85rem; color: #4A5568; }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { color: #4A5568; text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-links a:hover { color: #2DD4BF; }
+
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .nav-links {
+    display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+    background: rgba(10,14,23,0.98); backdrop-filter: blur(20px);
+    flex-direction: column; padding: 5rem 2rem 2rem; gap: 1.5rem;
+    border-left: 1px solid rgba(48,54,61,0.5);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 1rem; }
+  .team-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span>I N V I <span class="zero">0</span></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-en="Home" data-de="Startseite">Home</a></li>
+      <li><a href="integrations.html" data-en="Integrations" data-de="Integrationen">Integrations</a></li>
+      <li><a href="studies.html" data-en="Studies" data-de="Studien">Studies</a></li>
+      <li><a href="roi.html" data-en="ROI" data-de="ROI">ROI</a></li>
+      <li><a href="#" class="active" data-en="Company" data-de="Unternehmen">Company</a></li>
+      <li><a href="mailto:jp@jakobpetersen.de" class="btn btn-primary" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
+      <li>
+        <div class="lang-toggle" id="langToggle">
+          <span class="active" data-lang="en">EN</span>
+          <span data-lang="de">DE</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="company-hero">
+  <div class="glow" style="background:#2DD4BF;width:600px;height:600px;top:-20%;right:10%;"></div>
+  <div class="container">
+    <h1 data-en="Built by People Who &lt;span class='highlight'&gt;Lived the Problem.&lt;/span&gt;" data-de="Gebaut von Menschen, die das &lt;span class='highlight'&gt;Problem kennen.&lt;/span&gt;">Built by People Who <span class="highlight">Lived the Problem.</span></h1>
+    <p data-en="We spent years in B2B sales and saw the same thing everywhere: great reps wasting hours on manual research that AI should handle. So we built Lumus." data-de="Wir haben Jahre im B2B-Vertrieb verbracht und überall dasselbe gesehen: großartige Vertriebler, die Stunden mit manueller Recherche verschwenden, die KI übernehmen sollte. Also haben wir Lumus gebaut.">We spent years in B2B sales and saw the same thing everywhere: great reps wasting hours on manual research that AI should handle. So we built Lumus.</p>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="container">
+    <p class="mission-text" data-en="INVI0 stands for &lt;strong&gt;Invisible Intelligence&lt;/strong&gt;. The best Account Executives at companies like Google don't win by making more calls – they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: &lt;strong&gt;one AI intelligence per account&lt;/strong&gt; that tracks every detail, catches what humans forget, and brings the best out of each AE – so they can do what only they can do: &lt;strong&gt;build relationships and close deals&lt;/strong&gt;. Based in Dusseldorf, building for European B2B." data-de="INVI0 steht für &lt;strong&gt;Unsichtbare Intelligenz&lt;/strong&gt;. Die besten Account Executives bei Unternehmen wie Google gewinnen nicht, weil sie mehr Anrufe machen – sie gewinnen, weil sie keinen Einsatz verpassen, sich nie von wichtigen Nachrichten überrumpeln lassen und zu jedem Meeting mit ausführlicher Recherche gehen. Lumus macht das zum Standard für jeden Rep: &lt;strong&gt;eine KI-Intelligenz pro Account&lt;/strong&gt;, die jeden Details verfolgt, fängt, was Menschen vergessen, und bringt das Beste aus jedem AE heraus – damit sie tun können, was nur sie können: &lt;strong&gt;Beziehungen aufbauen und Deals abschließen&lt;/strong&gt;. Basierend in Düsseldorf, gebaut für europäisches B2B.">
+      INVI0 stands for <strong>Invisible Intelligence</strong>. The best Account Executives at companies like Google don't win by making more calls – they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: <strong>one AI intelligence per account</strong> that tracks every detail, catches what humans forget, and brings the best out of each AE – so they can do what only they can do: <strong>build relationships and close deals</strong>. Based in Dusseldorf, building for European B2B.
+    </p>
+  </div>
+  <div class="mission-divider"></div>
+</section>
+
+<section class="team-section">
+  <div class="glow" style="background:#60A5FA;width:400px;height:400px;bottom:10%;left:-10%;"></div>
+  <div class="container">
+    <h2 data-en="Founder Team" data-de="Gründerteam">Founder Team</h2>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-avatar">
+            <img src="jakob.jpg" alt="Jakob Petersen">
+          </div>
+          <div>
+            <div class="team-name">Jakob Petersen</div>
+            <div class="team-role">Co-Founder & CEO</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <p data-en="Sales strategy, go-to-market, customer development. Building the commercial engine for Lumus." data-de="Verkaufsstrategie, Go-to-Market, Kundenentwicklung. Baut das kommerzielle Herzstück für Lumus.">Sales strategy, go-to-market, customer development. Building the commercial engine for Lumus.</p>
+          <p class="bio-highlight" data-en="Ex-Google" data-de="Ex-Google">Ex-Google</p>
+          <p style="font-size:0.85rem;color:#94A3B8;" data-en="Worked in several Account Executive positions in Tech" data-de="Arbeitete in mehreren Account Executive-Positionen in Tech">Worked in several Account Executive positions in Tech</p>
+        </div>
+        <div class="team-tags">
+          <span class="team-tag" data-en="Business" data-de="Business">Business</span>
+          <span class="team-tag" data-en="Sales" data-de="Vertrieb">Sales</span>
+          <span class="team-tag" data-en="GTM" data-de="GTM">GTM</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-header">
+          <div class="team-avatar">
+            <img src="ben.jpg" alt="Ben Polley">
+          </div>
+          <div>
+            <div class="team-name">Ben Polley</div>
+            <div class="team-role">Co-Founder & CTO</div>
+          </div>
+        </div>
+        <div class="team-bio">
+          <p data-en="Product architecture, AI/ML pipeline, infrastructure. Building the intelligence layer of Lumus." data-de="Produktarchitektur, KI/ML-Pipeline, Infrastruktur. Baut die Intelligenz-Schicht von Lumus.">Product architecture, AI/ML pipeline, infrastructure. Building the intelligence layer of Lumus.</p>
+          <p class="bio-highlight" data-en="Founder of Mooday" data-de="Gründer von Mooday">Founder of Mooday</p>
+          <p style="font-size:0.85rem;color:#94A3B8;" data-en="Silicon Valley Software Engineer" data-de="Silicon Valley Software Engineer">Silicon Valley Software Engineer</p>
+        </div>
+        <div class="team-tags">
+          <span class="team-tag" data-en="Engineering" data-de="Engineering">Engineering</span>
+          <span class="team-tag" data-en="AI" data-de="KI">AI</span>
+          <span class="team-tag" data-en="Product" data-de="Produkt">Product</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <h2 data-en="What We &lt;span class='highlight'&gt;Believe.&lt;/span&gt;" data-de="Woran wir &lt;span class='highlight'&gt;glauben.&lt;/span&gt;">What We <span class="highlight">Believe.</span></h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔇</div>
+        <h3 data-en="Invisible by Design" data-de="Unsichtbar von Anfang an">Invisible by Design</h3>
+        <p data-en="The best tools don't demand attention. They just work." data-de="Die besten Tools verlangen keine Aufmerksamkeit. Sie funktionieren einfach.">The best tools don't demand attention. They just work.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🇪🇺</div>
+        <h3 data-en="European First" data-de="Europa an erster Stelle">European First</h3>
+        <p data-en="Built in Germany. Hosted in the EU. DSGVO from day one." data-de="Gebaut in Deutschland. Gehostet in der EU. DSGVO von Anfang an.">Built in Germany. Hosted in the EU. DSGVO from day one.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h3 data-en="Quality Over Quantity" data-de="Qualität statt Quantität">Quality Over Quantity</h3>
+        <p data-en="One well-prepared meeting beats ten cold calls. Every time." data-de="Ein gut vorbereitetes Meeting schlägt zehn Kaltanrufe. Jedes Mal.">One well-prepared meeting beats ten cold calls. Every time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;">
+        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      </a>
+      <p style="margin-top:0.5rem;">&copy; 2026 INVI0 GmbH – Invisible Intelligence</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
+      <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
+    </ul>
+    <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Made in Germany</p>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const lang = localStorage.getItem('invi0-lang') || 'en';
+  function applyLang(l) {
+    document.querySelectorAll('[data-' + l + ']').forEach(el => {
+      el.innerHTML = el.getAttribute('data-' + l);
+    });
+    document.querySelectorAll('.lang-toggle span').forEach(s => {
+      s.classList.toggle('active', s.dataset.lang === l);
+    });
+    localStorage.setItem('invi0-lang', l);
+  }
+  applyLang(lang);
+  document.getElementById('langToggle')?.addEventListener('click', function(e) {
+    const t = e.target.closest('[data-lang]');
+    if (t) applyLang(t.dataset.lang);
+  });
+})();
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger?.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+navLinks?.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
+</script>
+</body>
+</html>
