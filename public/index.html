@@ -3,22 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INVI0 – Invisible Intelligence</title>
-<meta name="description" content="INVI0 builds Lumus – one AI intelligence per account. CRM data, external signals, open commitments, AI-drafted actions. Built for German Mittelstand B2B sales teams.">
+<title>INVI0 - Invisible Intelligence</title>
+<meta name="description" content="INVI0 builds Lumus - one AI intelligence per account. CRM data, external signals, open commitments, AI-drafted actions. Built for German Mittelstand B2B sales teams.">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
-<meta property="og:title" content="INVI0 – Invisible Intelligence">
-<meta property="og:description" content="One AI intelligence per account. CRM data, external signals, open commitments – fused into AI-drafted actions. Built for B2B sales teams.">
+<meta property="og:title" content="INVI0 - Invisible Intelligence">
+<meta property="og:description" content="One AI intelligence per account. CRM data, external signals, open commitments - fused into AI-drafted actions. Built for B2B sales teams.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="hero-face.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="INVI0 – Invisible Intelligence">
+<meta name="twitter:title" content="INVI0 - Invisible Intelligence">
 <meta name="twitter:description" content="One AI intelligence per account. Built for B2B sales teams.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
   background: #0A0E17;
@@ -82,31 +87,24 @@ body::before {
 /* ── Navigation ── */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 1.2rem 0;
+  padding: 0.5rem 0;
   background: rgba(10,14,23,0.8);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(48,54,61,0.5);
   transition: all 0.3s ease;
 }
 nav .container { display: flex; justify-content: space-between; align-items: center; }
-.nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
-.nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
-.nav-logo .zero { color: #60A5FA; position: relative; display: inline-block; }
-.nav-logo .zero::after {
-  content: '';
-  position: absolute;
-  width: 7px; height: 7px;
-  background: #fff;
-  border-radius: 50%;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-}
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo img { height: 34px; width: auto; transition: filter 0.4s ease, transform 0.3s ease; display: block; }
+.nav-logo:hover img { filter: drop-shadow(0 0 10px rgba(45,212,191,0.35)); transform: scale(1.03); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
 .nav-links a {
   color: #94A3B8; text-decoration: none; font-size: 0.9rem;
   font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s;
 }
 .nav-links a:hover { color: #2DD4BF; }
+/* Request Early Access button: keep label dark on the teal button */
+.nav-links a.btn-primary, .nav-links a.btn-primary:hover { color: #0A0E17 !important; }
 .lang-toggle { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; font-size: 0.8rem; color: #64748B; user-select: none; }
 .lang-toggle span { padding: 0.15rem 0.4rem; border-radius: 4px; transition: all 0.2s; }
 .lang-toggle span.active { color: #E2E8F0; background: rgba(45,212,191,0.15); }
@@ -140,17 +138,22 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 /* ── Hero ── */
 #hero {
   min-height: 100vh; display: flex; align-items: flex-end;
-  padding-top: 5rem; padding-bottom: 3rem; position: relative; overflow: hidden;
+  padding-top: 5rem; padding-bottom: 3rem; position: relative; overflow: visible;
+  background: radial-gradient(ellipse 70% 60% at 50% 38%, #04060a 0%, #070a11 45%, #0A0E17 78%);
 }
 .hero-image-wrap {
-  position: absolute; inset: 0; z-index: 1;
+  position: absolute; inset: -40px; z-index: 1;
   display: flex; justify-content: center; align-items: flex-start;
+  perspective: 900px;
+  transform-style: preserve-3d;
 }
 .hero-image-wrap img {
-  width: 100%; max-width: 1400px; height: auto;
+  width: 105%; max-width: 1500px; height: auto;
   object-fit: cover; object-position: top center;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 92%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 92%);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 .lumus-label {
   font-family: 'Playfair Display', Georgia, serif;
@@ -163,7 +166,7 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 }
 .hero-logo-wrap {
   margin-bottom: 0.3rem;
-  margin-top: 16rem;
+  margin-top: 19rem;
   display: flex;
   justify-content: center;
 }
@@ -172,7 +175,7 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
   filter: brightness(1.1);
 }
 .hero-content {
-  position: relative; z-index: 2; width: 100%; text-align: center;
+  position: relative; z-index: 3; width: 100%; text-align: center;
 }
 .hero-label {
   display: inline-block; padding: 0.4rem 1rem; border-radius: 100px;
@@ -184,20 +187,6 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .hero-sub { font-size: 1.15rem; margin: 1.2rem auto 2rem; max-width: 600px; line-height: 1.7; }
 .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
-/* ── Floating grid lines ── */
-.grid-lines {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0.04;
-}
-.grid-lines::before {
-  content: '';
-  position: absolute; inset: -50%;
-  background-image:
-    linear-gradient(rgba(45,212,191,1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(45,212,191,1) 1px, transparent 1px);
-  background-size: 80px 80px;
-  transform: perspective(500px) rotateX(60deg);
-  transform-origin: center top;
-}
 
 /* ── Problem ── */
 #problem { background: linear-gradient(180deg, #0A0E17 0%, #0D1117 100%); }
@@ -628,11 +617,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 }
 @keyframes pulse { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.18; } }
 .glow { animation: pulse 8s ease-in-out infinite; }
-.fade-up {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up { opacity: 0; }
+.fade-up.visible { opacity: 1; }
 
 /* ── Stagger delay for grid children ── */
 .stat-card.fade-up:nth-child(2) { transition-delay: 0.1s; }
@@ -680,6 +666,287 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   .steps { grid-template-columns: 1fr; }
   .step-connector { display: none; }
 }
+
+/* ═══════════════════════════════════════════
+   PREMIUM MICROINTERACTIONS
+   ═══════════════════════════════════════════ */
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, #2DD4BF, #60A5FA, #A78BFA);
+  z-index: 10001; width: 0%; pointer-events: none;
+}
+
+
+/* Floating feature icons */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.feature-icon { animation: gentleFloat 5s ease-in-out infinite; }
+.feature-card:nth-child(2) .feature-icon { animation-delay: -0.8s; }
+.feature-card:nth-child(3) .feature-icon { animation-delay: -1.6s; }
+.feature-card:nth-child(4) .feature-icon { animation-delay: -2.4s; }
+.feature-card:nth-child(5) .feature-icon { animation-delay: -3.2s; }
+.feature-card:nth-child(6) .feature-icon { animation-delay: -4s; }
+
+/* Trust icons float */
+.trust-icon { animation: gentleFloat 6s ease-in-out infinite; }
+.trust-item:nth-child(2) .trust-icon { animation-delay: -1s; }
+.trust-item:nth-child(3) .trust-icon { animation-delay: -2s; }
+.trust-item:nth-child(4) .trust-icon { animation-delay: -3s; }
+
+/* Button radial spotlight */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.btn-primary:hover::before { opacity: 1; }
+
+/* Feature card top-sweep line */
+.feature-card { overflow: hidden; }
+.feature-card::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, #60A5FA, transparent);
+  transform: translateX(-100%);
+  transition: transform 0.7s ease;
+}
+.feature-card:hover::after { transform: translateX(100%); }
+
+/* Enhanced card hover depth */
+.stat-card:hover, .feature-card:hover {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 40px rgba(45,212,191,0.05);
+}
+.trust-item:hover {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25), 0 0 20px rgba(45,212,191,0.04);
+}
+
+/* Step dot pulse */
+@keyframes dotBreathe {
+  0%, 100% { box-shadow: 0 0 0 0px rgba(45,212,191,0.25), 0 0 30px rgba(45,212,191,0.08); }
+  50% { box-shadow: 0 0 0 10px rgba(45,212,191,0), 0 0 30px rgba(45,212,191,0.08); }
+}
+.step-dot { animation: dotBreathe 3s ease-in-out infinite; }
+.step:nth-child(2) .step-dot { animation-delay: 0.6s; }
+.step:nth-child(3) .step-dot { animation-delay: 1.2s; }
+.step:nth-child(4) .step-dot { animation-delay: 1.8s; }
+
+/* Lumus concept box glow */
+@keyframes lumusGlow {
+  0%, 100% { box-shadow: 0 0 60px rgba(45,212,191,0.08), inset 0 0 30px rgba(45,212,191,0.02); }
+  50% { box-shadow: 0 0 100px rgba(45,212,191,0.16), inset 0 0 50px rgba(45,212,191,0.04); }
+}
+.concept-center-box { animation: lumusGlow 4s ease-in-out infinite; }
+
+/* Section divider grow-in */
+.section-divider { width: 0; }
+.section-divider.visible { width: 48px; }
+
+/* Stat number glow */
+.stat-number { text-shadow: 0 0 30px currentColor; }
+
+/* Logo marquee */
+.logo-marquee {
+  overflow: hidden; flex: 1;
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.logo-marquee-track {
+  display: flex; gap: 3rem; align-items: center;
+  animation: marqueeScroll 30s linear infinite; width: max-content;
+}
+.logo-marquee-track svg { opacity: 0.4; transition: opacity 0.3s; flex-shrink: 0; }
+.logo-marquee-track svg:hover { opacity: 0.8; }
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.logo-marquee-track:hover { animation-play-state: paused; }
+
+/* Interactive hero face - filter transition only, transform driven by JS */
+.hero-image-wrap img { transform-origin: 50% 30%; }
+/* Photographic face = faint base glow; the particle cloud (below) is the hero */
+#heroFace { opacity: 0; animation: faceFade 1.8s ease 0.5s forwards; }
+@keyframes faceFade { to { opacity: 0.22; } }
+
+/* Smoother FAQ transition */
+.faq-answer { transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* CTA glow breathe */
+@keyframes ctaGlow {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.14; }
+}
+#cta .glow { animation: ctaGlow 6s ease-in-out infinite; }
+
+/* Nav enhanced glassmorphism */
+nav { backdrop-filter: blur(30px) saturate(1.4); -webkit-backdrop-filter: blur(30px) saturate(1.4); }
+
+/* Concept arrow pulse */
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.5; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(4px); }
+}
+.concept-arrow { animation: arrowPulse 2s ease-in-out infinite; }
+.concept-arrow-left { animation-name: arrowPulseLeft; }
+@keyframes arrowPulseLeft {
+  0%, 100% { opacity: 0.5; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(-4px); }
+}
+
+/* Hero label shimmer */
+@keyframes labelShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.hero-label {
+  background: linear-gradient(90deg, rgba(45,212,191,0.08) 0%, rgba(45,212,191,0.2) 50%, rgba(45,212,191,0.08) 100%);
+  background-size: 200% auto;
+  animation: labelShimmer 4s linear infinite;
+}
+
+/* Smooth entrance for concept items */
+/* .concept-item reveal handled by GSAP ScrollTrigger */
+
+/* Demo box border shimmer */
+@keyframes borderShimmer {
+  0% { border-color: rgba(45,212,191,0.2); }
+  50% { border-color: rgba(45,212,191,0.4); }
+  100% { border-color: rgba(45,212,191,0.2); }
+}
+.demo-box { animation: borderShimmer 4s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════
+   CINEMATIC REBUILD ADDITIONS
+   ═══════════════════════════════════════════ */
+.accent { color: #2DD4BF; }
+.section-label {
+  font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #2DD4BF; margin-bottom: 1rem;
+}
+.section-header p.section-sub { max-width: 600px; margin: 1.2rem auto 0; line-height: 1.7; }
+
+/* Hero content hidden until GSAP entrance (revealed by fallback if GSAP fails) */
+#hero .hero-logo-wrap, #hero .lumus-label, #hero h1, #hero .hero-sub,
+#hero .hero-ctas, .scroll-indicator { opacity: 0; }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+}
+.scroll-indicator span {
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #64748B; font-weight: 500;
+}
+.scroll-line { width: 1px; height: 40px; background: rgba(45,212,191,0.3); position: relative; overflow: hidden; }
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent, #2DD4BF);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0% { top: -100%; } 50% { top: 100%; } 100% { top: 100%; } }
+
+/* ── Lumus In Action (product demo) ── */
+#action { background: linear-gradient(180deg, #0D1117 0%, #0A0E17 50%, #0D1117 100%); }
+.action-card {
+  max-width: 680px; margin: 0 auto; background: rgba(15,23,42,0.6);
+  border: 1px solid rgba(48,54,61,0.4); border-radius: 20px; padding: 0;
+  overflow: hidden; position: relative;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.4), 0 0 80px rgba(45,212,191,0.04);
+}
+.action-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, #60A5FA, transparent);
+}
+.action-header {
+  display: flex; align-items: center; gap: 0.8rem; padding: 1.2rem 2rem;
+  border-bottom: 1px solid rgba(48,54,61,0.3); background: rgba(10,14,23,0.5);
+}
+.action-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #34D399; flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(52,211,153,0.5); animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse { 0%,100% { box-shadow: 0 0 8px rgba(52,211,153,0.5); } 50% { box-shadow: 0 0 16px rgba(52,211,153,0.8); } }
+.action-company { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: #E2E8F0; }
+.action-badge {
+  margin-left: auto; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem;
+  border-radius: 100px; background: rgba(45,212,191,0.1); color: #2DD4BF; letter-spacing: 0.03em;
+}
+.action-insight {
+  display: flex; gap: 1rem; padding: 1.4rem 2rem;
+  border-bottom: 1px solid rgba(48,54,61,0.15); opacity: 0; transform: translateY(20px);
+}
+.action-insight:last-of-type { border-bottom: none; }
+.insight-icon {
+  width: 40px; height: 40px; border-radius: 10px; display: flex;
+  align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+}
+.insight-content { flex: 1; }
+.insight-label { font-size: 0.78rem; font-weight: 600; color: #E2E8F0; letter-spacing: 0.03em; margin-bottom: 0.3rem; }
+.insight-text { font-size: 0.88rem; color: #94A3B8; line-height: 1.6; }
+.action-cta {
+  padding: 1.2rem 2rem 1.5rem; border-top: 1px solid rgba(48,54,61,0.2);
+  display: flex; justify-content: flex-end; align-items: center; gap: 0.6rem;
+  flex-wrap: wrap; opacity: 0; transform: translateY(10px);
+}
+.action-cta .btn { font-size: 0.85rem; padding: 0.6rem 1.4rem; }
+.action-tagline {
+  text-align: center; margin-top: 3rem; font-size: 1.3rem; color: #64748B;
+  font-family: 'Playfair Display', serif; font-style: italic;
+}
+@media (max-width: 768px) { .action-card { border-radius: 14px; } }
+
+/* ═══════════════════════════════════════════
+   PROBLEM STATS - x.ai-style minimal band
+   ═══════════════════════════════════════════ */
+#problem .problem-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+#problem .stat-card {
+  background: none; border: none; border-radius: 0;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding: 3.2rem 2rem; text-align: left; overflow: visible;
+  transition: background 0.4s ease;
+}
+#problem .stat-card:first-child { border-left: none; }
+#problem .stat-card::before, #problem .stat-card::after { display: none; content: none; }
+#problem .stat-card:hover {
+  transform: none; box-shadow: none;
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+}
+#problem .stat-number {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.8rem, 4.6vw, 4.4rem);
+  font-weight: 200; letter-spacing: -0.03em;
+  color: #F8FAFC; line-height: 1; text-shadow: none;
+}
+#problem .stat-label {
+  font-size: 0.92rem; font-weight: 500; color: #CBD5E1;
+  margin: 1.2rem 0 0.5rem; line-height: 1.45; max-width: 20ch;
+}
+#problem .stat-source { font-size: 0.72rem; color: #64748B; }
+@media (max-width: 900px) {
+  #problem .problem-grid { grid-template-columns: 1fr 1fr; }
+  #problem .stat-card { border-left: none; padding: 2.4rem 1.6rem; }
+  #problem .stat-card:nth-child(even) { border-left: 1px solid rgba(255,255,255,0.08); }
+  #problem .stat-card:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.08); }
+}
+@media (max-width: 560px) {
+  #problem .problem-grid { grid-template-columns: 1fr; }
+  #problem .stat-card { border-left: none; }
+  #problem .stat-card:nth-child(even) { border-left: none; }
+  #problem .stat-card:nth-child(n+2) { border-top: 1px solid rgba(255,255,255,0.08); }
+}
+
 </style>
 </head>
 <body>
@@ -688,7 +955,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 <nav>
   <div class="container">
     <a href="#" class="nav-logo">
-      <span>I N V I <span class="zero">0</span></span>
+      <img src="INVI0_logo_transparent.png" alt="INVI0">
     </a>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
@@ -711,12 +978,11 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 
 <!-- ── Hero ── -->
 <section id="hero">
-  <div class="grid-lines"></div>
   <div class="glow glow-teal" style="top:-20%;right:-10%;"></div>
   <div class="glow glow-blue" style="bottom:-30%;left:-15%;"></div>
 
-  <div class="hero-image-wrap">
-    <img src="hero-face.png" alt="INVI0 Lumus – AI Intelligence">
+  <div class="hero-image-wrap" id="heroFaceWrap">
+    <img src="hero-face.png" alt="INVI0 Lumus - AI Intelligence" id="heroFace">
   </div>
 
   <div class="container">
@@ -726,12 +992,17 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       </div>
       <div class="lumus-label" data-en="LUMUS" data-de="LUMUS">LUMUS</div>
       <h1 style="margin-top:1.2rem;" data-en="One AI Intelligence&lt;br&gt;Per Account." data-de="Eine KI-Intelligenz&lt;br&gt;Pro Account.">One AI Intelligence<br>Per Account.</h1>
-      <p class="hero-sub" data-en="Lumus monitors, analyses, and acts – for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically." data-de="Lumus überwacht, analysiert und handelt – für jeden einzelnen Account. CRM-Daten, externe Signale, offene Commitments. Alles in KI-gestützte Aktionen überführt. Automatisch.">Lumus monitors, analyses, and acts – for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically.</p>
+      <p class="hero-sub" data-en="Lumus monitors, analyses, and acts - for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically." data-de="Lumus überwacht, analysiert und handelt - für jeden einzelnen Account. CRM-Daten, externe Signale, offene Commitments. Alles in KI-gestützte Aktionen überführt. Automatisch.">Lumus monitors, analyses, and acts - for every one of your accounts. CRM data, external signals, open commitments. All fused into AI-drafted actions. Automatically.</p>
       <div class="hero-ctas">
         <a href="#" onclick="event.preventDefault();document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" data-en="Request Early Access →" data-de="Zugang anfragen →">Request Early Access →</a>
         <a href="#how" class="btn btn-ghost" data-en="See How It Works" data-de="So funktioniert's">See How It Works</a>
       </div>
     </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span data-en="Scroll" data-de="Scrollen">Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
@@ -740,31 +1011,28 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   <div class="container">
     <div class="logo-banner-inner">
       <p data-en="Built for teams with" data-de="Entwickelt für Teams mit">Built for teams with</p>
-      <div class="logo-banner-logos">
-        <!-- Salesforce -->
-        <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Salesforce</text>
-        </svg>
-        <!-- HubSpot -->
-        <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">HubSpot</text>
-        </svg>
-        <!-- Pipedrive -->
-        <svg width="100" height="28" viewBox="0 0 100 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Pipedrive</text>
-        </svg>
-        <!-- Gmail -->
-        <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Gmail</text>
-        </svg>
-        <!-- Outlook -->
-        <svg width="80" height="28" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Outlook</text>
-        </svg>
-        <!-- Slack -->
-        <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Slack</text>
-        </svg>
+      <div class="logo-marquee">
+        <div class="logo-marquee-track">
+          <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Salesforce</text></svg>
+          <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">HubSpot</text></svg>
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Pipedrive</text></svg>
+          <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Gmail</text></svg>
+          <svg width="80" height="28" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Outlook</text></svg>
+          <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Slack</text></svg>
+          <svg width="70" height="28" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Teams</text></svg>
+          <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Zoom</text></svg>
+          <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">LinkedIn</text></svg>
+          <!-- duplicate set for seamless loop -->
+          <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Salesforce</text></svg>
+          <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">HubSpot</text></svg>
+          <svg width="100" height="28" viewBox="0 0 100 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Pipedrive</text></svg>
+          <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Gmail</text></svg>
+          <svg width="80" height="28" viewBox="0 0 80 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Outlook</text></svg>
+          <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Slack</text></svg>
+          <svg width="70" height="28" viewBox="0 0 70 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Teams</text></svg>
+          <svg width="65" height="28" viewBox="0 0 65 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">Zoom</text></svg>
+          <svg width="90" height="28" viewBox="0 0 90 28" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" fill="#94A3B8" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="0.5">LinkedIn</text></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -775,8 +1043,9 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   <div class="glow glow-purple" style="top:10%;left:-20%;"></div>
   <div class="container">
     <div class="section-header">
+      <p class="section-label fade-up" data-en="The Reality" data-de="Die Realität">The Reality</p>
       <h2 class="fade-up" data-en="The Problem Is &lt;span style='color:#F87171;'&gt;Invisible.&lt;/span&gt;" data-de="Das Problem ist &lt;span style='color:#F87171;'&gt;unsichtbar.&lt;/span&gt;">The Problem Is <span style="color:#F87171;">Invisible.</span></h2>
-      <p class="fade-up" data-en="Your sales reps spend more time preparing than selling. The data exists – but it's scattered, stale, and silent." data-de="Ihre Vertriebler verbringen mehr Zeit mit Vorbereitung als mit Verkaufen. Die Daten existieren – aber sie sind verstreut, veraltet und stumm.">Your sales reps spend more time preparing than selling. The data exists – but it's scattered, stale, and silent.</p>
+      <p class="fade-up" data-en="Your sales reps spend more time preparing than selling. The data exists - but it's scattered, stale, and silent." data-de="Ihre Vertriebler verbringen mehr Zeit mit Vorbereitung als mit Verkaufen. Die Daten existieren - aber sie sind verstreut, veraltet und stumm.">Your sales reps spend more time preparing than selling. The data exists - but it's scattered, stale, and silent.</p>
       <div class="section-divider fade-up"></div>
     </div>
 
@@ -803,7 +1072,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       </div>
     </div>
     <div class="fade-up" style="text-align:center;margin-top:2rem;">
-      <a href="studies.html" style="color:#2DD4BF;font-size:0.9rem;font-weight:500;text-decoration:none;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" data-en="Backed by Research – See All Studies &#8599;" data-de="Wissenschaftlich belegt – Alle Studien ansehen &#8599;">Backed by Research – See All Studies &#8599;</a>
+      <a href="studies.html" style="color:#2DD4BF;font-size:0.9rem;font-weight:500;text-decoration:none;transition:opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" data-en="Backed by Research - See All Studies &#8599;" data-de="Wissenschaftlich belegt - Alle Studien ansehen &#8599;">Backed by Research - See All Studies &#8599;</a>
     </div>
   </div>
 </section>
@@ -813,8 +1082,9 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   <div class="glow glow-teal" style="top:30%;left:50%;transform:translateX(-50%);width:700px;height:700px;opacity:0.06;"></div>
   <div class="container">
     <div class="section-header">
+      <p class="section-label fade-up" data-en="The Solution" data-de="Die Lösung">The Solution</p>
       <h2 class="fade-up" data-en="The Lumus &lt;span style='color:#2DD4BF;'&gt;Client File.&lt;/span&gt;" data-de="Die Lumus &lt;span style='color:#2DD4BF;'&gt;Client File.&lt;/span&gt;">The Lumus <span style="color:#2DD4BF;">Client File.</span></h2>
-      <p class="fade-up" data-en="One living document per account – everything your AM needs in one place." data-de="Ein lebendes Dokument pro Account – alles, was Ihr AM braucht, an einem Ort.">One living document per account – everything your AM needs in one place.</p>
+      <p class="fade-up" data-en="One living document per account - everything your AM needs in one place." data-de="Ein lebendes Dokument pro Account - alles, was Ihr AM braucht, an einem Ort.">One living document per account - everything your AM needs in one place.</p>
       <div class="section-divider fade-up"></div>
     </div>
 
@@ -887,7 +1157,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
     </div>
 
     <div class="concept-footer fade-up">
-      <p data-en="&lt;strong&gt;Complete context.&lt;/strong&gt; Not another dashboard – a living intelligence file that works for you." data-de="&lt;strong&gt;Vollständiger Kontext.&lt;/strong&gt; Kein weiteres Dashboard – eine lebende Intelligenz-Datei, die für Sie arbeitet."><strong>Complete context.</strong> Not another dashboard – a living intelligence file that works for you.</p>
+      <p data-en="&lt;strong&gt;Complete context.&lt;/strong&gt; Not another dashboard - a living intelligence file that works for you." data-de="&lt;strong&gt;Vollständiger Kontext.&lt;/strong&gt; Kein weiteres Dashboard - eine lebende Intelligenz-Datei, die für Sie arbeitet."><strong>Complete context.</strong> Not another dashboard - a living intelligence file that works for you.</p>
     </div>
   </div>
 </section>
@@ -897,6 +1167,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   <div class="glow glow-teal" style="top:20%;right:-25%;"></div>
   <div class="container">
     <div class="section-header">
+      <p class="section-label fade-up" data-en="The Process" data-de="Der Ablauf">The Process</p>
       <h2 class="fade-up" data-en="How &lt;span style='color:#2DD4BF;'&gt;Lumus&lt;/span&gt; Works" data-de="So funktioniert &lt;span style='color:#2DD4BF;'&gt;Lumus&lt;/span&gt;">How <span style="color:#2DD4BF;">Lumus</span> Works</h2>
       <p class="fade-up" data-en="One intelligence per account. Four steps. Zero manual work." data-de="Eine Intelligenz pro Account. Vier Schritte. Kein manueller Aufwand.">One intelligence per account. Four steps. Zero manual work.</p>
       <div class="section-divider fade-up"></div>
@@ -908,7 +1179,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
         <div class="step-connector"></div>
         <div class="step-content">
           <h3 data-en="Ingest CRM Data" data-de="CRM-Daten aufnehmen">Ingest CRM Data</h3>
-          <p data-en="Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data – automatically synced, always current." data-de="Lumus verbindet sich mit Ihrem CRM und zieht Kontakte, Deal-Stadien, Aktivitäten und Pipeline-Daten – automatisch synchronisiert, immer aktuell.">Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data – automatically synced, always current.</p>
+          <p data-en="Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data - automatically synced, always current." data-de="Lumus verbindet sich mit Ihrem CRM und zieht Kontakte, Deal-Stadien, Aktivitäten und Pipeline-Daten - automatisch synchronisiert, immer aktuell.">Lumus connects to your CRM and pulls contacts, deal stages, activities, and pipeline data - automatically synced, always current.</p>
           <span class="step-tag">HubSpot · Salesforce · Pipedrive</span>
         </div>
       </div>
@@ -917,7 +1188,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
         <div class="step-connector"></div>
         <div class="step-content">
           <h3 data-en="Scrape External Signals" data-de="Externe Signale erfassen">Scrape External Signals</h3>
-          <p data-en="News, press releases, funding rounds, leadership changes – Lumus monitors the web for every account, every day." data-de="Nachrichten, Pressemitteilungen, Finanzierungsrunden, Wechsel in Führungspositionen – Lumus überwacht das Web für jeden Account, jeden Tag.">News, press releases, funding rounds, leadership changes – Lumus monitors the web for every account, every day.</p>
+          <p data-en="News, press releases, funding rounds, leadership changes - Lumus monitors the web for every account, every day." data-de="Nachrichten, Pressemitteilungen, Finanzierungsrunden, Wechsel in Führungspositionen - Lumus überwacht das Web für jeden Account, jeden Tag.">News, press releases, funding rounds, leadership changes - Lumus monitors the web for every account, every day.</p>
           <span class="step-tag" style="background:rgba(96,165,250,0.1);color:#60A5FA;">Real-time web intelligence</span>
         </div>
       </div>
@@ -926,7 +1197,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
         <div class="step-connector"></div>
         <div class="step-content">
           <h3 data-en="Bundle Open Commitments" data-de="Offene Zusagen bundeln">Bundle Open Commitments</h3>
-          <p data-en="Meeting notes, follow-up promises, pending proposals – Lumus tracks every open thread so nothing falls through." data-de="Meeting-Notizen, Follow-up-Versprechen, ausstehende Vorschläge – Lumus verfolgt jeden offenen Thread, damit nichts durchrutscht.">Meeting notes, follow-up promises, pending proposals – Lumus tracks every open thread so nothing falls through.</p>
+          <p data-en="Meeting notes, follow-up promises, pending proposals - Lumus tracks every open thread so nothing falls through." data-de="Meeting-Notizen, Follow-up-Versprechen, ausstehende Vorschläge - Lumus verfolgt jeden offenen Thread, damit nichts durchrutscht.">Meeting notes, follow-up promises, pending proposals - Lumus tracks every open thread so nothing falls through.</p>
           <span class="step-tag" style="background:rgba(167,139,250,0.1);color:#A78BFA;">Transcripts · Emails</span>
         </div>
       </div>
@@ -934,7 +1205,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
         <div class="step-dot">4</div>
         <div class="step-content">
           <h3 data-en="Draft AI Actions" data-de="KI-Aktionen entwerfen">Draft AI Actions</h3>
-          <p data-en="Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs – ready to review and send." data-de="Priorisiert nach Dringlichkeit. Lumus entwerft die E-Mails, Agenden und JBPs – bereit zum Überprüfen und Versenden.">Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs – ready to review and send.</p>
+          <p data-en="Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs - ready to review and send." data-de="Priorisiert nach Dringlichkeit. Lumus entwerft die E-Mails, Agenden und JBPs - bereit zum Überprüfen und Versenden.">Prioritized by urgency. Lumus drafts the emails, agendas, and JBPs - ready to review and send.</p>
           <span class="step-tag" style="background:rgba(52,211,153,0.1);color:#34D399;">Emails · Agendas · Plans</span>
         </div>
       </div>
@@ -942,10 +1213,64 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   </div>
 </section>
 
+<!-- ── Lumus In Action ── -->
+<section id="action">
+  <div class="glow glow-blue" style="top:30%;right:-20%;"></div>
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label fade-up" data-en="See It In Action" data-de="In Aktion erleben">See It In Action</p>
+      <h2 class="fade-up" data-en="Intelligence That &lt;span class='accent'&gt;Works For You.&lt;/span&gt;" data-de="Intelligenz, die &lt;span class='accent'&gt;für Sie arbeitet.&lt;/span&gt;">Intelligence That <span class="accent">Works For You.</span></h2>
+      <p class="section-sub fade-up" data-en="Every morning, Lumus prepares your accounts. Here's what that looks like." data-de="Jeden Morgen bereitet Lumus Ihre Accounts vor. So sieht das aus.">Every morning, Lumus prepares your accounts. Here's what that looks like.</p>
+      <div class="section-divider fade-up"></div>
+    </div>
+
+    <div class="action-card fade-up">
+      <div class="action-header">
+        <span class="action-dot"></span>
+        <span class="action-company">Henkel AG</span>
+        <span class="action-badge" data-en="3 new insights" data-de="3 neue Erkenntnisse">3 new insights</span>
+      </div>
+
+      <div class="action-insight">
+        <div class="insight-icon" style="background:rgba(52,211,153,0.1);color:#34D399;">⚡</div>
+        <div class="insight-content">
+          <div class="insight-label" data-en="Revenue Signal" data-de="Umsatzsignal">Revenue Signal</div>
+          <div class="insight-text" data-en="Henkel Q1 results beat estimates by 12%. Beauty &amp; Consumer segment up 8% YoY. Expansion budget likely increased." data-de="Henkel Q1-Ergebnisse übertrafen Schätzungen um 12%. Beauty &amp; Consumer Segment 8% YoY gestiegen. Expansionsbudget wahrscheinlich erhöht.">Henkel Q1 results beat estimates by 12%. Beauty &amp; Consumer segment up 8% YoY. Expansion budget likely increased.</div>
+        </div>
+      </div>
+
+      <div class="action-insight">
+        <div class="insight-icon" style="background:rgba(96,165,250,0.1);color:#60A5FA;">👤</div>
+        <div class="insight-content">
+          <div class="insight-label" data-en="Stakeholder Change" data-de="Stakeholder-Wechsel">Stakeholder Change</div>
+          <div class="insight-text" data-en="New VP Procurement appointed March 2026. Previously at Beiersdorf - familiar with your product category." data-de="Neuer VP Procurement seit März 2026 ernannt. Zuvor bei Beiersdorf - mit Ihrer Produktkategorie vertraut.">New VP Procurement appointed March 2026. Previously at Beiersdorf - familiar with your product category.</div>
+        </div>
+      </div>
+
+      <div class="action-insight">
+        <div class="insight-icon" style="background:rgba(45,212,191,0.1);color:#2DD4BF;">✉️</div>
+        <div class="insight-content">
+          <div class="insight-label" data-en="Recommended Action" data-de="Empfohlene Aktion">Recommended Action</div>
+          <div class="insight-text" data-en="Draft introductory email to new VP, referencing Q1 growth and existing partnership history. Priority: High." data-de="Einleitungs-E-Mail an neuen VP entwerfen, mit Verweis auf Q1-Wachstum und bestehende Partnerschaftshistorie. Priorität: Hoch.">Draft introductory email to new VP, referencing Q1 growth and existing partnership history. Priority: High.</div>
+        </div>
+      </div>
+
+      <div class="action-cta">
+        <button class="btn btn-ghost" onclick="document.getElementById('eaOverlay').classList.add('open')" data-en="News scanned" data-de="Nachrichten gescannt">News scanned</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('eaOverlay').classList.add('open')" data-en="Joint Business Plan created" data-de="Joint Business Plan erstellt">Joint Business Plan created</button>
+        <button class="btn btn-primary" onclick="document.getElementById('eaOverlay').classList.add('open')" data-en="Mail draft ready" data-de="Mail-Entwurf bereit">Mail draft ready</button>
+      </div>
+    </div>
+
+    <p class="action-tagline fade-up" data-en="Every account. Every morning. Zero manual research." data-de="Jeder Account. Jeden Morgen. Null manuelle Recherche.">Every account. Every morning. Zero manual research.</p>
+  </div>
+</section>
+
 <!-- ── Features ── -->
 <section id="features">
   <div class="container">
     <div class="section-header">
+      <p class="section-label fade-up" data-en="Capabilities" data-de="Funktionen">Capabilities</p>
       <h2 class="fade-up" data-en="Monday Morning, &lt;span style='color:#2DD4BF;'&gt;Reimagined.&lt;/span&gt;" data-de="Montagmorgen, &lt;span style='color:#2DD4BF;'&gt;neugestaltet.&lt;/span&gt;">Monday Morning, <span style="color:#2DD4BF;">Reimagined.</span></h2>
       <p class="fade-up" data-en="Open your laptop. Every account is prepared. Every action is drafted. You just sell." data-de="Öffnen Sie Ihren Laptop. Jeder Account ist vorbereitet. Jede Aktion ist entworfen. Sie verkaufen einfach.">Open your laptop. Every account is prepared. Every action is drafted. You just sell.</p>
       <div class="section-divider fade-up"></div>
@@ -960,17 +1285,17 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       <div class="feature-card fade-up">
         <div class="feature-icon">📰</div>
         <h3 data-en="Live Client Intelligence" data-de="Live-Kundenintelligenz">Live Client Intelligence</h3>
-        <p data-en="News, social mentions, hiring signals, funding rounds – aggregated per account, updated daily, no manual research needed." data-de="Nachrichten, Social-Nennungen, Einstellungssignale, Finanzierungsrunden – pro Account aggregiert, täglich aktualisiert, keine manuelle Recherche nötig.">News, social mentions, hiring signals, funding rounds – aggregated per account, updated daily, no manual research needed.</p>
+        <p data-en="News, social mentions, hiring signals, funding rounds - aggregated per account, updated daily, no manual research needed." data-de="Nachrichten, Social-Nennungen, Einstellungssignale, Finanzierungsrunden - pro Account aggregiert, täglich aktualisiert, keine manuelle Recherche nötig.">News, social mentions, hiring signals, funding rounds - aggregated per account, updated daily, no manual research needed.</p>
       </div>
       <div class="feature-card fade-up">
         <div class="feature-icon">✉️</div>
         <h3 data-en="AI-Drafted Outreach" data-de="KI-entworfenes Outreach">AI-Drafted Outreach</h3>
-        <p data-en="Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone – with the intelligence of every data point." data-de="Kontextbezogene E-Mails und Follow-ups aus CRM-Daten + externen Signalen entworfen. Ihre Stimme, Ihr Ton – mit der Intelligenz jedes Datenpunkts.">Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone – with the intelligence of every data point.</p>
+        <p data-en="Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone - with the intelligence of every data point." data-de="Kontextbezogene E-Mails und Follow-ups aus CRM-Daten + externen Signalen entworfen. Ihre Stimme, Ihr Ton - mit der Intelligenz jedes Datenpunkts.">Contextual emails and follow-ups drafted from CRM data + external signals. Your voice, your tone - with the intelligence of every data point.</p>
       </div>
       <div class="feature-card fade-up">
         <div class="feature-icon">🤝</div>
         <h3 data-en="Commitment Tracker" data-de="Zusagen-Tracker">Commitment Tracker</h3>
-        <p data-en="Every promise made in a call, every follow-up mentioned in an email – tracked, surfaced, and turned into action items." data-de="Jedes Versprechen in einem Anruf, jedes Follow-up in einer E-Mail – verfolgt, aufgedeckt, und in Aktionselemente umgewandelt.">Every promise made in a call, every follow-up mentioned in an email – tracked, surfaced, and turned into action items.</p>
+        <p data-en="Every promise made in a call, every follow-up mentioned in an email - tracked, surfaced, and turned into action items." data-de="Jedes Versprechen in einem Anruf, jedes Follow-up in einer E-Mail - verfolgt, aufgedeckt, und in Aktionselemente umgewandelt.">Every promise made in a call, every follow-up mentioned in an email - tracked, surfaced, and turned into action items.</p>
       </div>
       <div class="feature-card fade-up">
         <div class="feature-icon">📊</div>
@@ -980,7 +1305,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       <div class="feature-card fade-up">
         <div class="feature-icon">🔌</div>
         <h3 data-en="Seamless Integration" data-de="Nahtlose Integration">Seamless Integration</h3>
-        <p data-en="Connects with your CRM, calendar, and communication tools. No migration, no disruption – Lumus works alongside your existing stack." data-de="Verbindet sich mit Ihrem CRM, Kalender und Kommunikationstools. Keine Migration, keine Unterbrechung – Lumus arbeitet neben Ihrem bestehenden Stack.">Connects with your CRM, calendar, and communication tools. No migration, no disruption – Lumus works alongside your existing stack.</p>
+        <p data-en="Connects with your CRM, calendar, and communication tools. No migration, no disruption - Lumus works alongside your existing stack." data-de="Verbindet sich mit Ihrem CRM, Kalender und Kommunikationstools. Keine Migration, keine Unterbrechung - Lumus arbeitet neben Ihrem bestehenden Stack.">Connects with your CRM, calendar, and communication tools. No migration, no disruption - Lumus works alongside your existing stack.</p>
       </div>
     </div>
   </div>
@@ -990,6 +1315,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 <section id="trust">
   <div class="container">
     <div class="section-header">
+      <p class="section-label fade-up" data-en="Security &amp; Compliance" data-de="Sicherheit &amp; Compliance">Security &amp; Compliance</p>
       <h2 class="fade-up" data-en="Built for &lt;span style='color:#2DD4BF;'&gt;European&lt;/span&gt; Standards." data-de="Gebaut nach &lt;span style='color:#2DD4BF;'&gt;europäischen&lt;/span&gt; Standards.">Built for <span style="color:#2DD4BF;">European</span> Standards.</h2>
       <p class="fade-up" data-en="DSGVO-compliant from day one. Your data stays in Europe. Period." data-de="DSGVO-konform von Anfang an. Ihre Daten bleiben in Europa. Punkt.">DSGVO-compliant from day one. Your data stays in Europe. Period.</p>
       <div class="section-divider fade-up"></div>
@@ -1009,7 +1335,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       <div class="trust-item fade-up">
         <div class="trust-icon">🗑️</div>
         <h3 data-en="Transient Processing" data-de="Flüchtiges Processing">Transient Processing</h3>
-        <p data-en="Transcripts analyzed and discarded. We store only extracted commitments – never raw audio or text." data-de="Transkripte werden analysiert und verworfen. Wir speichern nur extrahierte Zusagen – niemals Rohmedien oder Text.">Transcripts analyzed and discarded. We store only extracted commitments – never raw audio or text.</p>
+        <p data-en="Transcripts analyzed and discarded. We store only extracted commitments - never raw audio or text." data-de="Transkripte werden analysiert und verworfen. Wir speichern nur extrahierte Zusagen - niemals Rohmedien oder Text.">Transcripts analyzed and discarded. We store only extracted commitments - never raw audio or text.</p>
       </div>
       <div class="trust-item fade-up">
         <div class="trust-icon">📋</div>
@@ -1019,35 +1345,24 @@ footer p { font-size: 0.85rem; color: #4A5568; }
     </div>
 
     <div class="fade-up" style="text-align:center;margin-top:2.5rem;padding:1.2rem;border-top:1px solid rgba(48,54,61,0.2);">
-      <p style="font-size:0.85rem;color:#64748B;margin:0;line-height:1.6;"><span style="color:#2DD4BF;font-weight:600;">+75%</span> Sales reps who do tailored pre-call research close at a 75% higher rate than those who rely on volume alone. Lumus does this research – for every account, every day, automatically.</p>
+      <p style="font-size:0.85rem;color:#64748B;margin:0;line-height:1.6;"><span style="color:#2DD4BF;font-weight:600;">+75%</span> Sales reps who do tailored pre-call research close at a 75% higher rate than those who rely on volume alone. Lumus does this research - for every account, every day, automatically.</p>
       <p style="font-size:0.7rem;color:#4A5568;margin-top:0.4rem;">Source: SPOTIO / Salesforce State of Sales Report, 2024</p>
     </div>
   </div>
 </section>
 
-<!-- ── ROI Teaser ── -->
-<section id="roi" style="padding:4rem 0;">
-  <div class="container" style="text-align:center;">
-    <div class="section-header">
-      <h2 class="fade-up" data-en="Your Sales Team is Losing &lt;span style='color:#F87171;'&gt;5,200 Hours&lt;/span&gt; a Year." data-de="Ihr Vertriebsteam verliert &lt;span style='color:#F87171;'&gt;5.200 Stunden&lt;/span&gt; pro Jahr.">Your Sales Team is Losing <span style="color:#F87171;">5,200 Hours</span> a Year.</h2>
-      <p class="fade-up" data-en="Non-selling activities consume two-thirds of sales time. Reps who do tailored research close 75% more deals. Calculate your exact savings and revenue upside." data-de="Nicht-verkaufende Aktivitäten nehmen zwei Drittel der Vertriebszeit ein. Reps mit gezielter Recherche schließen 75% mehr Deals ab. Berechnen Sie Ihre genauen Einsparungen und Umsatzpotenziale.">Non-selling activities consume two-thirds of sales time. Reps who do tailored research close 75% more deals. Calculate your exact savings and revenue upside.</p>
-      <div class="section-divider fade-up"></div>
-    </div>
-    <a href="roi.html" class="btn btn-primary fade-up" style="margin-top:0.5rem;font-size:0.95rem;padding:0.7rem 1.8rem;" data-en="Calculate Your ROI &#8599;" data-de="ROI berechnen &#8599;">Calculate Your ROI &#8599;</a>
-  </div>
-</section>
+<!-- ── ROI Teaser removed from homepage (kept in nav + roi.html) ── -->
 
 <!-- ── CTA ── -->
 <section id="cta">
   <div class="glow glow-teal" style="top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;opacity:0.08;"></div>
   <div class="container">
     <h2 class="fade-up" data-en="Ready to See Your&lt;br&gt;Accounts &lt;span style='color:#2DD4BF;'&gt;Come Alive?&lt;/span&gt;" data-de="Bereit, Ihre Accounts&lt;br&gt;&lt;span style='color:#2DD4BF;'&gt;zum Leben zu erwecken?&lt;/span&gt;">Ready to See Your<br>Accounts <span style="color:#2DD4BF;">Come Alive?</span></h2>
-    <p class="fade-up" data-en="Join the waitlist for early access. Limited pilot spots available." data-de="Treten Sie der Warteliste für frühen Zugang bei. Begrenzte Pilotplätze verfügbar.">Join the waitlist for early access. Limited pilot spots available.</p>
+    <p class="fade-up" data-en="Join the waitlist for early access." data-de="Treten Sie der Warteliste für frühen Zugang bei.">Join the waitlist for early access.</p>
 
     <div class="fade-up" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem;" data-en="Request Early Access →" data-de="Zugang anfragen →">Request Early Access →</button>
     </div>
-    <p class="fade-up" style="margin-top:1.5rem;font-size:0.85rem;color:#64748B;" data-en="No credit card required · Free pilot for qualifying teams" data-de="Keine Kreditkarte erforderlich · Kostenloses Pilot für qualifizierende Teams">No credit card required · Free pilot for qualifying teams</p>
   </div>
 </section>
 
@@ -1066,8 +1381,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner" data-en="Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts – monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead." data-de="Lumus ist eine KI-gestützte Account-Intelligence-Schicht, entwickelt von INVI0. Es weist jedem Ihrer Vertriebsaccounts eine eigene KI-Intelligenz zu – die CRM-Daten, E-Mails, externe Signale und offene Commitments in Echtzeit überwacht. Anschließend entwirft es automatisch die nächste beste Aktion für Ihre Vertriebler. Stellen Sie es sich vor, als hätte jeder Account einen eigenen Analysten, der nie schläft, nie vergisst und Ihren Rep immer einen Schritt voraus hält.">
-            Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts – monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead.
+          <div class="faq-answer-inner" data-en="Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts - monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead." data-de="Lumus ist eine KI-gestützte Account-Intelligence-Schicht, entwickelt von INVI0. Es weist jedem Ihrer Vertriebsaccounts eine eigene KI-Intelligenz zu - die CRM-Daten, E-Mails, externe Signale und offene Commitments in Echtzeit überwacht. Anschließend entwirft es automatisch die nächste beste Aktion für Ihre Vertriebler. Stellen Sie es sich vor, als hätte jeder Account einen eigenen Analysten, der nie schläft, nie vergisst und Ihren Rep immer einen Schritt voraus hält.">
+            Lumus is an AI-powered account intelligence layer built by INVI0. It assigns one AI intelligence to each of your sales accounts - monitoring CRM data, emails, external signals, and open commitments in real time. It then drafts the next best action for your reps automatically. Think of it as giving every account its own dedicated analyst that never sleeps, never forgets, and always keeps your rep one step ahead.
           </div>
         </div>
       </div>
@@ -1078,8 +1393,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner" data-en="Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately – delivering the first account insights within hours." data-de="Unter 15 Minuten. Lumus verbindet sich über Standard-Integrationen mit Ihrem bestehenden CRM (Salesforce, HubSpot oder Pipedrive), E-Mail und Kalender. Keine Datenmigration, keine komplexe Konfiguration und kein neuer Workflow zu lernen. Ihre Vertriebler verbinden ihre Accounts und Lumus beginnt sofort im Hintergrund zu arbeiten – die ersten Account-Insights werden innerhalb von Stunden geliefert.">
-            Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately – delivering the first account insights within hours.
+          <div class="faq-answer-inner" data-en="Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately - delivering the first account insights within hours." data-de="Unter 15 Minuten. Lumus verbindet sich über Standard-Integrationen mit Ihrem bestehenden CRM (Salesforce, HubSpot oder Pipedrive), E-Mail und Kalender. Keine Datenmigration, keine komplexe Konfiguration und kein neuer Workflow zu lernen. Ihre Vertriebler verbinden ihre Accounts und Lumus beginnt sofort im Hintergrund zu arbeiten - die ersten Account-Insights werden innerhalb von Stunden geliefert.">
+            Under 15 minutes. Lumus connects to your existing CRM (Salesforce, HubSpot, or Pipedrive), email, and calendar through standard integrations. There's no data migration, no complex configuration, and no new workflow to learn. Your reps connect their accounts and Lumus starts working in the background immediately - delivering the first account insights within hours.
           </div>
         </div>
       </div>
@@ -1102,8 +1417,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner" data-en="Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched – reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn." data-de="Ihr CRM speichert Daten. Lumus macht sie nützlich. Die meisten CRM-Daten liegen ungenutzt – Reps protokollieren Aktivitäten, aber gehen selten zurück, um Muster über Accounts hinweg zu analysieren. Lumus zieht Ihre CRM-Daten, kombiniert sie mit externen Signalen, die Ihre Reps nie alleine finden würden, und wandelt alles in priorisierte Aktionen um. Es verbindet sich mit Salesforce, HubSpot oder Pipedrive in unter 15 Minuten. Keine Migration, kein neuer Workflow zum Lernen.">
-            Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched – reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn.
+          <div class="faq-answer-inner" data-en="Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched - reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn." data-de="Ihr CRM speichert Daten. Lumus macht sie nützlich. Die meisten CRM-Daten liegen ungenutzt - Reps protokollieren Aktivitäten, aber gehen selten zurück, um Muster über Accounts hinweg zu analysieren. Lumus zieht Ihre CRM-Daten, kombiniert sie mit externen Signalen, die Ihre Reps nie alleine finden würden, und wandelt alles in priorisierte Aktionen um. Es verbindet sich mit Salesforce, HubSpot oder Pipedrive in unter 15 Minuten. Keine Migration, kein neuer Workflow zum Lernen.">
+            Your CRM stores data. Lumus makes it useful. Most CRM data sits untouched - reps log activities but rarely go back to analyze patterns across accounts. Lumus pulls your CRM data, combines it with external signals your reps would never find on their own, and turns all of it into prioritized actions. It connects to Salesforce, HubSpot, or Pipedrive in under 15 minutes. No migration, no new workflow to learn.
           </div>
         </div>
       </div>
@@ -1114,8 +1429,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner" data-en="Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it – it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work." data-de="Gong zeichnet Anrufe auf und analysiert sie. 6sense verfolgt Einkaufsabsicht-Signale. Dealfront findet Leads. Jedes löst ein Problem. Lumus ist die Schicht, die oben auf all dem sitzt – es fusioniert Ihre CRM-Daten, externe Nachrichten, Meeting-Zusagen und Kommunikationsverlauf in eine Intelligenz-Datei pro Account und entwirft dann die tatsächlichen nächsten Schritte. Ihr Rep muss nicht zwischen fünf Registern hin und her springen und es selbst zusammensetzen. Lumus macht diese Arbeit.">
-            Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it – it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work.
+          <div class="faq-answer-inner" data-en="Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it - it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work." data-de="Gong zeichnet Anrufe auf und analysiert sie. 6sense verfolgt Einkaufsabsicht-Signale. Dealfront findet Leads. Jedes löst ein Problem. Lumus ist die Schicht, die oben auf all dem sitzt - es fusioniert Ihre CRM-Daten, externe Nachrichten, Meeting-Zusagen und Kommunikationsverlauf in eine Intelligenz-Datei pro Account und entwirft dann die tatsächlichen nächsten Schritte. Ihr Rep muss nicht zwischen fünf Registern hin und her springen und es selbst zusammensetzen. Lumus macht diese Arbeit.">
+            Gong records and analyzes calls. 6sense tracks buyer intent signals. Dealfront finds leads. Each solves one piece. Lumus is the layer that sits on top of all of it - it fuses your CRM data, external news, meeting commitments, and communication history into one intelligence file per account and then drafts the actual next steps. Your rep doesn't need to switch between five tabs and piece it together themselves. Lumus does that work.
           </div>
         </div>
       </div>
@@ -1126,8 +1441,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner" data-en="Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted – we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start." data-de="Ja. Alle Daten werden auf EU-Servern verarbeitet und gespeichert. Wir haben Lumus von Anfang an DSGVO-konform gebaut, weil unsere ersten Kunden deutsche Mittelstand-Unternehmen sind, die es erfordern. Rohdaten wie Anruftranskripte werden analysiert und dann gelöscht – wir behalten nur die extrahierten Erkenntnisse. Wir stellen einen Auftragsverarbeitungsvertrag (AVV) zur Verfügung und können Ihr IT-Team durch unsere Sicherheitseinrichtungen führen, bevor Sie beginnen.">
-            Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted – we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start.
+          <div class="faq-answer-inner" data-en="Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted - we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start." data-de="Ja. Alle Daten werden auf EU-Servern verarbeitet und gespeichert. Wir haben Lumus von Anfang an DSGVO-konform gebaut, weil unsere ersten Kunden deutsche Mittelstand-Unternehmen sind, die es erfordern. Rohdaten wie Anruftranskripte werden analysiert und dann gelöscht - wir behalten nur die extrahierten Erkenntnisse. Wir stellen einen Auftragsverarbeitungsvertrag (AVV) zur Verfügung und können Ihr IT-Team durch unsere Sicherheitseinrichtungen führen, bevor Sie beginnen.">
+            Yes. All data is processed and stored on EU servers. We built Lumus DSGVO-compliant from day one because our first customers are German Mittelstand companies who require it. Raw data like call transcripts is analyzed and then deleted - we only keep the extracted insights. We provide an Auftragsverarbeitungsvertrag (AVV) and can walk your IT team through our security setup before you start.
           </div>
         </div>
       </div>
@@ -1139,13 +1454,13 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 <footer>
   <div class="container">
     <div>
-      <a href="#" class="nav-logo" style="margin-bottom:0.5rem;">
-        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      <a href="#" class="nav-logo" style="margin-bottom:0.5rem;justify-content:center;">
+        <img src="INVI0_logo_transparent.png" alt="INVI0" style="height:24px;width:auto;">
       </a>
       <p style="margin-top:0.5rem;">© 2026 INVI0 GbR · Invisible Intelligence</p>
     </div>
     <ul class="footer-links">
-      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="mailto:info@invi0.com" data-en="Contact" data-de="Kontakt">Contact</a></li>
       <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
       <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
     </ul>
@@ -1153,34 +1468,159 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   </div>
 </footer>
 
-<!-- ── Scroll animations ── -->
+<!-- ── GSAP + Lenis ── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<!-- ── Enhanced Interactions ── -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+
+// ── Smooth scroll + cinematic reveals (GSAP ScrollTrigger + Lenis) ──
+var hasGSAP = (typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined');
+
+if (!hasGSAP) {
+  // Resilience: if the animation libraries fail to load, reveal everything.
+  document.querySelectorAll('.fade-up, #hero .hero-logo-wrap, #hero .lumus-label, #hero h1, #hero .hero-sub, #hero .hero-ctas, .scroll-indicator, .action-insight, .action-cta, .concept-item, .concept-center').forEach(function(e){ e.style.opacity = 1; e.style.transform = 'none'; });
+  document.querySelectorAll('.section-divider').forEach(function(e){ e.style.width = '48px'; });
+} else {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Lenis smooth scroll, driven by the GSAP ticker
+  var lenis = null;
+  if (typeof window.Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 0.85,
+      easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      orientation: 'vertical', smoothWheel: true, wheelMultiplier: 1.1, touchMultiplier: 1.8
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+    // In-page anchor links scroll smoothly via Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      a.addEventListener('click', function(e){
+        var target = document.querySelector(href);
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+      });
+    });
+  }
+
+  // Hero entrance (staggered)
+  var heroEls = ['.hero-logo-wrap', '.lumus-label', '#hero h1', '.hero-sub', '.hero-ctas', '.scroll-indicator']
+    .map(function(s){ return document.querySelector(s); })
+    .filter(Boolean);
+  gsap.set(heroEls, { opacity: 0, y: 28 });
+  gsap.timeline({ delay: 0.5 })
+    .to(heroEls, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.09 });
+
+  // Hero content parallax + fade on scroll.
+  // NOTE: we never animate #heroFace (rAF tilt owns its transform) nor #heroFaceWrap
+  // (the Three.js particle system reads its bounding rect) - only .hero-content.
+  gsap.to('.hero-content', {
+    y: -60, opacity: 0, ease: 'none',
+    scrollTrigger: { trigger: '#hero', start: '35% top', end: 'bottom top', scrub: true }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  gsap.to('.scroll-indicator', {
+    opacity: 0, ease: 'none',
+    scrollTrigger: { trigger: '#hero', start: '12% top', end: '30% top', scrub: true }
+  });
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  // Generic cinematic reveals (excludes grids, dividers, concept flow, hero)
+  gsap.utils.toArray('.fade-up').forEach(function(el){
+    if (el.matches('.stat-card, .feature-card, .trust-item, .step, .section-divider, .concept-flow')) return;
+    if (el.closest('#hero')) return;
+    gsap.set(el, { opacity: 0, y: 24 });
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none none' }
+    });
+  });
 
-// Hamburger menu
+  // Section dividers grow in (they carry .fade-up, so reveal opacity here too)
+  gsap.utils.toArray('.section-divider').forEach(function(el){
+    gsap.set(el, { width: 0, opacity: 0 });
+    gsap.to(el, {
+      width: 48, opacity: 1, duration: 1, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
+    });
+  });
+
+  // Concept flow container is .fade-up but skipped above - fade it in (children slide within)
+  var conceptFlow = document.querySelector('.concept-flow');
+  if (conceptFlow) {
+    gsap.set(conceptFlow, { opacity: 0 });
+    gsap.to(conceptFlow, {
+      opacity: 1, duration: 0.8, ease: 'power2.out',
+      scrollTrigger: { trigger: conceptFlow, start: 'top 85%', toggleActions: 'play none none none' }
+    });
+  }
+
+  // Staggered grids
+  function staggerGrid(itemSel, triggerSel, y, st){
+    var items = gsap.utils.toArray(itemSel);
+    if (!items.length) return;
+    gsap.set(items, { opacity: 0, y: y });
+    gsap.to(items, {
+      opacity: 1, y: 0, duration: 0.65, ease: 'power3.out', stagger: st,
+      scrollTrigger: { trigger: triggerSel, start: 'top 86%', toggleActions: 'play none none none' }
+    });
+  }
+  staggerGrid('.problem-grid .stat-card', '.problem-grid', 32, 0.08);
+  staggerGrid('.features-grid .feature-card', '.features-grid', 32, 0.07);
+  staggerGrid('.trust-grid .trust-item', '.trust-grid', 28, 0.07);
+  staggerGrid('.steps .step', '.steps', 28, 0.1);
+
+  // Concept center scales in
+  var conceptCenter = document.querySelector('.concept-center');
+  if (conceptCenter) {
+    gsap.set(conceptCenter, { opacity: 0, scale: 0.85 });
+    gsap.to(conceptCenter, {
+      opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: '.concept-flow', start: 'top 84%', toggleActions: 'play none none none' }
+    });
+  }
+  // Concept items slide in from each side
+  gsap.utils.toArray('#concept .concept-flow > div:first-child .concept-item').forEach(function(it, i){
+    gsap.set(it, { opacity: 0, x: -40 });
+    gsap.to(it, { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.08,
+      scrollTrigger: { trigger: '.concept-flow', start: 'top 78%', toggleActions: 'play none none none' } });
+  });
+  gsap.utils.toArray('#concept .concept-flow > div:last-child .concept-item').forEach(function(it, i){
+    gsap.set(it, { opacity: 0, x: 40 });
+    gsap.to(it, { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.08,
+      scrollTrigger: { trigger: '.concept-flow', start: 'top 78%', toggleActions: 'play none none none' } });
+  });
+
+  // Lumus In Action - sequential insight reveal
+  gsap.utils.toArray('.action-insight').forEach(function(ins, i){
+    gsap.fromTo(ins, { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 + i * 0.25,
+        scrollTrigger: { trigger: '.action-card', start: 'top 72%', toggleActions: 'play none none none' } });
+  });
+  var actionCta = document.querySelector('.action-cta');
+  if (actionCta) {
+    gsap.fromTo(actionCta, { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 1.0,
+        scrollTrigger: { trigger: '.action-card', start: 'top 72%', toggleActions: 'play none none none' } });
+  }
+
+  ScrollTrigger.refresh();
+}
+
+// ── Hamburger menu ──
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
-hamburger?.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  navLinks.classList.toggle('open');
-});
+hamburger?.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
 navLinks?.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-  });
+  a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); });
 });
 
-// Early Access Modal
+// ── Early Access Modal ──
 document.getElementById('eaOverlay').addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('open');
 });
@@ -1194,59 +1634,45 @@ document.getElementById('eaForm').addEventListener('submit', function(e) {
   const company = document.getElementById('ea-company').value;
   const phone = document.getElementById('ea-phone').value || 'Not provided';
   const teamsize = document.getElementById('ea-teamsize').value;
-
-  const subject = encodeURIComponent('Early Access Request – ' + company);
+  const subject = encodeURIComponent('Early Access Request - ' + company);
   const body = encodeURIComponent(
-    'New Early Access Request\n\n' +
-    'Name: ' + name + '\n' +
-    'Email: ' + email + '\n' +
-    'Company: ' + company + '\n' +
-    'Phone: ' + phone + '\n' +
-    'Team Size: ' + teamsize + ' sales reps'
+    'New Early Access Request\n\nName: ' + name + '\nEmail: ' + email +
+    '\nCompany: ' + company + '\nPhone: ' + phone + '\nTeam Size: ' + teamsize + ' sales reps'
   );
-  window.open('mailto:jp@jakobpetersen.de?subject=' + subject + '&body=' + body, '_blank');
-
+  window.open('mailto:info@invi0.com?subject=' + subject + '&body=' + body, '_blank');
   document.getElementById('eaForm').style.display = 'none';
   document.getElementById('eaSuccess').style.display = 'block';
 });
 
-// FAQ accordion
+// ── FAQ accordion ──
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
     const answer = item.querySelector('.faq-answer');
     const isOpen = item.classList.contains('open');
-
-    // Close all
     document.querySelectorAll('.faq-item').forEach(i => {
       i.classList.remove('open');
       i.querySelector('.faq-answer').style.maxHeight = null;
     });
-
-    // Open clicked if it was closed
-    if (!isOpen) {
-      item.classList.add('open');
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
+    if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
   });
 });
 
-// Smooth nav background
-let lastScroll = 0;
+// ── Nav scroll effect ──
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
-  const scroll = window.scrollY;
-  if (scroll > 100) {
+  if (window.scrollY > 100) {
     nav.style.borderBottomColor = 'rgba(48,54,61,0.8)';
+    nav.style.background = 'rgba(10,14,23,0.95)';
   } else {
     nav.style.borderBottomColor = 'rgba(48,54,61,0.5)';
+    nav.style.background = 'rgba(10,14,23,0.8)';
   }
-  lastScroll = scroll;
-});
+}, { passive: true });
 
-// Language toggle
+// ── Language toggle ──
 (function() {
-  const lang = localStorage.getItem('invi0-lang') || 'en';
+  var lang = 'en'; try { lang = localStorage.getItem('invi0-lang') || 'en'; } catch (e) {}
   function applyLang(l) {
     document.querySelectorAll('[data-' + l + ']').forEach(el => {
       const val = el.getAttribute('data-' + l);
@@ -1256,7 +1682,7 @@ window.addEventListener('scroll', () => {
     document.querySelectorAll('.lang-toggle span').forEach(s => {
       s.classList.toggle('active', s.dataset.lang === l);
     });
-    localStorage.setItem('invi0-lang', l);
+    try { localStorage.setItem('invi0-lang', l); } catch (e) {}
   }
   applyLang(lang);
   document.getElementById('langToggle')?.addEventListener('click', function(e) {
@@ -1264,6 +1690,103 @@ window.addEventListener('scroll', () => {
     if (t) applyLang(t.dataset.lang);
   });
 })();
+
+// ═════════════════════════════════════════════════
+//  PREMIUM MICROINTERACTIONS
+// ═════════════════════════════════════════════════
+
+// ── 1. Scroll progress bar ──
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+  progressBar.style.width = (pct * 100) + '%';
+}, { passive: true });
+
+// ── 2. Stat counter animation ──
+const counted = new Set();
+function animateCounters() {
+  document.querySelectorAll('.stat-number').forEach(el => {
+    if (counted.has(el)) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.9 || rect.bottom < 0) return;
+    counted.add(el);
+
+    const raw = el.textContent.trim();
+    const match = raw.match(/^([\d.]+)(.*)$/);
+    if (!match) return;
+
+    const target = parseFloat(match[1]);
+    const suffix = match[2];
+    const hasDec = match[1].includes('.');
+    const dur = 1300;
+    const t0 = performance.now();
+    el.textContent = '0' + suffix;
+
+    (function tick(now) {
+      const t = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - t, 4);
+      el.textContent = (hasDec ? (target * ease).toFixed(1) : Math.round(target * ease)) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    })(performance.now());
+  });
+}
+window.addEventListener('scroll', animateCounters, { passive: true });
+animateCounters();
+
+// ── 4. 3D card tilt on mousemove ──
+document.querySelectorAll('.feature-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    card.style.transform = 'perspective(800px) rotateX(' + ((y-0.5)*-8) + 'deg) rotateY(' + ((x-0.5)*8) + 'deg) translateY(-8px) scale(1.02)';
+  });
+  card.addEventListener('mouseenter', () => { card.style.transition = 'box-shadow 0.3s'; });
+  card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.5s ease';
+    card.style.transform = '';
+    setTimeout(() => { card.style.transition = ''; }, 500);
+  });
+});
+
+// ── 5. Magnetic button glow follow ──
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    btn.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    btn.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+// ── 6. Parallax glow orbs ──
+let glowTick = false;
+window.addEventListener('scroll', () => {
+  if (!glowTick) {
+    requestAnimationFrame(() => {
+      const sy = window.scrollY;
+      document.querySelectorAll('.glow').forEach((g, i) => {
+        g.style.transform = 'translateY(' + (sy * (0.02 + i * 0.015)) + 'px)';
+      });
+      glowTick = false;
+    });
+    glowTick = true;
+  }
+}, { passive: true });
+
+// ── 7. Hero face motion is handled by the particle cloud (bottom of file) ──
+
+// ── 8. Smooth reveal for nav links on hover ──
+document.querySelectorAll('.nav-links a:not(.btn)').forEach(a => {
+  a.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-1px)';
+    this.style.transition = 'color 0.3s, transform 0.3s';
+  });
+  a.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+  });
+});
 
 }); // end DOMContentLoaded
 </script>
@@ -1273,13 +1796,13 @@ window.addEventListener('scroll', () => {
   <div class="ea-modal">
     <button class="ea-close" onclick="document.getElementById('eaOverlay').classList.remove('open')">&times;</button>
     <h3 data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</h3>
-    <p class="ea-subtitle" data-en="Limited pilot spots available. We'll be in touch within 24 hours." data-de="Begrenzte Pilotplätze verfügbar. Wir melden uns innerhalb von 24 Stunden.">Limited pilot spots available. We'll be in touch within 24 hours.</p>
+    <p class="ea-subtitle" data-en="We'll be in touch within 24 hours." data-de="Wir melden uns innerhalb von 24 Stunden.">We'll be in touch within 24 hours.</p>
 
     <form id="eaForm">
       <div class="ea-row">
         <div class="ea-field">
           <label data-en="Full Name *" data-de="Vollständiger Name *">Full Name *</label>
-          <input type="text" id="ea-name" required placeholder="Jakob Petersen">
+          <input type="text" id="ea-name" required placeholder="Max Mustermann">
         </div>
         <div class="ea-field">
           <label data-en="Work Email *" data-de="Geschäftliche E-Mail *">Work Email *</label>
@@ -1300,14 +1823,13 @@ window.addEventListener('scroll', () => {
         <label data-en="Team Size *" data-de="Teamgröße *">Team Size *</label>
         <select id="ea-teamsize" required>
           <option value="" disabled selected data-en="Select team size" data-de="Teamgröße wählen">Select team size</option>
-          <option value="1-5">1–5 sales reps</option>
-          <option value="6-15">6–15 sales reps</option>
-          <option value="16-50">16–50 sales reps</option>
+          <option value="1-5">1-5 sales reps</option>
+          <option value="6-15">6-15 sales reps</option>
+          <option value="16-50">16-50 sales reps</option>
           <option value="50+">50+ sales reps</option>
         </select>
       </div>
       <button type="submit" class="ea-submit" data-en="Submit Request →" data-de="Anfrage senden →">Submit Request →</button>
-      <p class="ea-note" data-en="No credit card required · Free pilot for qualifying teams" data-de="Keine Kreditkarte erforderlich · Kostenloses Pilot für qualifizierende Teams">No credit card required · Free pilot for qualifying teams</p>
     </form>
 
     <div class="ea-success" id="eaSuccess">
@@ -1317,6 +1839,171 @@ window.addEventListener('scroll', () => {
     </div>
   </div>
 </div>
+
+<!-- ── Particle Face (epiminds-style point cloud sampled from the image) ── -->
+<script>
+(function(){
+'use strict';
+
+// ── 3D Simplex Noise ──
+var F3=1/3,G3=1/6;
+var g3=[[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[0,1,1],[0,1,-1],[0,-1,1],[0,-1,-1],[1,0,-1],[-1,0,-1]];
+var pm=new Uint8Array(512),p12=new Uint8Array(512);
+(function(){var p=[];for(var i=0;i<256;i++)p[i]=i;for(var i=255;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=p[i];p[i]=p[j];p[j]=t;}for(var i=0;i<512;i++){pm[i]=p[i&255];p12[i]=pm[i]%12;}})();
+function sn3(x,y,z){
+  var s=(x+y+z)*F3,i=Math.floor(x+s),j=Math.floor(y+s),k=Math.floor(z+s);
+  var t=(i+j+k)*G3,x0=x-(i-t),y0=y-(j-t),z0=z-(k-t);
+  var i1,j1,k1,i2,j2,k2;
+  if(x0>=y0){if(y0>=z0){i1=1;j1=0;k1=0;i2=1;j2=1;k2=0;}else if(x0>=z0){i1=1;j1=0;k1=0;i2=1;j2=0;k2=1;}else{i1=0;j1=0;k1=1;i2=1;j2=0;k2=1;}}
+  else{if(y0<z0){i1=0;j1=0;k1=1;i2=0;j2=1;k2=1;}else if(x0<z0){i1=0;j1=1;k1=0;i2=0;j2=1;k2=1;}else{i1=0;j1=1;k1=0;i2=1;j2=1;k2=0;}}
+  var x1=x0-i1+G3,y1=y0-j1+G3,z1=z0-k1+G3,x2=x0-i2+2*G3,y2=y0-j2+2*G3,z2=z0-k2+2*G3,x3=x0-1+3*G3,y3=y0-1+3*G3,z3=z0-1+3*G3;
+  var ii=i&255,jj=j&255,kk=k&255,n0=0,n1=0,n2=0,n3=0;
+  var t0=0.6-x0*x0-y0*y0-z0*z0;if(t0>0){t0*=t0;var gg=g3[p12[ii+pm[jj+pm[kk]]]];n0=t0*t0*(gg[0]*x0+gg[1]*y0+gg[2]*z0);}
+  var t1=0.6-x1*x1-y1*y1-z1*z1;if(t1>0){t1*=t1;var gg=g3[p12[ii+i1+pm[jj+j1+pm[kk+k1]]]];n1=t1*t1*(gg[0]*x1+gg[1]*y1+gg[2]*z1);}
+  var t2=0.6-x2*x2-y2*y2-z2*z2;if(t2>0){t2*=t2;var gg=g3[p12[ii+i2+pm[jj+j2+pm[kk+k2]]]];n2=t2*t2*(gg[0]*x2+gg[1]*y2+gg[2]*z2);}
+  var t3=0.6-x3*x3-y3*y3-z3*z3;if(t3>0){t3*=t3;var gg=g3[p12[ii+1+pm[jj+1+pm[kk+1]]]];n3=t3*t3*(gg[0]*x3+gg[1]*y3+gg[2]*z3);}
+  return 32*(n0+n1+n2+n3);
+}
+
+function init(){
+  var hero=document.getElementById('hero'), faceImg=document.getElementById('heroFace');
+  if(!hero||!faceImg||typeof THREE==='undefined') return;
+
+  var tX=0.5,tY=0.5,sY=0, hmx=0.5,hmy=0.5,mIn=false;
+  document.addEventListener('mousemove',function(e){ tX=e.clientX/window.innerWidth; tY=e.clientY/window.innerHeight; });
+  window.addEventListener('scroll',function(){ sY=window.scrollY; },{passive:true});
+  hero.addEventListener('mousemove',function(e){ var r=hero.getBoundingClientRect(); hmx=(e.clientX-r.left)/r.width; hmy=(e.clientY-r.top)/r.height; mIn=true; });
+  hero.addEventListener('mouseleave',function(){ mIn=false; });
+
+  var live=null;
+
+  function build(){
+    var mob=window.innerWidth<768;
+    var hW=hero.clientWidth, hH=hero.clientHeight;
+    if(hW<2||hH<2) return;
+
+    // ── Sample the face image into a small canvas ──
+    var SW=mob?150:240;
+    var ratio=(faceImg.naturalHeight/faceImg.naturalWidth)||0.42;
+    var SH=Math.max(1,Math.round(SW*ratio));
+    var sc=document.createElement('canvas'); sc.width=SW; sc.height=SH;
+    var sx=sc.getContext('2d'); sx.drawImage(faceImg,0,0,SW,SH);
+    var data; try{ data=sx.getImageData(0,0,SW,SH).data; }catch(e){ return; }
+
+    // ── Renderer + camera ──
+    var ren=new THREE.WebGLRenderer({alpha:true,antialias:false,powerPreference:'high-performance'});
+    ren.setPixelRatio(Math.min(window.devicePixelRatio,2)); ren.setSize(hW,hH);
+    ren.domElement.style.cssText='position:absolute;inset:0;z-index:2;pointer-events:none;';
+    hero.appendChild(ren.domElement);
+    var scene=new THREE.Scene();
+    var FOV=60,cZ=5; var cam=new THREE.PerspectiveCamera(FOV,hW/hH,0.1,100); cam.position.z=cZ;
+    var vH=2*cZ*Math.tan(FOV*Math.PI/360), vW=vH*hW/hH;
+
+    // ── Map the face's on-screen rectangle to world units ──
+    var hr=hero.getBoundingClientRect(), fr=faceImg.getBoundingClientRect();
+    var fcx=((fr.left+fr.width/2)-(hr.left+hr.width/2))/hW*vW;
+    var fcy=-((fr.top+fr.height/2)-(hr.top+hr.height/2))/hH*vH;
+    var fw=(fr.width/hW)*vW, fh=(fr.height/hH)*vH;
+    if(!(fw>0)||!(fh>0)){ fw=vW*0.55; fh=vH*0.95; fcx=0; fcy=0; }
+
+    // ── Build particles from bright pixels ──
+    var PAL=[[0.16,0.83,0.78],[0.55,0.50,0.98],[0.45,0.70,1.00],[0.92,0.96,1.00]]; // teal, violet, blue, white
+    var step=mob?2:1, MW=0.42;
+    var hx=[],hy=[],hz=[],cr=[],cg=[],cb=[],ba=[];
+    for(var yy=0; yy<SH; yy+=step){
+      for(var xx=0; xx<SW; xx+=step){
+        var o=(yy*SW+xx)*4; var al=data[o+3]; if(al<40) continue;
+        var r=data[o]/255,g=data[o+1]/255,b=data[o+2]/255;
+        var lum=r*0.299+g*0.587+b*0.114; if(lum<0.06) continue;
+        var pk=PAL[(xx*7+yy*13)%PAL.length];
+        hx.push(fcx+(xx/SW-0.5)*fw);
+        hy.push(fcy+(0.5-yy/SH)*fh);
+        hz.push((Math.random()-0.5)*0.3);
+        cr.push(r*(1-MW)+pk[0]*MW);
+        cg.push(g*(1-MW)+pk[1]*MW);
+        cb.push(b*(1-MW)+pk[2]*MW);
+        ba.push(Math.min(1,0.30+lum*0.85));
+      }
+    }
+    var N=hx.length; if(N===0){ try{hero.removeChild(ren.domElement);}catch(e){} return; }
+
+    var pos=new Float32Array(N*3), col=new Float32Array(N*3), szA=new Float32Array(N), alA=new Float32Array(N);
+    var sd=new Float32Array(N*2), ph=new Float32Array(N), spd=new Float32Array(N);
+    for(var i=0;i<N;i++){
+      var ang=Math.random()*6.2832, rr=2+Math.random()*4;
+      pos[i*3]=Math.cos(ang)*rr; pos[i*3+1]=Math.sin(ang)*rr*0.6+(Math.random()-0.5)*vH; pos[i*3+2]=(Math.random()-0.5)*5;
+      col[i*3]=cr[i]; col[i*3+1]=cg[i]; col[i*3+2]=cb[i];
+      szA[i]=(mob?1.7:2.0)*(0.55+ba[i]); alA[i]=0;
+      sd[i*2]=Math.random()*999; sd[i*2+1]=Math.random()*999;
+      ph[i]=Math.random()*6.2832; spd[i]=0.4+Math.random()*1.1;
+    }
+
+    var geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    geo.setAttribute('aS',new THREE.BufferAttribute(szA,1));
+    geo.setAttribute('aA',new THREE.BufferAttribute(alA,1));
+    geo.setAttribute('aC',new THREE.BufferAttribute(col,3));
+    var vs=['attribute float aS;attribute float aA;attribute vec3 aC;','varying float vA;varying vec3 vC;',
+      'void main(){vA=aA;vC=aC;vec4 mv=modelViewMatrix*vec4(position,1.0);',
+      'gl_PointSize=aS*(350.0/-mv.z);gl_Position=projectionMatrix*mv;}'].join('');
+    var fs=['varying float vA;varying vec3 vC;',
+      'void main(){float d=length(gl_PointCoord-vec2(0.5))*2.0;if(d>1.0)discard;',
+      'float g=exp(-d*d*2.2);gl_FragColor=vec4(vC,vA*g);}'].join('');
+    var mat=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+    var pts=new THREE.Points(geo,mat); scene.add(pts);
+
+    var mX=0.5,mY=0.5, t0=performance.now(), running=true;
+    var P=geo.attributes.position.array, A=geo.attributes.aA.array;
+
+    function anim(T){
+      if(!running) return;
+      requestAnimationFrame(anim);
+      if(sY>hH*1.6) return;
+      var t=(T-t0)/1000;
+      var asm=Math.min((T-t0)/2400,1), e=1-Math.pow(1-asm,3);          // assemble from dust
+      var sp=Math.min(Math.max(sY,0)/(hH*0.95),1);                     // scroll progress through hero
+      mX+=(tX-mX)*0.05; mY+=(tY-mY)*0.05;
+      pts.rotation.y=(mX-0.5)*0.34*e + sp*0.14;                        // turn toward cursor + scroll
+      pts.rotation.x=(mY-0.5)*-0.22*e + sp*0.45;                       // tilt back in 3D as you scroll
+      pts.position.y=sp*1.3;                                           // parallax drift while scrolling
+      var mwx=(hmx-0.5)*vW, mwy=-(hmy-0.5)*vH;                         // cursor position in world space
+      for(var i=0;i<N;i++){
+        var s0=sd[i*2],s1=sd[i*2+1], bx=hx[i],by=hy[i];
+        var nx=sn3(s0+t*0.25*spd[i], s1, t*0.05)*0.05;
+        var ny=sn3(s0, s1+t*0.25*spd[i], t*0.05+40)*0.05;
+        var nz=sn3(s0+9, s1+9, t*0.04)*0.07;
+        // cursor repulsion - particles flee the pointer when you move over the face
+        var repx=0,repy=0,repz=0;
+        if(mIn){ var dx=bx-mwx, dy=by-mwy, d2=dx*dx+dy*dy, R=0.85;
+          if(d2<R*R){ var d=Math.sqrt(d2)||1e-4, fo=1-d/R, f=fo*fo*0.6; repx=dx/d*f; repy=dy/d*f; repz=fo*0.5; } }
+        // scroll dispersion - the face gently scatters outward as you scroll away
+        var dsx=(bx-fcx)*sp*0.5, dsy=(by-fcy)*sp*0.5, dsz=(((s0*0.017)%1)-0.5)*sp*2.2;
+        var tx=bx+nx+repx+dsx, ty=by+ny+repy+dsy, tz=hz[i]+nz+repz+dsz;
+        var k=0.08+0.12*e;
+        P[i*3]+=(tx-P[i*3])*k; P[i*3+1]+=(ty-P[i*3+1])*k; P[i*3+2]+=(tz-P[i*3+2])*k;
+        var tw=0.55+0.45*Math.sin(ph[i]+t*1.6*spd[i]);
+        A[i]=ba[i]*tw*e*(1-sp*0.85);                                   // fade out as you scroll
+      }
+      geo.attributes.position.needsUpdate=true; geo.attributes.aA.needsUpdate=true;
+      ren.render(scene,cam);
+    }
+    requestAnimationFrame(anim);
+
+    live={ dispose:function(){ running=false; try{hero.removeChild(ren.domElement);}catch(e){}
+      try{geo.dispose();}catch(e){} try{mat.dispose();}catch(e){} try{ren.dispose();}catch(e){} } };
+  }
+
+  function start(){ build(); }
+  if(faceImg.complete&&faceImg.naturalWidth>0) requestAnimationFrame(start);
+  else faceImg.addEventListener('load',function(){ requestAnimationFrame(start); });
+
+  var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ if(live&&live.dispose) live.dispose(); build(); },220); });
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
 
 </body>
 </html>

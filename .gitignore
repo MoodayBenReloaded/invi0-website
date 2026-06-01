@@ -1,8 +1,14 @@
 .DS_Store
 *.log
+*.code-workspace
 .vscode/
 .idea/
 node_modules/
+
+# Local backup files (don't deploy)
+public/*_orig.png
+public/*_backup*.html
+public/index_backup_v2.html
 
 # wrangler files
 .wrangler

@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Company – INVI0</title>
+<title>Company - INVI0</title>
 <meta name="description" content="Meet the team behind INVI0 and Lumus. Founded in Düsseldorf, building AI-powered account intelligence for B2B sales.">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
-<meta property="og:title" content="Company – INVI0">
+<meta property="og:title" content="Company - INVI0">
 <meta property="og:description" content="Meet the team behind INVI0 and Lumus. AI-powered account intelligence for B2B sales.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,11 +28,13 @@ nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 0; bac
 nav .container { display: flex; justify-content: space-between; align-items: center; }
 .nav-logo { display: flex; align-items: center; gap: 0.15em; text-decoration: none; }
 .nav-logo span { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 0.35em; color: #fff; }
-.nav-logo .zero { color: #60A5FA; position: relative; display: inline-block; }
-.nav-logo .zero::after { content: ''; position: absolute; width: 7px; height: 7px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.nav-logo .zero { color: #5B8C8C; position: relative; display: inline-block; }
+.nav-logo .zero::after { content: ''; position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
 .nav-links a { color: #94A3B8; text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.05em; transition: color 0.3s; }
 .nav-links a:hover { color: #2DD4BF; }
+/* Request Early Access button: keep label dark on the teal button */
+.nav-links a.btn-primary, .nav-links a.btn-primary:hover { color: #0A0E17 !important; }
 .nav-links .active { color: #2DD4BF; }
 .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 201; }
 .hamburger span { display: block; width: 22px; height: 2px; background: #E2E8F0; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
@@ -169,6 +171,83 @@ footer p { font-size: 0.85rem; color: #4A5568; }
   .team-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
 }
+/* ── Early Access Modal ── */
+.ea-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  justify-content: center; align-items: center;
+}
+.ea-overlay.open { display: flex; }
+.ea-modal {
+  width: 90%; max-width: 520px;
+  background: #161B22; border: 1px solid rgba(48,54,61,0.6);
+  border-radius: 16px; padding: 2.5rem;
+  position: relative; text-align: left;
+  animation: eaSlideIn 0.3s ease;
+}
+@keyframes eaSlideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.ea-modal::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #2DD4BF, transparent);
+  border-radius: 16px 16px 0 0;
+}
+.ea-close {
+  position: absolute; top: 1rem; right: 1.2rem;
+  background: none; border: none; color: #64748B; font-size: 1.5rem;
+  cursor: pointer; transition: color 0.2s; line-height: 1;
+}
+.ea-close:hover { color: #E2E8F0; }
+.ea-modal h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500;
+  text-align: center; margin-bottom: 0.4rem; color: #E2E8F0;
+}
+.ea-modal .ea-subtitle {
+  text-align: center; font-size: 0.85rem; color: #64748B; margin-bottom: 1.8rem;
+}
+.ea-field { margin-bottom: 1rem; }
+.ea-field label {
+  display: block; font-size: 0.78rem; font-weight: 500; color: #94A3B8;
+  margin-bottom: 0.3rem; letter-spacing: 0.02em;
+}
+.ea-field input, .ea-field select {
+  width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px;
+  background: rgba(10,14,23,0.8); border: 1px solid rgba(48,54,61,0.6);
+  color: #E2E8F0; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+.ea-field input:focus, .ea-field select:focus {
+  outline: none; border-color: #2DD4BF;
+  box-shadow: 0 0 0 3px rgba(45,212,191,0.1);
+}
+.ea-field input::placeholder { color: #4A5568; }
+.ea-field select option { background: #0A0E17; color: #E2E8F0; }
+.ea-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ea-submit {
+  width: 100%; margin-top: 0.5rem; padding: 0.85rem;
+  background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%);
+  color: #0A0E17; font-family: 'Inter', sans-serif; font-size: 0.95rem;
+  font-weight: 600; border: none; border-radius: 8px; cursor: pointer;
+  transition: all 0.3s;
+}
+.ea-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,212,191,0.3); }
+.ea-note {
+  text-align: center; font-size: 0.75rem; color: #4A5568; margin-top: 1rem;
+}
+.ea-success {
+  display: none; text-align: center; padding: 2rem 1rem;
+}
+.ea-success .check {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(45,212,191,0.1); border: 2px solid #2DD4BF;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 1.5rem; color: #2DD4BF;
+}
+.ea-success h3 { color: #E2E8F0; margin-bottom: 0.5rem; }
+.ea-success p { color: #94A3B8; font-size: 0.9rem; }
+@media (max-width: 768px) {
+  .ea-row { grid-template-columns: 1fr; }
+  .ea-modal { padding: 1.8rem; }
+}
 </style>
 </head>
 <body>
@@ -176,7 +255,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 <nav>
   <div class="container">
     <a href="index.html" class="nav-logo">
-      <span>I N V I <span class="zero">0</span></span>
+      <img src="INVI0_logo_transparent.png" alt="INVI0" style="height:40px;width:auto;transition:filter 0.4s ease;" onmouseover="this.style.filter='drop-shadow(0 0 10px rgba(45,212,191,0.35))'" onmouseout="this.style.filter=''">
     </a>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
@@ -185,7 +264,7 @@ footer p { font-size: 0.85rem; color: #4A5568; }
       <li><a href="studies.html" data-en="Studies" data-de="Studien">Studies</a></li>
       <li><a href="roi.html" data-en="ROI" data-de="ROI">ROI</a></li>
       <li><a href="#" class="active" data-en="Company" data-de="Unternehmen">Company</a></li>
-      <li><a href="mailto:jp@jakobpetersen.de" class="btn btn-primary" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
+      <li><a href="#" onclick="event.preventDefault();document.getElementById('eaOverlay').classList.add('open')" class="btn btn-primary" style="padding:0.5rem 1.2rem;font-size:0.85rem;" data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</a></li>
       <li>
         <div class="lang-toggle" id="langToggle">
           <span class="active" data-lang="en">EN</span>
@@ -206,8 +285,8 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 
 <section class="mission">
   <div class="container">
-    <p class="mission-text" data-en="INVI0 stands for &lt;strong&gt;Invisible Intelligence&lt;/strong&gt;. The best Account Executives at companies like Google don't win by making more calls – they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: &lt;strong&gt;one AI intelligence per account&lt;/strong&gt; that tracks every detail, catches what humans forget, and brings the best out of each AE – so they can do what only they can do: &lt;strong&gt;build relationships and close deals&lt;/strong&gt;. Based in Dusseldorf, building for European B2B." data-de="INVI0 steht für &lt;strong&gt;Unsichtbare Intelligenz&lt;/strong&gt;. Die besten Account Executives bei Unternehmen wie Google gewinnen nicht, weil sie mehr Anrufe machen – sie gewinnen, weil sie keinen Einsatz verpassen, sich nie von wichtigen Nachrichten überrumpeln lassen und zu jedem Meeting mit ausführlicher Recherche gehen. Lumus macht das zum Standard für jeden Rep: &lt;strong&gt;eine KI-Intelligenz pro Account&lt;/strong&gt;, die jeden Details verfolgt, fängt, was Menschen vergessen, und bringt das Beste aus jedem AE heraus – damit sie tun können, was nur sie können: &lt;strong&gt;Beziehungen aufbauen und Deals abschließen&lt;/strong&gt;. Basierend in Düsseldorf, gebaut für europäisches B2B.">
-      INVI0 stands for <strong>Invisible Intelligence</strong>. The best Account Executives at companies like Google don't win by making more calls – they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: <strong>one AI intelligence per account</strong> that tracks every detail, catches what humans forget, and brings the best out of each AE – so they can do what only they can do: <strong>build relationships and close deals</strong>. Based in Dusseldorf, building for European B2B.
+    <p class="mission-text" data-en="INVI0 stands for &lt;strong&gt;Invisible Intelligence&lt;/strong&gt;. The best Account Executives at companies like Google don't win by making more calls - they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: &lt;strong&gt;one AI intelligence per account&lt;/strong&gt; that tracks every detail, catches what humans forget, and brings the best out of each AE - so they can do what only they can do: &lt;strong&gt;build relationships and close deals&lt;/strong&gt;. Based in Dusseldorf, building for European B2B." data-de="INVI0 steht für &lt;strong&gt;Unsichtbare Intelligenz&lt;/strong&gt;. Die besten Account Executives bei Unternehmen wie Google gewinnen nicht, weil sie mehr Anrufe machen - sie gewinnen, weil sie keinen Einsatz verpassen, sich nie von wichtigen Nachrichten überrumpeln lassen und zu jedem Meeting mit ausführlicher Recherche gehen. Lumus macht das zum Standard für jeden Rep: &lt;strong&gt;eine KI-Intelligenz pro Account&lt;/strong&gt;, die jeden Details verfolgt, fängt, was Menschen vergessen, und bringt das Beste aus jedem AE heraus - damit sie tun können, was nur sie können: &lt;strong&gt;Beziehungen aufbauen und Deals abschließen&lt;/strong&gt;. Basierend in Düsseldorf, gebaut für europäisches B2B.">
+      INVI0 stands for <strong>Invisible Intelligence</strong>. The best Account Executives at companies like Google don't win by making more calls - they win because they never miss a commitment, never get blindsided by news that matters, and walk into every meeting with deep research done. Lumus makes that the standard for every rep: <strong>one AI intelligence per account</strong> that tracks every detail, catches what humans forget, and brings the best out of each AE - so they can do what only they can do: <strong>build relationships and close deals</strong>. Based in Dusseldorf, building for European B2B.
     </p>
   </div>
   <div class="mission-divider"></div>
@@ -292,13 +371,13 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 <footer>
   <div class="container">
     <div>
-      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;">
-        <span style="font-size:1.1rem;">I N V I <span class="zero">0</span></span>
+      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;justify-content:center;">
+        <img src="INVI0_logo_transparent.png" alt="INVI0" style="height:24px;width:auto;">
       </a>
-      <p style="margin-top:0.5rem;">&copy; 2026 INVI0 GbR – Invisible Intelligence</p>
+      <p style="margin-top:0.5rem;">&copy; 2026 INVI0 GbR - Invisible Intelligence</p>
     </div>
     <ul class="footer-links">
-      <li><a href="mailto:jp@jakobpetersen.de" data-en="Contact" data-de="Kontakt">Contact</a></li>
+      <li><a href="mailto:info@invi0.com" data-en="Contact" data-de="Kontakt">Contact</a></li>
       <li><a href="privacy.html" data-en="Privacy Policy" data-de="Datenschutz">Privacy Policy</a></li>
       <li><a href="impressum.html" data-en="Impressum" data-de="Impressum">Impressum</a></li>
     </ul>
@@ -330,5 +409,78 @@ const navLinks = document.getElementById('navLinks');
 hamburger?.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
 navLinks?.querySelectorAll('a').forEach(a => { a.addEventListener('click', () => { hamburger.classList.remove('open'); navLinks.classList.remove('open'); }); });
 </script>
+<!-- ── Early Access Modal ── -->
+<div class="ea-overlay" id="eaOverlay">
+  <div class="ea-modal">
+    <button class="ea-close" onclick="document.getElementById('eaOverlay').classList.remove('open')">&times;</button>
+    <h3 data-en="Request Early Access" data-de="Zugang anfragen">Request Early Access</h3>
+    <p class="ea-subtitle" data-en="We'll be in touch within 24 hours." data-de="Wir melden uns innerhalb von 24 Stunden.">We'll be in touch within 24 hours.</p>
+
+    <form id="eaForm">
+      <div class="ea-row">
+        <div class="ea-field">
+          <label data-en="Full Name *" data-de="Vollständiger Name *">Full Name *</label>
+          <input type="text" id="ea-name" required placeholder="Max Mustermann">
+        </div>
+        <div class="ea-field">
+          <label data-en="Work Email *" data-de="Geschäftliche E-Mail *">Work Email *</label>
+          <input type="email" id="ea-email" required placeholder="you@company.com">
+        </div>
+      </div>
+      <div class="ea-row">
+        <div class="ea-field">
+          <label data-en="Company *" data-de="Unternehmen *">Company *</label>
+          <input type="text" id="ea-company" required placeholder="Acme GmbH">
+        </div>
+        <div class="ea-field">
+          <label data-en="Phone Number" data-de="Telefonnummer">Phone Number</label>
+          <input type="tel" id="ea-phone" placeholder="+49 ...">
+        </div>
+      </div>
+      <div class="ea-field">
+        <label data-en="Team Size *" data-de="Teamgröße *">Team Size *</label>
+        <select id="ea-teamsize" required>
+          <option value="" disabled selected data-en="Select team size" data-de="Teamgröße wählen">Select team size</option>
+          <option value="1-5">1-5 sales reps</option>
+          <option value="6-15">6-15 sales reps</option>
+          <option value="16-50">16-50 sales reps</option>
+          <option value="50+">50+ sales reps</option>
+        </select>
+      </div>
+      <button type="submit" class="ea-submit" data-en="Submit Request →" data-de="Anfrage senden →">Submit Request →</button>
+    </form>
+
+    <div class="ea-success" id="eaSuccess">
+      <div class="check">✓</div>
+      <h3 data-en="You're on the list!" data-de="Sie sind auf der Liste!">You're on the list!</h3>
+      <p data-en="We'll be in touch shortly with next steps." data-de="Wir melden uns in Kürze mit den nächsten Schritten.">We'll be in touch shortly with next steps.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Early Access Modal logic -->
+<script>
+(function(){
+  var overlay=document.getElementById('eaOverlay');
+  if(!overlay) return;
+  overlay.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') overlay.classList.remove('open'); });
+  var form=document.getElementById('eaForm');
+  if(form) form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('ea-name').value;
+    var email=document.getElementById('ea-email').value;
+    var company=document.getElementById('ea-company').value;
+    var phone=document.getElementById('ea-phone').value||'Not provided';
+    var teamsize=document.getElementById('ea-teamsize').value;
+    var subject=encodeURIComponent('Early Access Request - '+company);
+    var body=encodeURIComponent('New Early Access Request\n\nName: '+name+'\nEmail: '+email+'\nCompany: '+company+'\nPhone: '+phone+'\nTeam Size: '+teamsize+' sales reps');
+    window.open('mailto:info@invi0.com?subject='+subject+'&body='+body,'_blank');
+    form.style.display='none';
+    document.getElementById('eaSuccess').style.display='block';
+  });
+})();
+</script>
+
 </body>
 </html>
