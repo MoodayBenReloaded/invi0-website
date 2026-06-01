@@ -155,6 +155,26 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
   transform-style: preserve-3d;
   will-change: transform;
 }
+/* Gentle pulsing cyan/white neon aura — radiates strictly from the outer edges of the silhouette */
+.hero-image-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 33%,
+      transparent 0%,
+      transparent 46%,
+      rgba(45,212,191,0.10) 58%,
+      rgba(125,211,252,0.06) 70%,
+      transparent 86%);
+  mix-blend-mode: screen;
+  animation: heroEdgeAura 6s ease-in-out infinite;
+}
+@keyframes heroEdgeAura {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.02); }
+}
 .lumus-label {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
@@ -770,8 +790,18 @@ footer p { font-size: 0.85rem; color: #4A5568; }
 /* Interactive hero face - filter transition only, transform driven by JS */
 .hero-image-wrap img { transform-origin: 50% 30%; }
 /* Photographic face = faint base glow; the particle cloud (below) is the hero */
-#heroFace { opacity: 0; animation: faceFade 1.8s ease 0.5s forwards; }
-@keyframes faceFade { to { opacity: 0.22; } }
+/* The wireframe figure itself is the "semi-transparent data-mesh silhouette" — show it softly, cooled down so the bright specular spots don't read as a white blast */
+#heroFace { opacity: 0; filter: brightness(0.8) saturate(1.2) contrast(1.05); animation: faceFade 1.8s ease 0.5s forwards; }
+@keyframes faceFade { to { opacity: 0.6; } }
+
+/* Legibility vignette: soft dark pool behind the hero copy so white text stays crisp over the mesh */
+.hero-content::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  left: 50%; top: 58%; transform: translate(-50%, -50%);
+  width: 122%; height: 120%;
+  background: radial-gradient(ellipse 46% 52% at 50% 50%,
+    rgba(4,6,10,0.88) 0%, rgba(4,6,10,0.58) 46%, transparent 74%);
+}
 
 /* Smoother FAQ transition */
 .faq-answer { transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -1907,8 +1937,8 @@ function init(){
     if(!(fw>0)||!(fh>0)){ fw=vW*0.55; fh=vH*0.95; fcx=0; fcy=0; }
 
     // ── Build particles from bright pixels ──
-    var PAL=[[0.16,0.83,0.78],[0.55,0.50,0.98],[0.45,0.70,1.00],[0.92,0.96,1.00]]; // teal, violet, blue, white
-    var step=mob?2:1, MW=0.42;
+    var PAL=[[0.16,0.83,0.78],[0.22,0.74,0.90],[0.40,0.66,1.00],[0.60,0.85,0.95]]; // teal, cyan, blue, soft cyan-white (no pure white)
+    var step=mob?2:1, MW=0.48; // keep source luminance so facial detail (eyes, highlights) reads through the mesh
     var hx=[],hy=[],hz=[],cr=[],cg=[],cb=[],ba=[];
     for(var yy=0; yy<SH; yy+=step){
       for(var xx=0; xx<SW; xx+=step){
@@ -1922,7 +1952,7 @@ function init(){
         cr.push(r*(1-MW)+pk[0]*MW);
         cg.push(g*(1-MW)+pk[1]*MW);
         cb.push(b*(1-MW)+pk[2]*MW);
-        ba.push(Math.min(1,0.30+lum*0.85));
+        ba.push(Math.min(0.22,0.06+lum*0.20));
       }
     }
     var N=hx.length; if(N===0){ try{hero.removeChild(ren.domElement);}catch(e){} return; }
@@ -1933,7 +1963,7 @@ function init(){
       var ang=Math.random()*6.2832, rr=2+Math.random()*4;
       pos[i*3]=Math.cos(ang)*rr; pos[i*3+1]=Math.sin(ang)*rr*0.6+(Math.random()-0.5)*vH; pos[i*3+2]=(Math.random()-0.5)*5;
       col[i*3]=cr[i]; col[i*3+1]=cg[i]; col[i*3+2]=cb[i];
-      szA[i]=(mob?1.7:2.0)*(0.55+ba[i]); alA[i]=0;
+      szA[i]=(mob?1.3:1.5)*(0.6+ba[i]); alA[i]=0;
       sd[i*2]=Math.random()*999; sd[i*2+1]=Math.random()*999;
       ph[i]=Math.random()*6.2832; spd[i]=0.4+Math.random()*1.1;
     }
@@ -1948,8 +1978,8 @@ function init(){
       'gl_PointSize=aS*(350.0/-mv.z);gl_Position=projectionMatrix*mv;}'].join('');
     var fs=['varying float vA;varying vec3 vC;',
       'void main(){float d=length(gl_PointCoord-vec2(0.5))*2.0;if(d>1.0)discard;',
-      'float g=exp(-d*d*2.2);gl_FragColor=vec4(vC,vA*g);}'].join('');
-    var mat=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending});
+      'float g=exp(-d*d*2.4);gl_FragColor=vec4(vC,vA*g);}'].join('');
+    var mat=new THREE.ShaderMaterial({vertexShader:vs,fragmentShader:fs,transparent:true,depthWrite:false,blending:THREE.NormalBlending});
     var pts=new THREE.Points(geo,mat); scene.add(pts);
 
     var mX=0.5,mY=0.5, t0=performance.now(), running=true;
@@ -1969,9 +1999,9 @@ function init(){
       var mwx=(hmx-0.5)*vW, mwy=-(hmy-0.5)*vH;                         // cursor position in world space
       for(var i=0;i<N;i++){
         var s0=sd[i*2],s1=sd[i*2+1], bx=hx[i],by=hy[i];
-        var nx=sn3(s0+t*0.25*spd[i], s1, t*0.05)*0.05;
-        var ny=sn3(s0, s1+t*0.25*spd[i], t*0.05+40)*0.05;
-        var nz=sn3(s0+9, s1+9, t*0.04)*0.07;
+        var nx=sn3(s0+t*0.22*spd[i], s1, t*0.05)*0.018;
+        var ny=sn3(s0, s1+t*0.22*spd[i], t*0.05+40)*0.018;
+        var nz=sn3(s0+9, s1+9, t*0.04)*0.03;
         // cursor repulsion - particles flee the pointer when you move over the face
         var repx=0,repy=0,repz=0;
         if(mIn){ var dx=bx-mwx, dy=by-mwy, d2=dx*dx+dy*dy, R=0.85;
@@ -1981,7 +2011,7 @@ function init(){
         var tx=bx+nx+repx+dsx, ty=by+ny+repy+dsy, tz=hz[i]+nz+repz+dsz;
         var k=0.08+0.12*e;
         P[i*3]+=(tx-P[i*3])*k; P[i*3+1]+=(ty-P[i*3+1])*k; P[i*3+2]+=(tz-P[i*3+2])*k;
-        var tw=0.55+0.45*Math.sin(ph[i]+t*1.6*spd[i]);
+        var tw=0.5+0.4*Math.sin(ph[i]+t*1.6*spd[i]);
         A[i]=ba[i]*tw*e*(1-sp*0.85);                                   // fade out as you scroll
       }
       geo.attributes.position.needsUpdate=true; geo.attributes.aA.needsUpdate=true;
