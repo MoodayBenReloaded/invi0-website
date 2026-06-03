@@ -1993,8 +1993,8 @@ function init(){
       var asm=Math.min((T-t0)/2400,1), e=1-Math.pow(1-asm,3);          // assemble from dust
       var sp=Math.min(Math.max(sY,0)/(hH*0.95),1);                     // scroll progress through hero
       mX+=(tX-mX)*0.05; mY+=(tY-mY)*0.05;
-      pts.rotation.y=(mX-0.5)*0.34*e + sp*0.14;                        // turn toward cursor + scroll
-      pts.rotation.x=(mY-0.5)*-0.22*e + sp*0.45;                       // tilt back in 3D as you scroll
+      pts.rotation.y=(mX-0.5)*0.98*e + sp*0.14;                        // yaw toward cursor (matches face ±28°) + scroll
+      pts.rotation.x=(mY-0.5)*-0.45*e + sp*0.45;                       // pitch with cursor (±13°) + scroll
       pts.position.y=sp*1.3;                                           // parallax drift while scrolling
       var mwx=(hmx-0.5)*vW, mwy=-(hmy-0.5)*vH;                         // cursor position in world space
       for(var i=0;i<N;i++){
@@ -2047,16 +2047,17 @@ else init();
     ty=e.clientY/(window.innerHeight||1);
   }, {passive:true});
   window.addEventListener('scroll', function(){ sY=window.scrollY||window.pageYOffset||0; }, {passive:true});
+  function clamp1(v){ return v<-1?-1:(v>1?1:v); }
   function tick(){
-    cx += (tx-cx)*0.07;                                   // smooth easing toward cursor — no snapping
+    cx += (tx-cx)*0.07;                                   // smooth lerp toward cursor — no snapping
     cy += (ty-cy)*0.07;
     var vh=window.innerHeight||800;
     var fade=Math.max(0, Math.min(1, 1 - sY/(vh*0.9)));   // ease the effect out as the hero scrolls away
-    var rotY=(cx-0.5)*18*fade;                            // cursor left/right → head turns left/right
-    var rotX=(cy-0.5)*-12*fade;                           // cursor up/down → head tilts up/down
-    var trX=(cx-0.5)*24*fade;                             // subtle parallax drift toward the cursor
-    var trY=(cy-0.5)*15*fade;
-    face.style.transform='translate3d('+trX.toFixed(2)+'px,'+trY.toFixed(2)+'px,0) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg)';
+    var nx=clamp1((cx-0.5)*2);                            // viewport X normalized to -1..+1 (center = 0)
+    var ny=clamp1((cy-0.5)*2);                            // viewport Y normalized to -1..+1
+    var yaw=nx*28*fade;                                   // horizontal yaw (Y-axis), clamped to ±28°
+    var pitch=ny*-13*fade;                                // vertical pitch (X-axis), clamped to ±13° (cursor down → look down)
+    face.style.transform='rotateX('+pitch.toFixed(2)+'deg) rotateY('+yaw.toFixed(2)+'deg)'; // rotation only — figure stays centered, no translate
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
