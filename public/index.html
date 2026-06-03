@@ -2035,5 +2035,33 @@ else init();
 })();
 </script>
 
+<!-- ── Hero face tracks the cursor: perspective head-tilt + subtle parallax, smooth lerp (no snapping) ── -->
+<script>
+(function(){
+  var face=document.getElementById('heroFace');
+  if(!face) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx=0.5, ty=0.5, cx=0.5, cy=0.5, sY=0;
+  window.addEventListener('mousemove', function(e){
+    tx=e.clientX/(window.innerWidth||1);
+    ty=e.clientY/(window.innerHeight||1);
+  }, {passive:true});
+  window.addEventListener('scroll', function(){ sY=window.scrollY||window.pageYOffset||0; }, {passive:true});
+  function tick(){
+    cx += (tx-cx)*0.07;                                   // smooth easing toward cursor — no snapping
+    cy += (ty-cy)*0.07;
+    var vh=window.innerHeight||800;
+    var fade=Math.max(0, Math.min(1, 1 - sY/(vh*0.9)));   // ease the effect out as the hero scrolls away
+    var rotY=(cx-0.5)*18*fade;                            // cursor left/right → head turns left/right
+    var rotX=(cy-0.5)*-12*fade;                           // cursor up/down → head tilts up/down
+    var trX=(cx-0.5)*24*fade;                             // subtle parallax drift toward the cursor
+    var trY=(cy-0.5)*15*fade;
+    face.style.transform='translate3d('+trX.toFixed(2)+'px,'+trY.toFixed(2)+'px,0) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
 </body>
 </html>
